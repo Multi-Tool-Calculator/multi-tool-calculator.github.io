@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fuel Cost Calculator - Multi-Tool Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/additional.css" />
+    <style>
+      .fuel-type-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .fuel-type-btn {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        background: var(--surface-color);
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .fuel-type-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .unit-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 1rem 0;
+        padding: 0.5rem;
+        background: var(--surface-color);
+        border-radius: 4px;
+      }
+
+      .unit-toggle label {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        cursor: pointer;
+      }
+
+      .efficiency-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        background: var(--surface-color-light);
+        border-radius: 4px;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+
+      .fuel-info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .fuel-info-table th,
+      .fuel-info-table td {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        text-align: left;
+      }
+
+      .fuel-info-table th {
+        background: var(--surface-color);
+        font-weight: 600;
+      }
+
+      .cost-breakdown {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: var(--surface-color-light);
+        border-radius: 6px;
+      }
+
+      .cost-breakdown-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .cost-breakdown-item:last-child {
+        border-bottom: none;
+      }
+
+      .trip-details {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: var(--surface-color);
+        border-radius: 6px;
+      }
+
+      .trip-details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      .trip-detail-item {
+        padding: 0.75rem;
+        background: var(--surface-color-light);
+        border-radius: 4px;
+      }
+
+      .trip-detail-item h5 {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-secondary);
+      }
+
+      .trip-detail-item p {
+        margin: 0;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <app-header
+      title="Fuel Cost Calculator"
+      subtitle="Calculate trip fuel costs and mileage"
+    ></app-header>
+
+    <div class="container">
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>Fuel Cost Calculator</h3>
+        </div>
+        <div class="calculator-body">
+          <form id="fuelForm">
+            <div class="fuel-type-selector">
+              <button
+                type="button"
+                class="fuel-type-btn active"
+                data-type="petrol"
+              >
+                Petrol
+              </button>
+              <button type="button" class="fuel-type-btn" data-type="diesel">
+                Diesel
+              </button>
+              <button type="button" class="fuel-type-btn" data-type="cng">
+                CNG
+              </button>
+            </div>
+
+            <div class="unit-toggle">
+              <label>
+                <input type="radio" name="distanceUnit" value="km" checked />
+                Kilometers
+              </label>
+              <label>
+                <input type="radio" name="distanceUnit" value="miles" />
+                Miles
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label for="distance" class="form-label">Trip Distance</label>
+              <input
+                type="number"
+                id="distance"
+                class="form-input"
+                required
+                min="0.1"
+                step="0.1"
+                placeholder="Enter distance"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="fuelPrice" class="form-label"
+                >Fuel Price (₹ per liter/kg)</label
+              >
+              <input
+                type="number"
+                id="fuelPrice"
+                class="form-input currency-input"
+                required
+                min="0.1"
+                step="0.01"
+                placeholder="Enter current fuel price"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="mileage" class="form-label">Vehicle Mileage</label>
+              <input
+                type="number"
+                id="mileage"
+                class="form-input"
+                required
+                min="0.1"
+                step="0.1"
+                placeholder="Enter vehicle mileage"
+              />
+              <div class="efficiency-info">
+                <span id="mileageUnit">km/l</span>
+                <span id="efficiencyTip"></span>
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calculate Cost</button>
+          </form>
+
+          <div id="fuelResult" class="result">
+            <h4>Trip Cost Calculation</h4>
+
+            <div class="cost-breakdown">
+              <div class="cost-breakdown-item">
+                <span>Fuel Required:</span>
+                <div class="result-content">
+                  <strong class="result-value" id="fuelRequired">0 L</strong>
+                  <div class="amount-in-words" id="fuelRequiredInWords"></div>
+                </div>
+              </div>
+              <div class="cost-breakdown-item">
+                <span>Cost per km/mile:</span>
+                <div class="result-content">
+                  <strong class="result-value" id="costPerUnit">₹0</strong>
+                  <div class="amount-in-words" id="costPerUnitInWords"></div>
+                </div>
+              </div>
+              <div class="cost-breakdown-item">
+                <span>Total Fuel Cost:</span>
+                <div class="result-content">
+                  <strong class="result-value" id="totalCost">₹0</strong>
+                  <div class="amount-in-words" id="totalCostInWords"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="trip-details">
+              <h4>Trip Details</h4>
+              <div class="trip-details-grid">
+                <div class="trip-detail-item">
+                  <h5>Round Trip Cost</h5>
+                  <p id="roundTripCost">₹0</p>
+                  <div class="amount-in-words" id="roundTripCostInWords"></div>
+                </div>
+                <div class="trip-detail-item">
+                  <h5>Monthly Cost (20 trips)</h5>
+                  <p id="monthlyCost">₹0</p>
+                  <div class="amount-in-words" id="monthlyCostInWords"></div>
+                </div>
+                <div class="trip-detail-item">
+                  <h5>CO₂ Emissions</h5>
+                  <p id="emissions">0 kg</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fuel Efficiency Guide -->
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>Fuel Efficiency Guide</h3>
+        </div>
+        <div class="calculator-body">
+          <table class="fuel-info-table">
+            <thead>
+              <tr>
+                <th>Vehicle Type</th>
+                <th>Average Mileage (km/l)</th>
+                <th>CO₂ Emissions (g/km)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Small Car (Petrol)</td>
+                <td>15-20</td>
+                <td>120-140</td>
+              </tr>
+              <tr>
+                <td>Mid-size Car (Petrol)</td>
+                <td>12-15</td>
+                <td>140-170</td>
+              </tr>
+              <tr>
+                <td>SUV (Petrol)</td>
+                <td>8-12</td>
+                <td>170-200</td>
+              </tr>
+              <tr>
+                <td>Small Car (Diesel)</td>
+                <td>20-25</td>
+                <td>100-120</td>
+              </tr>
+              <tr>
+                <td>Mid-size Car (Diesel)</td>
+                <td>15-20</td>
+                <td>120-150</td>
+              </tr>
+              <tr>
+                <td>CNG Vehicle</td>
+                <td>20-25 (km/kg)</td>
+                <td>85-95</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="info-text" style="margin-top: 1rem">
+            <strong>Tips to Improve Fuel Efficiency:</strong>
+            <ul style="margin: 0.5rem 0 0 1.5rem">
+              <li>Maintain proper tire pressure</li>
+              <li>Remove excess weight from vehicle</li>
+              <li>Avoid rapid acceleration and braking</li>
+              <li>Service your vehicle regularly</li>
+              <li>Use the recommended grade of motor oil</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/fuel.js"></script>
+    <script src="js/components.js"></script>
+    <!-- <script src="js/calculators.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const fuelTypeButtons = document.querySelectorAll(".fuel-type-btn");
+        const distanceUnitRadios = document.getElementsByName("distanceUnit");
+        const mileageUnitSpan = document.getElementById("mileageUnit");
+        const efficiencyTip = document.getElementById("efficiencyTip");
+        const fuelResult = document.getElementById("fuelResult");
+
+        // Fuel type selection
+        fuelTypeButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            fuelTypeButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+            updateEfficiencyTip();
+            localStorage.setItem("lastFuelType", button.dataset.type);
+          });
+        });
+
+        // Distance unit toggle
+        distanceUnitRadios.forEach((radio) => {
+          radio.addEventListener("change", () => {
+            const unit = radio.value;
+            mileageUnitSpan.textContent =
+              unit === "km" ? "km/l" : "miles/gallon";
+            localStorage.setItem("lastDistanceUnit", unit);
+            updateEfficiencyTip();
+          });
+        });
+
+        function updateEfficiencyTip() {
+          const fuelType = document.querySelector(".fuel-type-btn.active")
+            .dataset.type;
+          const unit = document.querySelector(
+            'input[name="distanceUnit"]:checked'
+          ).value;
+
+          const tips = {
+            petrol: {
+              km: "Good: >15 km/l",
+              miles: "Good: >35 mpg",
+            },
+            diesel: {
+              km: "Good: >20 km/l",
+              miles: "Good: >47 mpg",
+            },
+            cng: {
+              km: "Good: >20 km/kg",
+              miles: "Good: >47 mpg",
+            },
+          };
+
+          efficiencyTip.textContent = tips[fuelType][unit];
+        }
+
+        // Calculate fuel cost
+        window.calculateFuelCost = () => {
+          try {
+            const distance = parseFloat(
+              document.getElementById("distance").value
+            );
+            const fuelPrice = parseFloat(
+              document.getElementById("fuelPrice").value
+            );
+            const mileage = parseFloat(
+              document.getElementById("mileage").value
+            );
+            const unit = document.querySelector(
+              'input[name="distanceUnit"]:checked'
+            ).value;
+            const fuelType = document.querySelector(".fuel-type-btn.active")
+              .dataset.type;
+
+            let fuelRequired, costPerUnit, totalCost;
+
+            if (unit === "km") {
+              fuelRequired = distance / mileage;
+              costPerUnit = fuelPrice / mileage;
+            } else {
+              // Convert to metric for calculation
+              const kmDistance = distance * 1.60934;
+              const kmMileage = mileage * 0.425144; // Convert mpg to km/l
+              fuelRequired = kmDistance / kmMileage;
+              costPerUnit = (fuelPrice * 0.264172) / mileage; // Convert price per liter to gallon
+            }
+
+            totalCost = fuelRequired * fuelPrice;
+
+            // Update results
+            document.getElementById(
+              "fuelRequired"
+            ).textContent = `${fuelRequired.toFixed(2)} ${
+              fuelType === "cng" ? "kg" : "L"
+            }`;
+            document.getElementById(
+              "costPerUnit"
+            ).textContent = `₹${costPerUnit.toFixed(2)}/${
+              unit === "km" ? "km" : "mile"
+            }`;
+            document.getElementById("totalCost").textContent =
+              formatCurrency(totalCost);
+            document.getElementById("roundTripCost").textContent =
+              formatCurrency(totalCost * 2);
+            document.getElementById("monthlyCost").textContent = formatCurrency(
+              totalCost * 40
+            ); // 20 round trips
+
+            // Calculate CO2 emissions (rough estimate)
+            const emissionFactors = {
+              petrol: 2.31, // kg CO2 per liter
+              diesel: 2.68,
+              cng: 2.75, // kg CO2 per kg of CNG
+            };
+
+            const emissions = fuelRequired * emissionFactors[fuelType];
+            document.getElementById(
+              "emissions"
+            ).textContent = `${emissions.toFixed(1)} kg`;
+
+            fuelResult.classList.add("show");
+
+            // Save values
+            localStorage.setItem("lastDistance", distance);
+            localStorage.setItem("lastFuelPrice", fuelPrice);
+            localStorage.setItem("lastMileage", mileage);
+          } catch (error) {
+            showError(error.message);
+          }
+        };
+
+        // Load saved values
+        const savedFuelType = localStorage.getItem("lastFuelType");
+        const savedDistanceUnit = localStorage.getItem("lastDistanceUnit");
+
+        if (savedFuelType) {
+          const button = document.querySelector(
+            `[data-type="${savedFuelType}"]`
+          );
+          if (button) button.click();
+        }
+
+        if (savedDistanceUnit) {
+          const radio = document.querySelector(
+            `input[name="distanceUnit"][value="${savedDistanceUnit}"]`
+          );
+          if (radio) radio.click();
+        }
+
+        const savedDistance = localStorage.getItem("lastDistance");
+        const savedFuelPrice = localStorage.getItem("lastFuelPrice");
+        const savedMileage = localStorage.getItem("lastMileage");
+
+        if (savedDistance)
+          document.getElementById("distance").value = savedDistance;
+        if (savedFuelPrice)
+          document.getElementById("fuelPrice").value = savedFuelPrice;
+        if (savedMileage)
+          document.getElementById("mileage").value = savedMileage;
+
+        updateEfficiencyTip();
+      });
+    </script> -->
+  </body>
+</html>

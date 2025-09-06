@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms and Conditions - Multi-Tool Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/additional.css" />
+    <style>
+      .terms-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .terms-section {
+        margin-bottom: 2rem;
+      }
+
+      .terms-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .terms-section h2 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+
+      .terms-section h3 {
+        color: var(--text-primary);
+        margin: 1.5rem 0 1rem;
+        font-size: 1.25rem;
+      }
+
+      .terms-section p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+      }
+
+      .terms-section ul {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+      }
+
+      .terms-section li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+      }
+
+      .highlight-box {
+        padding: 1rem;
+        background: var(--surface-color);
+        border-radius: 6px;
+        margin: 1rem 0;
+      }
+
+      .highlight-box p {
+        margin: 0;
+      }
+
+      .contact-info {
+        background: var(--surface-color-light);
+        padding: 1rem;
+        border-radius: 6px;
+        margin-top: 1rem;
+      }
+
+      .contact-info p {
+        margin: 0;
+      }
+
+      .disclaimer {
+        font-style: italic;
+        color: var(--text-secondary);
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        margin: 1rem 0;
+      }
+
+      .last-updated {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-top: 2rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <app-header
+      title="Terms and Conditions"
+      subtitle="Please read these terms carefully"
+    ></app-header>
+
+    <div class="container">
+      <div class="terms-content">
+        <div class="terms-section">
+          <h2>Welcome to Multi-Tool Calculator</h2>
+          <p>
+            By accessing and using this calculator application, you agree to be
+            bound by these terms and conditions. Please read them carefully
+            before using the application.
+          </p>
+
+          <div class="highlight-box">
+            <p>
+              This application is provided "as is" and is intended for personal
+              use only. While we strive for accuracy, we cannot guarantee the
+              precision of all calculations.
+            </p>
+          </div>
+        </div>
+
+        <div class="terms-section">
+          <h2>1. Use of the Application</h2>
+          <h3>1.1 Acceptance of Terms</h3>
+          <p>
+            By using the Multi-Tool Calculator, you acknowledge that you have
+            read, understood, and agree to be bound by these terms and
+            conditions.
+          </p>
+
+          <h3>1.2 Permitted Use</h3>
+          <ul>
+            <li>
+              The calculator is intended for personal and non-commercial use
+            </li>
+            <li>
+              You may not modify, distribute, or reverse engineer any part of
+              the application
+            </li>
+            <li>
+              You may not use the application for any illegal or unauthorized
+              purpose
+            </li>
+          </ul>
+        </div>
+
+        <div class="terms-section">
+          <h2>2. Disclaimer of Warranties</h2>
+          <p>
+            The calculations provided by this application are for reference
+            purposes only. While we strive to ensure accuracy:
+          </p>
+          <ul>
+            <li>We do not guarantee the accuracy of calculations</li>
+            <li>Results should be verified independently</li>
+            <li>
+              The application may contain technical inaccuracies or
+              typographical errors
+            </li>
+          </ul>
+
+          <div class="disclaimer">
+            <p>
+              For financial, tax, or legal decisions, please consult with
+              qualified professionals. Do not rely solely on this calculator for
+              making important decisions.
+            </p>
+          </div>
+        </div>
+
+        <div class="terms-section">
+          <h2>3. Privacy and Data</h2>
+          <p>We respect your privacy and handle your data responsibly:</p>
+          <ul>
+            <li>We do not collect personal information</li>
+            <li>Your calculation data is stored locally on your device</li>
+            <li>We use local storage only for improving user experience</li>
+          </ul>
+        </div>
+
+        <div class="terms-section">
+          <h2>4. Limitations of Liability</h2>
+          <p>
+            To the maximum extent permitted by law, we shall not be liable for:
+          </p>
+          <ul>
+            <li>Any direct, indirect, incidental, or consequential damages</li>
+            <li>Loss of data, profits, or business opportunities</li>
+            <li>Any errors or inaccuracies in calculations</li>
+          </ul>
+        </div>
+
+        <div class="terms-section">
+          <h2>5. Updates and Modifications</h2>
+          <p>We reserve the right to:</p>
+          <ul>
+            <li>Modify these terms at any time without notice</li>
+            <li>Update the application functionality</li>
+            <li>Discontinue any features of the application</li>
+          </ul>
+        </div>
+
+        <div class="terms-section">
+          <h2>6. Contact Information</h2>
+          <p>If you have any questions about these terms, please contact us:</p>
+
+          <div class="contact-info">
+            <p>Email: support@multi-tool-calculator.com</p>
+            <p>Website: www.multi-tool-calculator.com</p>
+          </div>
+        </div>
+
+        <div class="last-updated">Last updated: September 2025</div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+
+    <script src="js/components.js"></script>
+  </body>
+</html>

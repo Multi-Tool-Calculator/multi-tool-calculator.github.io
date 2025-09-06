@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discount Calculator - Multi-Tool Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/additional.css" />
+    <style>
+      .discount-type-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .discount-type-btn {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        background: var(--surface-color);
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .discount-type-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .tax-inclusion {
+        margin: 1rem 0;
+        padding: 1rem;
+        background: var(--surface-color);
+        border-radius: 6px;
+      }
+
+      .tax-inclusion label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .tax-inclusion input[type="checkbox"] {
+        width: auto;
+      }
+
+      .breakdown-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .breakdown-table th,
+      .breakdown-table td {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        text-align: left;
+      }
+
+      .breakdown-table th {
+        background: var(--surface-color);
+        font-weight: 600;
+      }
+
+      .breakdown-table tr:nth-child(even) td {
+        background: var(--surface-color-light);
+      }
+
+      .savings-highlight {
+        color: var(--success-color);
+        font-weight: 500;
+      }
+
+      .total-highlight {
+        font-size: 1.1em;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
+      .multiple-items {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: var(--surface-color);
+        border-radius: 6px;
+      }
+
+      .item-list {
+        max-height: 300px;
+        overflow-y: auto;
+        margin: 1rem 0;
+      }
+
+      .item-row {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 0.5rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .item-row:last-child {
+        border-bottom: none;
+      }
+
+      .remove-item {
+        color: var(--error-color);
+        cursor: pointer;
+        padding: 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <app-header
+      title="Discount Calculator"
+      subtitle="Calculate discounts, savings, and final prices"
+    ></app-header>
+
+    <div class="container">
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>Discount Calculator</h3>
+        </div>
+        <div class="calculator-body">
+          <div class="discount-type-selector">
+            <button
+              type="button"
+              class="discount-type-btn active"
+              data-type="single"
+            >
+              Single Item
+            </button>
+            <button
+              type="button"
+              class="discount-type-btn"
+              data-type="multiple"
+            >
+              Multiple Items
+            </button>
+          </div>
+
+          <!-- Single Item Calculator -->
+          <div id="singleCalc" class="calculator-section active">
+            <form id="singleDiscountForm">
+              <div class="form-group">
+                <label for="originalPrice" class="form-label"
+                  >Original Price (₹)</label
+                >
+                <input
+                  type="number"
+                  id="originalPrice"
+                  class="form-input"
+                  required
+                  min="0.01"
+                  step="0.01"
+                  placeholder="Enter original price"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="discountPercent" class="form-label"
+                  >Discount Percentage (%)</label
+                >
+                <input
+                  type="number"
+                  id="discountPercent"
+                  class="form-input"
+                  required
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  placeholder="Enter discount percentage"
+                />
+              </div>
+
+              <div class="tax-inclusion">
+                <label>
+                  <input type="checkbox" id="includeTax" />
+                  Include GST
+                </label>
+                <div id="gstInput" style="display: none; margin-top: 0.5rem">
+                  <input
+                    type="number"
+                    id="gstRate"
+                    class="form-input"
+                    min="0"
+                    max="100"
+                    step="0.1"
+                    placeholder="GST Rate (%)"
+                  />
+                </div>
+              </div>
+
+              <button type="submit" class="calculate-btn">
+                Calculate Discount
+              </button>
+            </form>
+
+            <div id="singleResult" class="result">
+              <h4>Price Breakdown</h4>
+              <table class="breakdown-table">
+                <tr>
+                  <td>Original Price:</td>
+                  <td>
+                    <span id="breakdownOriginal">₹0.00</span>
+                    <div class="amount-in-words" id="breakdownOriginalInWords"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Discount Amount:</td>
+                  <td>
+                    <span id="breakdownDiscount" class="savings-highlight">-₹0.00</span>
+                    <div class="amount-in-words" id="breakdownDiscountInWords"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Price After Discount:</td>
+                  <td>
+                    <span id="breakdownAfterDiscount">₹0.00</span>
+                    <div class="amount-in-words" id="breakdownAfterDiscountInWords"></div>
+                  </td>
+                </tr>
+                <tr id="gstRow" style="display: none">
+                  <td>GST Amount:</td>
+                  <td>
+                    <span id="breakdownGST">₹0.00</span>
+                    <div class="amount-in-words" id="breakdownGSTInWords"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Final Price:</strong></td>
+                  <td>
+                    <span id="breakdownTotal" class="total-highlight">₹0.00</span>
+                    <div class="amount-in-words" id="breakdownTotalInWords"></div>
+                  </td>
+                </tr>
+              </table>
+              <div class="savings-message" id="savingsMessage"></div>
+            </div>
+          </div>
+
+          <!-- Multiple Items Calculator -->
+          <div id="multipleCalc" class="calculator-section">
+            <div class="multiple-items">
+              <button type="button" class="secondary-btn" id="addItemBtn">
+                Add Item
+              </button>
+              <div class="item-list" id="itemList"></div>
+            </div>
+
+            <div class="tax-inclusion">
+              <label>
+                <input type="checkbox" id="includeMultiTax" />
+                Include GST
+              </label>
+              <div id="multiGstInput" style="display: none; margin-top: 0.5rem">
+                <input
+                  type="number"
+                  id="multiGstRate"
+                  class="form-input"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  placeholder="GST Rate (%)"
+                />
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="calculate-btn"
+              id="calculateMultipleBtn"
+            >
+              Calculate Total
+            </button>
+
+            <div id="multipleResult" class="result">
+              <h4>Total Breakdown</h4>
+              <table class="breakdown-table">
+                <tr>
+                  <td>Total Original Price:</td>
+                  <td>
+                    <span id="multiBreakdownOriginal">₹0.00</span>
+                    <div class="amount-in-words" id="multiBreakdownOriginalInWords"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total Discount:</td>
+                  <td>
+                    <span id="multiBreakdownDiscount" class="savings-highlight">-₹0.00</span>
+                    <div class="amount-in-words" id="multiBreakdownDiscountInWords"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Price After Discounts:</td>
+                  <td>
+                    <span id="multiBreakdownAfterDiscount">₹0.00</span>
+                    <div class="amount-in-words" id="multiBreakdownAfterDiscountInWords"></div>
+                  </td>
+                </tr>
+                <tr id="multiGstRow" style="display: none">
+                  <td>Total GST:</td>
+                  <td>
+                    <span id="multiBreakdownGST">₹0.00</span>
+                    <div class="amount-in-words" id="multiBreakdownGSTInWords"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Final Total:</strong></td>
+                  <td>
+                    <span id="multiBreakdownTotal" class="total-highlight">₹0.00</span>
+                    <div class="amount-in-words" id="multiBreakdownTotalInWords"></div>
+                  </td>
+                </tr>
+              </table>
+              <div class="savings-message" id="multiSavingsMessage"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+
+    <script src="js/components.js"></script>
+    <script src="js/calculators.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const discountTypeButtons = document.querySelectorAll(".discount-type-btn");
+        const calculatorSections = document.querySelectorAll(".calculator-section");
+        const includeTax = document.getElementById("includeTax");
+        const gstInput = document.getElementById("gstInput");
+        const includeMultiTax = document.getElementById("includeMultiTax");
+        const multiGstInput = document.getElementById("multiGstInput");
+        const singleDiscountForm = document.getElementById("singleDiscountForm");
+        const addItemBtn = document.getElementById("addItemBtn");
+        const calculateMultipleBtn = document.getElementById("calculateMultipleBtn");
+        const itemList = document.getElementById("itemList");
+
+        // --- Event Listeners ---
+
+        // Calculator type selection
+        discountTypeButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const type = button.dataset.type;
+
+            discountTypeButtons.forEach((btn) => btn.classList.remove("active"));
+            calculatorSections.forEach((section) =>
+              section.classList.remove("active")
+            );
+
+            button.classList.add("active");
+            document.getElementById(`${type}Calc`).classList.add("active");
+
+            document.querySelectorAll(".result").forEach((result) => {
+              result.classList.remove("show");
+            });
+          });
+        });
+
+        // GST toggle handlers
+        includeTax.addEventListener("change", () => {
+          gstInput.style.display = includeTax.checked ? "block" : "none";
+          document.getElementById("gstRow").style.display = "none";
+        });
+
+        includeMultiTax.addEventListener("change", () => {
+          multiGstInput.style.display = includeMultiTax.checked ? "block" : "none";
+          document.getElementById("multiGstRow").style.display = "none";
+        });
+
+        // Form submissions and button clicks
+        singleDiscountForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          calculateSingleDiscount();
+        });
+
+        addItemBtn.addEventListener("click", addItem);
+
+        calculateMultipleBtn.addEventListener("click", calculateMultipleDiscount);
+
+        itemList.addEventListener("click", (e) => {
+          if (e.target && e.target.classList.contains("remove-item")) {
+            const itemId = e.target.dataset.id;
+            removeItem(itemId);
+          }
+        });
+
+        // --- Calculation Functions ---
+
+        function calculateSingleDiscount() {
+          try {
+            const originalPrice = parseFloat(
+              document.getElementById("originalPrice").value
+            );
+            const discountPercent = parseFloat(
+              document.getElementById("discountPercent").value
+            );
+            const includeTaxChecked = document.getElementById("includeTax").checked;
+            const gstRate = includeTaxChecked
+              ? parseFloat(document.getElementById("gstRate").value) || 0
+              : 0;
+
+            const discountAmount = (originalPrice * discountPercent) / 100;
+            const priceAfterDiscount = originalPrice - discountAmount;
+            const gstAmount = (priceAfterDiscount * gstRate) / 100;
+            const finalPrice = priceAfterDiscount + gstAmount;
+
+            document.getElementById("breakdownOriginal").textContent =
+              formatCurrency(originalPrice);
+            document.getElementById("breakdownOriginalInWords").textContent =
+              numberToWords(originalPrice);
+            document.getElementById(
+              "breakdownDiscount"
+            ).textContent = `-${formatCurrency(discountAmount)}`;
+            document.getElementById("breakdownDiscountInWords").textContent =
+              numberToWords(discountAmount);
+            document.getElementById("breakdownAfterDiscount").textContent =
+              formatCurrency(priceAfterDiscount);
+            document.getElementById("breakdownAfterDiscountInWords").textContent =
+              numberToWords(priceAfterDiscount);
+
+            const gstRow = document.getElementById("gstRow");
+            if (includeTaxChecked) {
+              document.getElementById("breakdownGST").textContent =
+                formatCurrency(gstAmount);
+              document.getElementById("breakdownGSTInWords").textContent =
+                numberToWords(gstAmount);
+              gstRow.style.display = "table-row";
+            } else {
+              gstRow.style.display = "none";
+            }
+
+            document.getElementById("breakdownTotal").textContent =
+              formatCurrency(finalPrice);
+            document.getElementById("breakdownTotalInWords").textContent =
+              numberToWords(finalPrice);
+            document.getElementById(
+              "savingsMessage"
+            ).textContent = `You save ${formatCurrency(
+              discountAmount
+            )} (${discountPercent}% off)`;
+            document.getElementById("singleResult").classList.add("show");
+          } catch (error) {
+            showError(error.message);
+          }
+        }
+
+        function calculateMultipleDiscount() {
+          try {
+            const items = Array.from(document.querySelectorAll(".item-row")).map(
+              (row) => {
+                const [, price, discount] = row.querySelectorAll("input");
+                return {
+                  price: parseFloat(price.value) || 0,
+                  discount: parseFloat(discount.value) || 0,
+                };
+              }
+            );
+
+            const includeMultiTaxChecked =
+              document.getElementById("includeMultiTax").checked;
+            const gstRate = includeMultiTaxChecked
+              ? parseFloat(document.getElementById("multiGstRate").value) || 0
+              : 0;
+
+            let totalOriginal = 0;
+            let totalDiscount = 0;
+
+            items.forEach((item) => {
+              totalOriginal += item.price;
+              totalDiscount += (item.price * item.discount) / 100;
+            });
+
+            const priceAfterDiscount = totalOriginal - totalDiscount;
+            const gstAmount = (priceAfterDiscount * gstRate) / 100;
+            const finalTotal = priceAfterDiscount + gstAmount;
+
+            document.getElementById("multiBreakdownOriginal").textContent =
+              formatCurrency(totalOriginal);
+            document.getElementById("multiBreakdownOriginalInWords").textContent =
+              numberToWords(totalOriginal);
+            document.getElementById(
+              "multiBreakdownDiscount"
+            ).textContent = `-${formatCurrency(totalDiscount)}`;
+            document.getElementById("multiBreakdownDiscountInWords").textContent =
+              numberToWords(totalDiscount);
+            document.getElementById("multiBreakdownAfterDiscount").textContent =
+              formatCurrency(priceAfterDiscount);
+            document.getElementById("multiBreakdownAfterDiscountInWords").textContent =
+              numberToWords(priceAfterDiscount);
+
+            const multiGstRow = document.getElementById("multiGstRow");
+            if (includeMultiTaxChecked) {
+              document.getElementById("multiBreakdownGST").textContent =
+                formatCurrency(gstAmount);
+              document.getElementById("multiBreakdownGSTInWords").textContent =
+                numberToWords(gstAmount);
+              multiGstRow.style.display = "table-row";
+            } else {
+              multiGstRow.style.display = "none";
+            }
+
+            document.getElementById("multiBreakdownTotal").textContent =
+              formatCurrency(finalTotal);
+            document.getElementById("multiBreakdownTotalInWords").textContent =
+              numberToWords(finalTotal);
+            document.getElementById(
+              "multiSavingsMessage"
+            ).textContent = `Total savings: ${formatCurrency(totalDiscount)} (${(
+              (totalDiscount / totalOriginal) * 100 || 0
+            ).toFixed(1)}% off)`;
+            document.getElementById("multipleResult").classList.add("show");
+          } catch (error) {
+            showError(error.message);
+          }
+        }
+
+        // --- DOM Manipulation ---
+
+        function addItem() {
+          const itemId = Date.now();
+          const itemRow = document.createElement("div");
+          itemRow.className = "item-row";
+          itemRow.dataset.id = itemId;
+
+          itemRow.innerHTML = `
+            <input type="text" class="form-input" placeholder="Item name" style="grid-column: 1">
+            <input type="number" class="form-input" placeholder="Price" min="0.01" step="0.01" style="width: 100px">
+            <input type="number" class="form-input" placeholder="Discount %" min="0" max="100" step="0.1" style="width: 100px">
+            <button type="button" class="remove-item" data-id="${itemId}">×</button>
+        `;
+
+          itemList.appendChild(itemRow);
+        }
+
+        function removeItem(itemId) {
+          const item = document.querySelector(`.item-row[data-id="${itemId}"]`);
+          if (item) item.remove();
+        }
+
+        // --- Initialization ---
+
+        // Add initial item row for multiple items
+        if (itemList.children.length === 0) {
+          addItem();
+        }
+      });
+    </script>
+  </body>
+</html>

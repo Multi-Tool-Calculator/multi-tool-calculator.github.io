@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Percentage Calculator - Multi-Tool Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/additional.css" />
+    <style>
+      .calc-type-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .calc-type-btn {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        background: var(--surface-color);
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .calc-type-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .calculator-section {
+        display: none;
+      }
+
+      .calculator-section.active {
+        display: block;
+      }
+
+      .formula-display {
+        padding: 0.75rem;
+        background: var(--surface-color-light);
+        border-radius: 4px;
+        margin: 1rem 0;
+        font-family: monospace;
+        font-size: 0.9rem;
+      }
+
+      .quick-reference {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: var(--surface-color);
+        border-radius: 6px;
+      }
+
+      .quick-reference h4 {
+        margin: 0 0 0.5rem 0;
+      }
+
+      .reference-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+
+      .reference-item {
+        padding: 0.75rem;
+        background: var(--surface-color-light);
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      .reference-item strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--primary-color);
+      }
+
+      .step-result {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-top: 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <app-header
+      title="Percentage Calculator"
+      subtitle="Calculate percentages, increase/decrease, and more"
+    ></app-header>
+
+    <div class="container">
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>Percentage Calculator</h3>
+        </div>
+        <div class="calculator-body">
+          <div class="calc-type-selector">
+            <button
+              type="button"
+              class="calc-type-btn active"
+              data-type="basic"
+            >
+              Basic Percentage
+            </button>
+            <button type="button" class="calc-type-btn" data-type="change">
+              Percentage Change
+            </button>
+            <button type="button" class="calc-type-btn" data-type="ratio">
+              Ratio to Percent
+            </button>
+          </div>
+
+          <!-- Basic Percentage Calculator -->
+          <div id="basicCalc" class="calculator-section active">
+            <form id="basicPercentageForm">
+              <div class="form-group">
+                <label for="percentage" class="form-label"
+                  >Percentage (%)</label
+                >
+                <input
+                  type="number"
+                  id="percentage"
+                  class="form-input"
+                  required
+                  step="any"
+                  placeholder="Enter percentage"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="value" class="form-label">Value</label>
+                <input
+                  type="number"
+                  id="value"
+                  class="form-input"
+                  required
+                  step="any"
+                  placeholder="Enter value"
+                />
+              </div>
+
+              <div class="formula-display" id="basicFormula">
+                Formula: (Percentage × Value) ÷ 100
+              </div>
+
+              <button type="submit" class="calculate-btn">Calculate</button>
+            </form>
+
+            <div id="basicResult" class="result">
+              <h4>Result</h4>
+              <div class="result-item">
+                <span class="result-label">Percentage Amount:</span>
+                <div>
+                  <span class="result-value" id="percentageAmount">0</span>
+                  <div class="amount-in-words" id="percentageAmountInWords"></div>
+                </div>
+              </div>
+              <div class="step-result" id="basicSteps"></div>
+            </div>
+          </div>
+
+          <!-- Percentage Change Calculator -->
+          <div id="changeCalc" class="calculator-section">
+            <form id="percentageChangeForm">
+              <div class="form-group">
+                <label for="oldValue" class="form-label">Original Value</label>
+                <input
+                  type="number"
+                  id="oldValue"
+                  class="form-input"
+                  required
+                  step="any"
+                  placeholder="Enter original value"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="newValue" class="form-label">New Value</label>
+                <input
+                  type="number"
+                  id="newValue"
+                  class="form-input"
+                  required
+                  step="any"
+                  placeholder="Enter new value"
+                />
+              </div>
+
+              <div class="formula-display" id="changeFormula">
+                Formula: ((New Value - Original Value) ÷ Original Value) × 100
+              </div>
+
+              <button type="submit" class="calculate-btn">
+                Calculate Change
+              </button>
+            </form>
+
+            <div id="changeResult" class="result">
+              <h4>Result</h4>
+              <div class="result-item">
+                <span class="result-label">Percentage Change:</span>
+                <div>
+                  <span class="result-value" id="percentageChange">0%</span>
+                  <div class="amount-in-words" id="percentageChangeInWords"></div>
+                </div>
+              </div>
+              <div class="result-item">
+                <span class="result-label">Absolute Change:</span>
+                <div>
+                  <span class="result-value" id="absoluteChange">0</span>
+                  <div class="amount-in-words" id="absoluteChangeInWords"></div>
+                </div>
+              </div>
+              <div class="step-result" id="changeSteps"></div>
+            </div>
+          </div>
+
+          <!-- Ratio to Percentage Calculator -->
+          <div id="ratioCalc" class="calculator-section">
+            <form id="ratioPercentageForm">
+              <div class="form-group">
+                <label for="numerator" class="form-label"
+                  >Part (Numerator)</label
+                >
+                <input
+                  type="number"
+                  id="numerator"
+                  class="form-input"
+                  required
+                  step="any"
+                  placeholder="Enter part value"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="denominator" class="form-label"
+                  >Total (Denominator)</label
+                >
+                <input
+                  type="number"
+                  id="denominator"
+                  class="form-input"
+                  required
+                  step="any"
+                  placeholder="Enter total value"
+                />
+              </div>
+
+              <div class="formula-display" id="ratioFormula">
+                Formula: (Part ÷ Total) × 100
+              </div>
+
+              <button type="submit" class="calculate-btn">
+                Calculate Percentage
+              </button>
+            </form>
+
+            <div id="ratioResult" class="result">
+              <h4>Result</h4>
+              <div class="result-item">
+                <span class="result-label">Percentage:</span>
+                <div>
+                  <span class="result-value" id="ratioPercentage">0%</span>
+                  <div class="amount-in-words" id="ratioPercentageInWords"></div>
+                </div>
+              </div>
+              <div class="result-item">
+                <span class="result-label">Decimal:</span>
+                <div>
+                  <span class="result-value" id="ratioDecimal">0</span>
+                  <div class="amount-in-words" id="ratioDecimalInWords"></div>
+                </div>
+              </div>
+              <div class="step-result" id="ratioSteps"></div>
+            </div>
+          </div>
+
+          <!-- Quick Reference Section -->
+          <div class="quick-reference">
+            <h4>Quick Reference</h4>
+            <div class="reference-grid">
+              <div class="reference-item">
+                <strong>25%</strong>
+                <span>1/4</span>
+              </div>
+              <div class="reference-item">
+                <strong>33.33%</strong>
+                <span>1/3</span>
+              </div>
+              <div class="reference-item">
+                <strong>50%</strong>
+                <span>1/2</span>
+              </div>
+              <div class="reference-item">
+                <strong>66.67%</strong>
+                <span>2/3</span>
+              </div>
+              <div class="reference-item">
+                <strong>75%</strong>
+                <span>3/4</span>
+              </div>
+              <div class="reference-item">
+                <strong>100%</strong>
+                <span>1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/percentage.js"></script>
+    <script src="js/components.js"></script>
+    <!-- <script src="js/calculators.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const calcTypeButtons = document.querySelectorAll(".calc-type-btn");
+        const calculatorSections = document.querySelectorAll(
+          ".calculator-section"
+        );
+        // Calculator type selection
+        calcTypeButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const type = button.dataset.type;
+            calcTypeButtons.forEach((btn) => btn.classList.remove("active"));
+            calculatorSections.forEach((section) =>
+              section.classList.remove("active")
+            );
+            button.classList.add("active");
+            document.getElementById(`${type}Calc`).classList.add("active");
+            document.querySelectorAll(".result").forEach((result) => {
+              result.classList.remove("show");
+            });
+            localStorage.setItem("lastCalcType", type);
+          });
+        });
+
+        // Error message element
+        function showError(message) {
+          let errorDiv = document.getElementById("errorMessage");
+          if (!errorDiv) {
+            errorDiv = document.createElement("div");
+            errorDiv.id = "errorMessage";
+            errorDiv.className = "error-message";
+            document.querySelector(".calculator-body").appendChild(errorDiv);
+          }
+          errorDiv.textContent = message;
+          errorDiv.style.display = "block";
+        }
+        function clearError() {
+          const errorDiv = document.getElementById("errorMessage");
+          if (errorDiv) errorDiv.style.display = "none";
+        }
+
+        // Basic Percentage Calculator
+        document
+          .getElementById("basicPercentageForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            clearError();
+            try {
+              const percentage = parseFloat(
+                document.getElementById("percentage").value
+              );
+              const value = parseFloat(document.getElementById("value").value);
+              const result = (percentage * value) / 100;
+              document.getElementById("percentageAmount").textContent =
+                formatNumber(result);
+              document.getElementById("basicSteps").innerHTML = `
+            ${percentage}% of ${formatNumber(value)} = 
+            (${percentage} × ${formatNumber(value)}) ÷ 100 = 
+            ${formatNumber(result)}
+          `;
+              document.getElementById("basicResult").classList.add("show");
+              localStorage.setItem("lastPercentage", percentage);
+              localStorage.setItem("lastValue", value);
+            } catch (error) {
+              showError(error.message);
+            }
+          });
+
+        // Percentage Change Calculator
+        document
+          .getElementById("percentageChangeForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            clearError();
+            try {
+              const oldValue = parseFloat(
+                document.getElementById("oldValue").value
+              );
+              const newValue = parseFloat(
+                document.getElementById("newValue").value
+              );
+              const absoluteChange = newValue - oldValue;
+              const percentageChange = (absoluteChange / oldValue) * 100;
+              document.getElementById(
+                "percentageChange"
+              ).textContent = `${formatNumber(percentageChange)}%`;
+              document.getElementById("absoluteChange").textContent =
+                formatNumber(absoluteChange);
+              document.getElementById("changeSteps").innerHTML = `
+            Change: ${formatNumber(newValue)} - ${formatNumber(
+                oldValue
+              )} = ${formatNumber(absoluteChange)}<br>
+            Percentage: (${formatNumber(absoluteChange)} ÷ ${formatNumber(
+                oldValue
+              )}) × 100 = ${formatNumber(percentageChange)}%
+          `;
+              document.getElementById("changeResult").classList.add("show");
+              localStorage.setItem("lastOldValue", oldValue);
+              localStorage.setItem("lastNewValue", newValue);
+            } catch (error) {
+              showError(error.message);
+            }
+          });
+
+        // Ratio to Percentage Calculator
+        document
+          .getElementById("ratioPercentageForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            clearError();
+            try {
+              const numerator = parseFloat(
+                document.getElementById("numerator").value
+              );
+              const denominator = parseFloat(
+                document.getElementById("denominator").value
+              );
+              const decimal = numerator / denominator;
+              const percentage = decimal * 100;
+              document.getElementById(
+                "ratioPercentage"
+              ).textContent = `${formatNumber(percentage)}%`;
+              document.getElementById("ratioDecimal").textContent =
+                formatNumber(decimal, 4);
+              document.getElementById("ratioSteps").innerHTML = `
+            Decimal: ${formatNumber(numerator)} ÷ ${formatNumber(
+                denominator
+              )} = ${formatNumber(decimal, 4)}<br>
+            Percentage: ${formatNumber(decimal, 4)} × 100 = ${formatNumber(
+                percentage
+              )}%
+          `;
+              document.getElementById("ratioResult").classList.add("show");
+              localStorage.setItem("lastNumerator", numerator);
+              localStorage.setItem("lastDenominator", denominator);
+            } catch (error) {
+              showError(error.message);
+            }
+          });
+
+        // Load saved values
+        const savedCalcType = localStorage.getItem("lastCalcType");
+        if (savedCalcType) {
+          const button = document.querySelector(
+            `[data-type="${savedCalcType}"]`
+          );
+          if (button) button.click();
+        }
+        // Load saved values for basic calculator
+        const savedPercentage = localStorage.getItem("lastPercentage");
+        const savedValue = localStorage.getItem("lastValue");
+        if (savedPercentage)
+          document.getElementById("percentage").value = savedPercentage;
+        if (savedValue) document.getElementById("value").value = savedValue;
+        // Load saved values for change calculator
+        const savedOldValue = localStorage.getItem("lastOldValue");
+        const savedNewValue = localStorage.getItem("lastNewValue");
+        if (savedOldValue)
+          document.getElementById("oldValue").value = savedOldValue;
+        if (savedNewValue)
+          document.getElementById("newValue").value = savedNewValue;
+        // Load saved values for ratio calculator
+        const savedNumerator = localStorage.getItem("lastNumerator");
+        const savedDenominator = localStorage.getItem("lastDenominator");
+        if (savedNumerator)
+          document.getElementById("numerator").value = savedNumerator;
+        if (savedDenominator)
+          document.getElementById("denominator").value = savedDenominator;
+      });
+    </script> -->
+  </body>
+</html>

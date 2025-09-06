@@ -1,0 +1,8 @@
+.item-row .item-name {
+  grid-column: 1;
+}
+
+.item-row .item-price,
+.item-row .item-discount {
+  width: 100px;
+}

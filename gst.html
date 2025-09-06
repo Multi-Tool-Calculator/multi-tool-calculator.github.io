@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GST Calculator - Multi-Tool Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/additional.css" />
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+  </head>
+  <body>
+    <app-header
+      title="GST Calculator"
+      subtitle="Calculate GST amount and final price"
+    ></app-header>
+    <div class="container">
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>GST Calculator</h3>
+          <p>Calculate GST amount and final price</p>
+        </div>
+        <div class="calculator-body">
+          <form id="gstForm">
+            <div class="form-group">
+              <label class="form-label">Amount (₹)</label>
+              <input
+                type="text"
+                id="gstAmount"
+                class="form-input currency-input"
+                inputmode="numeric"
+                pattern="[0-9,]*"
+                placeholder="1000"
+                required
+              />
+              <div class="amount-in-words" id="gstAmountWords"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">GST Rate (%)</label>
+              <select id="gstRate" class="form-select">
+                <option value="0">0% GST</option>
+                <option value="5">5% GST</option>
+                <option value="12">12% GST</option>
+                <option value="18" selected>18% GST</option>
+                <option value="28">28% GST</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Calculation Type</label>
+              <select id="gstType" class="form-select">
+                <option value="exclusive">Add GST (Exclusive)</option>
+                <option value="inclusive">Remove GST (Inclusive)</option>
+              </select>
+            </div>
+            <button class="calculate-btn" id="gstCalculateBtn">
+              Calculate GST
+            </button>
+          </form>
+          <div id="gstResult" class="result">
+            <h4>GST Calculation Results</h4>
+            <div class="result-item">
+              <span class="result-label">Net Amount:</span>
+              <div class="result-content">
+                <span class="result-value" id="netAmount">₹0</span>
+                <div class="amount-in-words" id="netAmountInWords"></div>
+              </div>
+            </div>
+            <div class="result-item">
+              <span class="result-label">GST Amount:</span>
+              <div class="result-content">
+                <span class="result-value" id="gstAmountResult">₹0</span>
+                <div class="amount-in-words" id="gstAmountInWords"></div>
+              </div>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Gross Amount:</span>
+              <div class="result-content">
+                <span class="result-value" id="grossAmount">₹0</span>
+                <div class="amount-in-words" id="grossAmountInWords"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/gst.js"></script>
+    <script src="js/components.js"></script>
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("gstForm");
+        const gstRateSelect = document.getElementById("gstRate");
+        const amountInput = document.getElementById("gstAmount");
+        const amountInWords = document.getElementById("gstAmountWords");
+
+        // Display amount in words
+        amountInput.addEventListener("input", () => {
+          const value = parseFloat(amountInput.value);
+          amountInWords.textContent =
+            value > 0 ? numberToWords(Math.round(value)) : "";
+        });
+
+        // Calculate GST
+        window.calculateGST = () => {
+          try {
+            const amount = parseFloat(
+              document.getElementById("gstAmount").value
+            );
+            const rate = parseFloat(document.getElementById("gstRate").value);
+            const type = document.getElementById("gstType").value;
+
+            if (!validateNumericInput(amount, 0.01)) {
+              throw new Error("Please enter a valid amount");
+            }
+
+            const result = calculateGST(amount, rate, type);
+
+            // Update results
+            document.getElementById("netAmount").textContent = formatCurrency(
+              result.baseAmount
+            );
+            document.getElementById("netAmountInWords").textContent =
+              numberToWords(Math.round(result.baseAmount));
+            document.getElementById("gstAmountResult").textContent =
+              formatCurrency(result.gstAmount);
+            document.getElementById("gstAmountInWords").textContent =
+              numberToWords(Math.round(result.gstAmount));
+            document.getElementById("grossAmount").textContent = formatCurrency(
+              result.totalAmount
+            );
+            document.getElementById("grossAmountInWords").textContent =
+              numberToWords(Math.round(result.totalAmount));
+
+            document.getElementById("gstResult").classList.add("show");
+          } catch (error) {
+            showError(error.message);
+          }
+        };
+
+        // Add event listener for button
+        document
+          .getElementById("gstCalculateBtn")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            clearError();
+            try {
+              calculateGST();
+            } catch (error) {
+              showError(error.message);
+            }
+          });
+
+        // Error message element
+        function showError(message) {
+          let errorDiv = document.getElementById("errorMessage");
+          if (!errorDiv) {
+            errorDiv = document.createElement("div");
+            errorDiv.id = "errorMessage";
+            errorDiv.className = "error-message";
+            document
+              .getElementById("gstCalculateBtn")
+              .parentNode.insertBefore(
+                errorDiv,
+                document.getElementById("gstCalculateBtn").nextSibling
+              );
+          }
+          errorDiv.textContent = message;
+          errorDiv.style.display = "block";
+        }
+        function clearError() {
+          const errorDiv = document.getElementById("errorMessage");
+          if (errorDiv) errorDiv.style.display = "none";
+        }
+
+        // Save last used rate in localStorage
+        const savedRate = localStorage.getItem("lastGSTRate");
+        if (savedRate) {
+          gstRateSelect.value = savedRate;
+        }
+
+        // Save rate when changed
+        gstRateSelect.addEventListener("change", () => {
+          localStorage.setItem("lastGSTRate", gstRateSelect.value);
+        });
+      });
+    </script> -->
+  </body>
+</html>

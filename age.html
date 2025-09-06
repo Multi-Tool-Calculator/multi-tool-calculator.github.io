@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator - Multi-Tool Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/additional.css" />
+    <style>
+      .date-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: var(--surface-color);
+        border-radius: 6px;
+      }
+
+      .date-detail-item {
+        text-align: center;
+      }
+
+      .date-detail-value {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
+      .date-detail-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .next-birthday {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        border-radius: 6px;
+        text-align: center;
+      }
+
+      .next-birthday-days {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+      }
+
+      .zodiac-sign {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--surface-color);
+        border-radius: 6px;
+        margin-top: 1rem;
+      }
+
+      .zodiac-emoji {
+        font-size: 2rem;
+      }
+
+      .zodiac-info {
+        flex: 1;
+      }
+
+      .zodiac-name {
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
+      .zodiac-date {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <app-header
+      title="Age Calculator"
+      subtitle="Calculate your exact age and more"
+    ></app-header>
+
+    <div class="container">
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>Age Calculator</h3>
+        </div>
+        <div class="calculator-body">
+          <form id="ageForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="birthDate" class="form-label">Birth Date</label>
+                <input
+                  type="date"
+                  id="birthDate"
+                  class="form-input"
+                  required
+                  max="2100-12-31"
+                />
+              </div>
+              <div class="form-group">
+                <label for="calculateTo" class="form-label">Calculate To</label>
+                <input
+                  type="date"
+                  id="calculateTo"
+                  class="form-input"
+                  required
+                  max="2100-12-31"
+                />
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calculate Age</button>
+          </form>
+
+          <div id="ageResult" class="result">
+            <h4>Age Calculation Results</h4>
+
+            <div class="result-item">
+              <span class="result-label">Exact Age:</span>
+              <span class="result-value" id="exactAge"></span>
+            </div>
+
+            <div class="date-details">
+              <div class="date-detail-item">
+                <div class="date-detail-value" id="totalYears">0</div>
+                <div class="amount-in-words" id="totalYearsInWords"></div>
+                <!-- <div class="date-detail-label">Years</div> -->
+              </div>
+              <div class="date-detail-item">
+                <div class="date-detail-value" id="totalMonths">0</div>
+                <div class="amount-in-words" id="totalMonthsInWords"></div>
+                <!-- <div class="date-detail-label">Months</div> -->
+              </div>
+              <div class="date-detail-item">
+                <div class="date-detail-value" id="totalDays">0</div>
+                <div class="amount-in-words" id="totalDaysInWords"></div>
+                <!-- <div class="date-detail-label">Days</div> -->
+              </div>
+            </div>
+
+            <div class="next-birthday" id="nextBirthday">
+              <h5>Next Birthday</h5>
+              <div class="next-birthday-days" id="daysUntilBirthday">0</div>
+              <div id="daysUntilBirthdayInWords"></div>
+              <div>You have until your next birthday</div>
+            </div>
+
+            <div class="zodiac-sign" id="zodiacSign">
+              <div class="zodiac-emoji" id="zodiacEmoji"></div>
+              <div class="zodiac-info">
+                <div class="zodiac-name" id="zodiacName"></div>
+                <div class="zodiac-date" id="zodiacDate"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Information Card -->
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>Time Facts</h3>
+        </div>
+        <div class="calculator-body">
+          <div id="timeFacts" class="result" style="display: none">
+            <div class="date-details">
+              <div class="date-detail-item">
+                <div class="date-detail-label">Total Months</div>
+                <div class="date-detail-value" id="lifetimeMonths">0</div>
+              </div>
+              <div class="date-detail-item">
+                <div class="date-detail-label">Total Weeks</div>
+                <div class="date-detail-value" id="lifetimeWeeks">0</div>
+              </div>
+              <div class="date-detail-item">
+                <div class="date-detail-label">Total Days</div>
+                <div class="date-detail-value" id="lifetimeDays">0</div>
+              </div>
+              <div class="date-detail-item">
+                <div class="date-detail-label">Total Hours</div>
+                <div class="date-detail-value" id="lifetimeHours">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/age.js"></script>
+    <script src="js/age.js"></script>
+    <script src="js/components.js"></script>
+    <!-- <script src="js/calculators.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const birthDateInput = document.getElementById("birthDate");
+        const calculateToInput = document.getElementById("calculateTo");
+
+        // Set default dates
+        const today = new Date();
+        calculateToInput.value = today.toISOString().split("T")[0];
+        const savedBirthDate = localStorage.getItem("lastBirthDate");
+        if (savedBirthDate) {
+          birthDateInput.value = savedBirthDate;
+        }
+
+        const zodiacSigns = [
+          { sign: "Capricorn", emoji: "♑", start: "12-22", end: "01-19" },
+          { sign: "Aquarius", emoji: "♒", start: "01-20", end: "02-18" },
+          { sign: "Pisces", emoji: "♓", start: "02-19", end: "03-20" },
+          { sign: "Aries", emoji: "♈", start: "03-21", end: "04-19" },
+          { sign: "Taurus", emoji: "♉", start: "04-20", end: "05-20" },
+          { sign: "Gemini", emoji: "♊", start: "05-21", end: "06-20" },
+          { sign: "Cancer", emoji: "♋", start: "06-21", end: "07-22" },
+          { sign: "Leo", emoji: "♌", start: "07-23", end: "08-22" },
+          { sign: "Virgo", emoji: "♍", start: "08-23", end: "09-22" },
+          { sign: "Libra", emoji: "♎", start: "09-23", end: "10-22" },
+          { sign: "Scorpio", emoji: "♏", start: "10-23", end: "11-21" },
+          { sign: "Sagittarius", emoji: "♐", start: "11-22", end: "12-21" },
+        ];
+
+        function getZodiacSign(birthDate) {
+          const month = birthDate.getMonth() + 1;
+          const day = birthDate.getDate();
+          const dateString = `${month.toString().padStart(2, "0")}-${day
+            .toString()
+            .padStart(2, "0")}`;
+
+          for (const zodiac of zodiacSigns) {
+            const startParts = zodiac.start.split("-").map(Number);
+            const endParts = zodiac.end.split("-").map(Number);
+
+            const start = new Date(2000, startParts[0] - 1, startParts[1]);
+            const end = new Date(2000, endParts[0] - 1, endParts[1]);
+            const check = new Date(2000, month - 1, day);
+
+            if (check >= start && check <= end) {
+              return zodiac;
+            }
+
+            // Special case for Capricorn (across year boundary)
+            if (zodiac.sign === "Capricorn") {
+              if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) {
+                return zodiac;
+              }
+            }
+          }
+        }
+
+        function getDaysUntilBirthday(birthDate, currentDate) {
+          const nextBirthday = new Date(
+            currentDate.getFullYear(),
+            birthDate.getMonth(),
+            birthDate.getDate()
+          );
+
+          if (nextBirthday < currentDate) {
+            nextBirthday.setFullYear(currentDate.getFullYear() + 1);
+          }
+
+          const diffTime = Math.abs(nextBirthday - currentDate);
+          return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        window.calculateAgeResult = () => {
+          try {
+            const birthDate = new Date(birthDateInput.value);
+            const calculateTo = new Date(calculateToInput.value);
+
+            if (birthDate > calculateTo) {
+              throw new Error("Birth date cannot be in the future");
+            }
+
+            const result = calculateAge(birthDate, calculateTo);
+
+            // Update exact age
+            document.getElementById(
+              "exactAge"
+            ).textContent = `${result.years} years, ${result.months} months, ${result.days} days`;
+
+            // Update detailed numbers
+            document.getElementById("totalYears").textContent = result.years;
+            document.getElementById("totalMonths").textContent = result.months;
+            document.getElementById("totalDays").textContent = result.days;
+
+            // Calculate lifetime statistics
+            const diffTime = Math.abs(calculateTo - birthDate);
+            const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            document.getElementById("lifetimeMonths").textContent =
+              formatNumber(result.years * 12 + result.months);
+            document.getElementById("lifetimeWeeks").textContent = formatNumber(
+              Math.floor(totalDays / 7)
+            );
+            document.getElementById("lifetimeDays").textContent =
+              formatNumber(totalDays);
+            document.getElementById("lifetimeHours").textContent = formatNumber(
+              totalDays * 24
+            );
+
+            // Update zodiac sign
+            const zodiac = getZodiacSign(birthDate);
+            document.getElementById("zodiacEmoji").textContent = zodiac.emoji;
+            document.getElementById("zodiacName").textContent = zodiac.sign;
+            document.getElementById(
+              "zodiacDate"
+            ).textContent = `${zodiac.start} to ${zodiac.end}`;
+
+            // Update next birthday countdown
+            const daysUntilBirthday = getDaysUntilBirthday(
+              birthDate,
+              new Date()
+            );
+            document.getElementById("daysUntilBirthday").textContent =
+              daysUntilBirthday;
+
+            // Show results
+            document.getElementById("ageResult").classList.add("show");
+            document.getElementById("timeFacts").classList.add("show");
+
+            // Save birth date
+            localStorage.setItem("lastBirthDate", birthDateInput.value);
+          } catch (error) {
+            showError(error.message);
+          }
+        };
+
+        // Calculate automatically if we have a saved birth date
+        if (savedBirthDate) {
+          calculateAgeResult();
+        }
+      });
+    </script> -->
+  </body>
+</html>

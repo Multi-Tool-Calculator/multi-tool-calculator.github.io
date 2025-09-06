@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Calculate EMI (Equated Monthly Installment) for your loans with this easy-to-use calculator"
+    />
+    <title>EMI Calculator - Multi-Tool Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <app-header
+      title="EMI Calculator"
+      subtitle="Calculate your monthly loan payments"
+    ></app-header>
+
+    <main class="calculator-container">
+      <div class="calculator-card">
+        <form id="emiForm" class="calculator-form">
+          <div class="form-group">
+            <label for="loanAmount">Loan Amount</label>
+            <div class="input-group">
+              <span class="input-addon-left">₹</span>
+              <input
+                type="text"
+                id="loanAmount"
+                class="form-input currency-input"
+                placeholder="Enter loan amount"
+                pattern="[0-9,]*"
+                inputmode="numeric"
+                required
+                aria-label="Loan amount in rupees"
+              />
+            </div>
+            <small class="amount-words" id="loanAmountWords"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="interestRate">Annual Interest Rate</label>
+            <div class="input-group">
+              <input
+                type="text"
+                id="interestRate"
+                class="form-input"
+                placeholder="Enter interest rate"
+                min="1"
+                max="100"
+                step="0.1"
+                inputmode="numeric"
+                required
+              />
+              <span class="input-addon">%</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="loanTenure">Loan Tenure</label>
+              <input
+                type="number"
+                id="loanTenure"
+                class="form-input"
+                placeholder="Enter tenure"
+                min="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="tenureType">Period</label>
+              <select id="tenureType" class="form-select">
+                <option value="years">Years</option>
+                <option value="months">Months</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="calculate-btn">Calculate EMI</button>
+        </form>
+        <div
+          id="errorMessage"
+          style="display: none"
+          class="error-message"
+        ></div>
+
+        <div id="results" class="results-container" style="display: none">
+          <h3>EMI Calculation Results</h3>
+
+          <result-display
+            id="emiResult"
+            label="Monthly EMI"
+            value="0"
+            type="currency"
+            wordsId="emiInWords"
+          ></result-display>
+
+          <result-display
+            id="totalInterestResult"
+            label="Total Interest Payable"
+            value="0"
+            type="currency"
+            wordsId="totalInterestInWords"
+          ></result-display>
+
+          <result-display
+            id="totalPaymentResult"
+            label="Total Amount Payable"
+            value="0"
+            type="currency"
+            wordsId="totalPaymentInWords"
+          ></result-display>
+
+          <div class="amount-breakdown">
+            <h4>Amount Breakdown</h4>
+            <div class="chart-container">
+              <canvas id="emiChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <app-footer></app-footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/emi.js"></script>
+  </body>
+</html>

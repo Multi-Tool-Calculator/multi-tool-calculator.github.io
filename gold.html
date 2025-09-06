@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gold Rate Calculator - Multi-Tool Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/additional.css" />
+    <style>
+      .gold-type-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .gold-type-btn {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        background: var(--surface-color);
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .gold-type-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .purity-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        background: var(--surface-color);
+        border-radius: 4px;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-top: 0.5rem;
+      }
+
+      .making-charges {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: var(--surface-color);
+        border-radius: 6px;
+      }
+
+      .making-charges label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .making-charges input[type="checkbox"] {
+        width: auto;
+      }
+
+      .gold-info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .gold-info-table th,
+      .gold-info-table td {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        text-align: left;
+      }
+
+      .gold-info-table th {
+        background: var(--surface-color);
+        font-weight: 600;
+      }
+
+      .rate-trend {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+
+      .trend-up {
+        color: #16a34a;
+        background: #dcfce7;
+      }
+
+      .trend-down {
+        color: #dc2626;
+        background: #fee2e2;
+      }
+
+      .rate-trend::before {
+        content: "↑";
+        font-size: 1.2rem;
+      }
+
+      .rate-trend.trend-down::before {
+        content: "↓";
+      }
+    </style>
+  </head>
+  <body>
+    <app-header
+      title="Gold Rate Calculator"
+      subtitle="Calculate gold value based on weight and purity"
+    ></app-header>
+
+    <div class="container">
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>Gold Rate Calculator</h3>
+        </div>
+        <div class="calculator-body">
+          <form id="goldForm">
+            <div class="gold-type-selector">
+              <button
+                type="button"
+                class="gold-type-btn active"
+                data-purity="24"
+              >
+                24K
+              </button>
+              <button type="button" class="gold-type-btn" data-purity="22">
+                22K
+              </button>
+              <button type="button" class="gold-type-btn" data-purity="18">
+                18K
+              </button>
+              <button type="button" class="gold-type-btn" data-purity="14">
+                14K
+              </button>
+            </div>
+
+            <div class="purity-info">
+              <span>Selected purity:</span>
+              <strong id="purityPercentage">100%</strong>
+              <span>(24 Karat)</span>
+            </div>
+
+            <div class="form-group">
+              <label for="goldWeight" class="form-label"
+                >Gold Weight (grams)</label
+              >
+              <input
+                type="number"
+                id="goldWeight"
+                class="form-input"
+                required
+                min="0.1"
+                step="0.1"
+                placeholder="Enter weight in grams"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="goldRate" class="form-label"
+                >Gold Rate (₹ per gram)</label
+              >
+              <input
+                type="text"
+                id="goldRate"
+                class="form-input currency-input"
+                min="1"
+                pattern="[0-9,]*"
+                inputmode="numeric"
+                placeholder="Enter current gold rate"
+                required
+              />
+            </div>
+
+            <div class="making-charges">
+              <label>
+                <input type="checkbox" id="includeMaking" />
+                Include Making Charges
+              </label>
+              <div id="makingChargesInput" style="display: none">
+                <input
+                  type="number"
+                  id="makingRate"
+                  class="form-input"
+                  min="0"
+                  placeholder="Making charges (%) or fixed amount"
+                />
+                <select
+                  id="makingType"
+                  class="form-select"
+                  style="margin-top: 0.5rem"
+                >
+                  <option value="percentage">Percentage (%)</option>
+                  <option value="fixed">Fixed Amount (₹)</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calculate Value</button>
+          </form>
+
+          <div id="goldResult" class="result">
+            <h4>Gold Value Calculation</h4>
+
+            <div class="result-item">
+              <span class="result-label">Gold Value:</span>
+              <div class="result-content">
+                <span class="result-value" id="goldValue">₹0</span>
+                <div class="amount-in-words" id="goldValueWords"></div>
+              </div>
+            </div>
+
+            <div
+              class="result-item"
+              id="makingChargesResult"
+              style="display: none"
+            >
+              <span class="result-label">Making Charges:</span>
+              <div class="result-content">
+                <span class="result-value" id="makingCharges">₹0</span>
+                <div class="amount-in-words" id="makingChargesWords"></div>
+              </div>
+            </div>
+
+            <div class="result-item">
+              <span class="result-label">Total Value:</span>
+              <div class="result-content">
+                <span class="result-value" id="totalValue">₹0</span>
+                <div class="amount-in-words" id="totalValueWords"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gold Information Card -->
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>Gold Purity Guide</h3>
+        </div>
+        <div class="calculator-body">
+          <table class="gold-info-table">
+            <thead>
+              <tr>
+                <th>Karat</th>
+                <th>Purity</th>
+                <th>Common Uses</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>24K</td>
+                <td>99.9%</td>
+                <td>Investment, coins, bars</td>
+              </tr>
+              <tr>
+                <td>22K</td>
+                <td>91.6%</td>
+                <td>Traditional jewelry</td>
+              </tr>
+              <tr>
+                <td>18K</td>
+                <td>75.0%</td>
+                <td>Modern jewelry</td>
+              </tr>
+              <tr>
+                <td>14K</td>
+                <td>58.3%</td>
+                <td>Everyday jewelry</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="info-text" style="margin-top: 1rem">
+            <strong>Note:</strong>
+            <ul style="margin: 0.5rem 0 0 1.5rem">
+              <li>Making charges vary by design complexity and jeweler</li>
+              <li>Always check for hallmark certification</li>
+              <li>Gold rates fluctuate daily based on market conditions</li>
+              <li>Additional charges may apply (GST, wastage, etc.)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/gold.js"></script>
+    <script src="js/components.js"></script>
+    <!-- <script src="js/calculators.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const goldTypeButtons = document.querySelectorAll(".gold-type-btn");
+        const purityPercentage = document.getElementById("purityPercentage");
+        const includeMaking = document.getElementById("includeMaking");
+        const makingChargesInput =
+          document.getElementById("makingChargesInput");
+        const goldResult = document.getElementById("goldResult");
+
+        // Gold type selection
+        goldTypeButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            goldTypeButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            const purity = parseInt(button.dataset.purity);
+            const percentage = {
+              24: 100,
+              22: 91.6,
+              18: 75.0,
+              14: 58.3,
+            }[purity];
+
+            purityPercentage.textContent = `${percentage}%`;
+            localStorage.setItem("lastGoldPurity", purity);
+          });
+        });
+
+        // Making charges toggle
+        includeMaking.addEventListener("change", () => {
+          makingChargesInput.style.display = includeMaking.checked
+            ? "block"
+            : "none";
+          document.getElementById("makingChargesResult").style.display = "none";
+        });
+
+        // Calculate gold value
+        window.calculateGoldResult = () => {
+          try {
+            const weight = parseFloat(
+              document.getElementById("goldWeight").value
+            );
+            const rate = parseFloat(document.getElementById("goldRate").value);
+            const activePurityBtn = document.querySelector(
+              ".gold-type-btn.active"
+            );
+            const purity = parseInt(activePurityBtn.dataset.purity);
+
+            let makingChargesAmount = 0;
+            if (includeMaking.checked) {
+              const makingValue =
+                parseFloat(document.getElementById("makingRate").value) || 0;
+              const makingType = document.getElementById("makingType").value;
+
+              if (makingType === "percentage") {
+                makingChargesAmount = weight * rate * (makingValue / 100);
+              } else {
+                makingChargesAmount = makingValue;
+              }
+            }
+
+            const result = calculateGoldValue(weight, rate, purity);
+            const totalValue = result.value + makingChargesAmount;
+
+            // Update results
+            document.getElementById("goldValue").textContent = formatCurrency(
+              result.value
+            );
+            document.getElementById("goldValueWords").textContent =
+              numberToWords(Math.round(result.value));
+
+            if (makingChargesAmount > 0) {
+              document.getElementById("makingCharges").textContent =
+                formatCurrency(makingChargesAmount);
+              document.getElementById("makingChargesWords").textContent =
+                numberToWords(Math.round(makingChargesAmount));
+              document.getElementById("makingChargesResult").style.display =
+                "flex";
+            }
+
+            document.getElementById("totalValue").textContent =
+              formatCurrency(totalValue);
+            document.getElementById("totalValueWords").textContent =
+              numberToWords(Math.round(totalValue));
+
+            goldResult.classList.add("show");
+
+            // Save values
+            localStorage.setItem("lastGoldWeight", weight);
+            localStorage.setItem("lastGoldRate", rate);
+          } catch (error) {
+            showError(error.message);
+          }
+        };
+
+        // Load saved values
+        const savedPurity = localStorage.getItem("lastGoldPurity");
+        if (savedPurity) {
+          const button = document.querySelector(
+            `[data-purity="${savedPurity}"]`
+          );
+          if (button) button.click();
+        }
+
+        const savedWeight = localStorage.getItem("lastGoldWeight");
+        const savedRate = localStorage.getItem("lastGoldRate");
+
+        if (savedWeight)
+          document.getElementById("goldWeight").value = savedWeight;
+        if (savedRate) document.getElementById("goldRate").value = savedRate;
+      });
+    </script> -->
+  </body>
+</html>

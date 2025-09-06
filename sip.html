@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIP Calculator - Multi-Tool Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/additional.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+      .tips-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .tips-list li {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-secondary);
+      }
+
+      .tips-list li:last-child {
+        border-bottom: none;
+      }
+
+      .tips-list li::before {
+        content: "💡";
+        margin-right: 0.5rem;
+      }
+
+      #investmentChart {
+        margin-top: 1rem;
+        max-height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <app-header
+      title="SIP Calculator"
+      subtitle="Calculate your SIP investment returns"
+    ></app-header>
+
+    <div class="container">
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>SIP Calculator</h3>
+        </div>
+        <div class="calculator-body">
+          <form id="sipForm">
+            <div class="form-group">
+              <label for="monthlyInvestment" class="form-label"
+                >Monthly Investment (₹)</label
+              >
+              <input
+                type="text"
+                id="monthlyInvestment"
+                class="form-input currency-input"
+                placeholder="Enter monthly investment amount"
+                pattern="[0-9,]*"
+                inputmode="numeric"
+                required
+              />
+              <div id="investmentInWords" class="amount-in-words"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="expectedReturn" class="form-label"
+                >Expected Annual Return (%)</label
+              >
+              <input
+                type="number"
+                id="expectedReturn"
+                class="form-input"
+                required
+                min="1"
+                max="100"
+                step="0.1"
+                placeholder="Enter expected return rate"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="timePeriod" class="form-label"
+                >Time Period (Years)</label
+              >
+              <input
+                type="number"
+                id="timePeriod"
+                class="form-input"
+                required
+                min="1"
+                max="50"
+                placeholder="Enter investment period"
+              />
+            </div>
+
+            <button type="submit" id="calculateSIPBtn" class="calculate-btn">
+              Calculate SIP
+            </button>
+          </form>
+
+          <div id="sipResult" class="result" style="display: none">
+            <h4>SIP Calculation Results</h4>
+
+            <div class="result-item">
+              <span class="result-label">Total Investment:</span>
+              <div class="result-content">
+                <span class="result-value" id="totalInvestment">₹0</span>
+                <div class="amount-in-words" id="investmentInWords"></div>
+              </div>
+            </div>
+
+            <div class="result-item">
+              <span class="result-label">Total Returns:</span>
+              <div class="result-content">
+                <span class="result-value" id="totalReturns">₹0</span>
+                <div class="amount-in-words" id="returnsInWords"></div>
+              </div>
+            </div>
+
+            <div class="result-item">
+              <span class="result-label">Maturity Amount:</span>
+              <div class="result-content">
+                <span class="result-value" id="maturityAmount">₹0</span>
+                <div class="amount-in-words" id="maturityInWords"></div>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <h4>Investment Distribution</h4>
+              <canvas id="investmentChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+              <h4>Year-wise Growth</h4>
+              <canvas id="progressChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <h3>SIP Investment Tips</h3>
+        </div>
+        <div class="calculator-body">
+          <ul class="tips-list">
+            <li>Start early to benefit from the power of compounding</li>
+            <li>Be consistent with your monthly investments</li>
+            <li>Increase your SIP amount annually to match inflation</li>
+            <li>Review and rebalance your portfolio periodically</li>
+            <li>Don't stop SIP during market volatility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/sip.js"></script>
+    <script src="js/components.js"></script>
+  </body>
+</html>
