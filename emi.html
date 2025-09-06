@@ -12,7 +12,9 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/additional.css" />
   </head>
   <body>
     <app-header
@@ -20,68 +22,74 @@
       subtitle="Calculate your monthly loan payments"
     ></app-header>
 
-    <main class="calculator-container">
+    <div class="container">
       <div class="calculator-card">
-        <form id="emiForm" class="calculator-form">
-          <div class="form-group">
-            <label for="loanAmount">Loan Amount</label>
-            <div class="input-group">
-              <span class="input-addon-left">₹</span>
-              <input
-                type="text"
-                id="loanAmount"
-                class="form-input currency-input"
-                placeholder="Enter loan amount"
-                pattern="[0-9,]*"
-                inputmode="numeric"
-                required
-                aria-label="Loan amount in rupees"
-              />
-            </div>
-            <small class="amount-words" id="loanAmountWords"></small>
-          </div>
-
-          <div class="form-group">
-            <label for="interestRate">Annual Interest Rate</label>
-            <div class="input-group">
-              <input
-                type="text"
-                id="interestRate"
-                class="form-input"
-                placeholder="Enter interest rate"
-                min="1"
-                max="100"
-                step="0.1"
-                inputmode="numeric"
-                required
-              />
-              <span class="input-addon">%</span>
-            </div>
-          </div>
-
-          <div class="form-row">
+        <div class="calculator-header">
+          <h3>EMI Calculator</h3>
+          <p>Calculate your monthly loan payment</p>
+        </div>
+        <div class="calculator-body">
+          <form id="emiForm" class="calculator-form">
             <div class="form-group">
-              <label for="loanTenure">Loan Tenure</label>
-              <input
-                type="number"
-                id="loanTenure"
-                class="form-input"
-                placeholder="Enter tenure"
-                min="1"
-                required
-              />
+              <label for="loanAmount">Loan Amount</label>
+              <div class="input-group">
+                <span class="input-addon-left">₹</span>
+                <input
+                  type="text"
+                  id="loanAmount"
+                  class="form-input currency-input"
+                  placeholder="Enter loan amount"
+                  pattern="[0-9,]*"
+                  inputmode="numeric"
+                  required
+                  aria-label="Loan amount in rupees"
+                />
+              </div>
+              <small class="amount-words" id="loanAmountWords"></small>
             </div>
-            <div class="form-group">
-              <label for="tenureType">Period</label>
-              <select id="tenureType" class="form-select">
-                <option value="years">Years</option>
-                <option value="months">Months</option>
-              </select>
-            </div>
-          </div>
 
-          <button type="submit" class="calculate-btn">Calculate EMI</button>
-        </form>
+            <div class="form-group">
+              <label for="interestRate">Annual Interest Rate</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="interestRate"
+                  class="form-input"
+                  placeholder="Enter interest rate"
+                  min="1"
+                  max="100"
+                  step="0.1"
+                  inputmode="numeric"
+                  required
+                />
+                <span class="input-addon">%</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="loanTenure">Loan Tenure</label>
+                <input
+                  type="number"
+                  id="loanTenure"
+                  class="form-input"
+                  placeholder="Enter tenure"
+                  min="1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="tenureType">Period</label>
+                <select id="tenureType" class="form-select">
+                  <option value="years">Years</option>
+                  <option value="months">Months</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="calculate-btn">Calculate EMI</button>
+          </form>
+        </div>
         <div
           id="errorMessage"
           style="display: none"
@@ -123,7 +131,7 @@
           </div>
         </div>
       </div>
-    </main>
+    </div>
 
     <app-footer></app-footer>
 

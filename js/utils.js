@@ -47,7 +47,14 @@ function capitalizeFirstLetter(str) {
 }
 
 function numberToWords(num, type = "currency") {
-  if (num === 0) return "Zero";
+  if (num == null || isNaN(num)) return "";
+
+  if (num === 0) {
+    if (type === "currency") return "Zero Rupees";
+    if (type === "percentage") return "Zero Percent";
+    if (type === "decimal") return "Zero";
+    return "Zero" + capitalizeFirstLetter(type);
+  }
 
   const ones = [
     "",
@@ -85,69 +92,99 @@ function numberToWords(num, type = "currency") {
     "Eighty",
     "Ninety",
   ];
+  const scales = ["", "Thousand", "Lakh", "Crore", "Lakh Crore"]; // Indian numbering system
 
   function convertHundreds(n) {
-    let result = "";
-    if (n >= 100) {
-      result += ones[Math.floor(n / 100)] + " Hundred ";
+    let word = "";
+    if (n > 99) {
+      word += ones[Math.floor(n / 100)] + " Hundred ";
       n %= 100;
     }
-    if (n >= 20) {
-      result += tens[Math.floor(n / 10)] + " ";
+    if (n > 19) {
+      word += tens[Math.floor(n / 10)] + " ";
       n %= 10;
-    }
-    if (n >= 10) {
-      result += teens[n - 10] + " ";
+    } else if (n >= 10) {
+      word += teens[n - 10] + " ";
       n = 0;
     }
-    if (n > 0) {
-      result += ones[n] + " ";
+    if (n > 0) word += ones[n] + " ";
+    return word.trim();
+  }
+
+  function convertIntegerPart(num) {
+    let word = "";
+    const parts = [];
+
+    // Split according to Indian numbering system
+    let crorePart = Math.floor(num / 10000000);
+    if (crorePart) {
+      parts.push({ value: crorePart, scale: "Crore" });
+      num %= 10000000;
     }
-    return result;
+
+    let lakhPart = Math.floor(num / 100000);
+    if (lakhPart) {
+      parts.push({ value: lakhPart, scale: "Lakh" });
+      num %= 100000;
+    }
+
+    let thousandPart = Math.floor(num / 1000);
+    if (thousandPart) {
+      parts.push({ value: thousandPart, scale: "Thousand" });
+      num %= 1000;
+    }
+
+    if (num > 0) {
+      parts.push({ value: num, scale: "" });
+    }
+
+    parts.forEach((p) => {
+      word += convertHundreds(p.value) + (p.scale ? " " + p.scale : "") + " ";
+    });
+
+    return word.trim();
   }
 
-  let result = "";
+  // Split into integer and decimal parts (rounded to 2 digits)
+  const [integerPart, rawDecimal] = num.toString().split(".");
+  const integerWord = convertIntegerPart(parseInt(integerPart));
 
-  // 10 Lakh Crore (1e13) support
-  let lakhCrore = Math.floor(num / 1e12);
-  if (lakhCrore > 0) {
-    result += convertHundreds(lakhCrore) + "Lakh Crore ";
-    num %= 1e12;
+  let decimalWord = "";
+  if (rawDecimal) {
+    // Round to 2 decimal places
+    const roundedDecimal = Math.round(parseFloat("0." + rawDecimal) * 100)
+      .toString()
+      .padStart(2, "0"); // ensure 2 digits (e.g., "5" -> "05")
+
+    if (parseInt(roundedDecimal) > 0) {
+      decimalWord = roundedDecimal
+        .split("")
+        .map((d) => ones[parseInt(d, 10)])
+        .join(" ");
+    }
   }
 
-  let crore = Math.floor(num / 1e7);
-  if (crore > 0) {
-    result += convertHundreds(crore) + "Crore ";
-    num %= 1e7;
-  }
-
-  let lakh = Math.floor(num / 1e5);
-  if (lakh > 0) {
-    result += convertHundreds(lakh) + "Lakh ";
-    num %= 1e5;
-  }
-
-  let thousand = Math.floor(num / 1000);
-  if (thousand > 0) {
-    result += convertHundreds(thousand) + "Thousand ";
-    num %= 1000;
-  }
-
-  if (num > 0) {
-    result += convertHundreds(num);
-  }
-
-  // Format suffix
-  let suffix = "";
   if (type === "currency") {
-    suffix =
-      num === 1 && result.trim() === "One" ? "Rupee Only" : "Rupees Only";
-  } else {
-    suffix =
-      num === 1 && result.trim() === "One"
-        ? capitalizeFirstLetter(type)
-        : capitalizeFirstLetter(type) + "s";
+    if (decimalWord) return `${integerWord} Rupees and ${decimalWord} Paise`;
+    return `${integerWord} Rupees`;
   }
 
-  return result.trim() + " " + suffix;
+  if (type === "decimal") {
+    if (decimalWord) return `${integerWord} Point ${decimalWord}`;
+    return `${integerWord}`;
+  }
+
+  if (type === "percentage") {
+    if (decimalWord) return `${integerWord} Point ${decimalWord} Percent`;
+    return `${integerWord} Percent`;
+  }
+
+  if (type === "year")
+    return integerWord + (parseInt(integerPart) === 1 ? " Year" : " Years");
+  if (type === "month")
+    return integerWord + (parseInt(integerPart) === 1 ? " Month" : " Months");
+  if (type === "day")
+    return integerWord + (parseInt(integerPart) === 1 ? " Day" : " Days");
+
+  return integerWord + capitalizeFirstLetter(type);
 }

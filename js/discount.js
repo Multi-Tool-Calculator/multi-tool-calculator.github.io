@@ -1,225 +1,337 @@
-// Discount Calculator functions
+document.addEventListener("DOMContentLoaded", () => {
+  // --- Constants ---
+  const ACTIVE_CLASS = "active";
+  const SHOW_CLASS = "show";
 
-function calculateDiscount(originalPrice, discount, type = "percentage") {
-  try {
-    // Validate inputs
-    if (!validateNumericInput(originalPrice, 0.01)) {
-      throw new Error("Please enter a valid price greater than 0");
-    }
-    if (!validateNumericInput(discount, 0)) {
-      throw new Error("Please enter a valid discount amount");
-    }
+  // --- Cached DOM Elements ---
+  const discountTypeButtons = document.querySelectorAll(".discount-type-btn");
+  const calculatorSections = document.querySelectorAll(".calculator-section");
+  const includeTax = document.getElementById("includeTax");
+  const gstInput = document.getElementById("gstInput");
+  const includeMultiTax = document.getElementById("includeMultiTax");
+  const multiGstInput = document.getElementById("multiGstInput");
+  const singleDiscountForm = document.getElementById("singleDiscountForm");
+  const addItemBtn = document.getElementById("addItemBtn");
+  const calculateMultipleBtn = document.getElementById("calculateMultipleBtn");
+  const itemList = document.getElementById("itemList");
+  const originalPriceInput = document.getElementById("originalPrice");
+  const discountPercentInput = document.getElementById("discountPercent");
+  const gstRateInput = document.getElementById("gstRate");
+  const multiGstRateInput = document.getElementById("multiGstRate");
 
-    let discountAmount;
-    if (type === "percentage") {
-      if (discount > 100) {
-        throw new Error("Discount percentage cannot be greater than 100%");
-      }
-      discountAmount = (originalPrice * discount) / 100;
-    } else {
-      if (discount > originalPrice) {
-        throw new Error(
-          "Discount amount cannot be greater than original price"
-        );
-      }
-      discountAmount = discount;
-    }
+  // --- In-memory "last used" values (reset on refresh) ---
+  const lastUsed = {
+    originalPrice: "",
+    discountPercent: "",
+    gstRate: "",
+    multiGstRate: "",
+  };
 
-    const finalPrice = originalPrice - discountAmount;
-    const savingsPercentage = (discountAmount / originalPrice) * 100;
+  // --- Event Listeners ---
+  discountTypeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const type = button.dataset.type;
+      activateCalculator(type);
+    });
+  });
 
-    return {
-      originalPrice: Math.round(originalPrice),
-      discountAmount: Math.round(discountAmount),
-      finalPrice: Math.round(finalPrice),
-      savingsPercentage: Math.round(savingsPercentage * 100) / 100,
-    };
-  } catch (error) {
-    throw new Error("Error calculating discount: " + error.message);
-  }
-}
-
-function updateDiscountResults(result) {
-  const { originalPrice, discountAmount, finalPrice, savingsPercentage } =
-    result;
-
-  // Update original price
-  const originalPriceElement = document.getElementById("originalPriceDisplay");
-  const originalPriceWordsElement = document.getElementById(
-    "originalPriceInWords"
+  includeTax.addEventListener("change", () =>
+    toggleGstInput(includeTax, gstInput, "gstRow")
   );
-  if (originalPriceElement)
-    originalPriceElement.textContent = formatCurrency(originalPrice);
-  if (originalPriceWordsElement)
-    originalPriceWordsElement.textContent = numberToWords(originalPrice);
+  includeMultiTax.addEventListener("change", () =>
+    toggleGstInput(includeMultiTax, multiGstInput, "multiGstRow")
+  );
 
-  // Update discount amount
-  const discountAmountElement = document.getElementById("discountAmount");
-  const discountAmountWordsElement = document.getElementById("discountInWords");
-  if (discountAmountElement)
-    discountAmountElement.textContent = formatCurrency(discountAmount);
-  if (discountAmountWordsElement)
-    discountAmountWordsElement.textContent = numberToWords(discountAmount);
+  singleDiscountForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    calculateSingleDiscount();
+  });
 
-  // Update final price
-  const finalPriceElement = document.getElementById("finalPrice");
-  const finalPriceWordsElement = document.getElementById("finalPriceInWords");
-  if (finalPriceElement)
-    finalPriceElement.textContent = formatCurrency(finalPrice);
-  if (finalPriceWordsElement)
-    finalPriceWordsElement.textContent = numberToWords(finalPrice);
+  addItemBtn.addEventListener("click", addItem);
+  calculateMultipleBtn.addEventListener("click", calculateMultipleDiscount);
 
-  // Update savings percentage
-  const savingsElement = document.getElementById("savingsPercentage");
-  if (savingsElement)
-    savingsElement.textContent = formatNumber(savingsPercentage, 2) + "%";
-}
-
-function formatDiscountAmount(input) {
-  // Remove any non-numeric characters
-  let rawValue = input.value.replace(/[^\d]/g, "");
-
-  if (rawValue) {
-    // Parse as number
-    const numValue = parseInt(rawValue, 10);
-    if (!isNaN(numValue)) {
-      // Format with Indian number system
-      input.value = numValue.toLocaleString("en-IN");
-
-      // Update amount in words if needed
-      const wordsElement =
-        input.parentElement.querySelector(".amount-in-words");
-      if (wordsElement) {
-        wordsElement.textContent = numberToWords(numValue) + " Rupees Only";
-      }
-
-      // Clear any validation errors
-      input.setCustomValidity("");
-      input.checkValidity();
+  itemList.addEventListener("click", (e) => {
+    if (e.target && e.target.classList.contains("remove-item")) {
+      removeItem(e.target.dataset.id);
     }
-  } else {
-    input.value = "";
-    const wordsElement = input.parentElement.querySelector(".amount-in-words");
-    if (wordsElement) {
-      wordsElement.textContent = "";
+  });
+
+  // --- UI Functions ---
+  function activateCalculator(type) {
+    // Hide all calculators
+    calculatorSections.forEach((section) => {
+      section.classList.remove(ACTIVE_CLASS);
+      section.style.display = "none";
+    });
+    discountTypeButtons.forEach((btn) => btn.classList.remove(ACTIVE_CLASS));
+
+    // Show the selected calculator
+    const button = document.querySelector(`[data-type="${type}"]`);
+    const section = document.getElementById(`${type}Calc`);
+    if (button && section) {
+      button.classList.add(ACTIVE_CLASS);
+      section.classList.add(ACTIVE_CLASS);
+      section.style.display = "block";
     }
-  }
-}
 
-function toggleDiscountType(isPercentage) {
-  document
-    .getElementById("percentageToggle")
-    .classList.toggle("active", isPercentage);
-  document
-    .getElementById("amountToggle")
-    .classList.toggle("active", !isPercentage);
+    // Hide all results when switching calculators
+    document
+      .querySelectorAll(".result")
+      .forEach((result) => result.classList.remove(SHOW_CLASS));
 
-  const discountInput = document.getElementById("discountValue");
-  if (discountInput) {
-    if (isPercentage) {
-      discountInput.setAttribute("max", "100");
-      discountInput.setAttribute("step", "0.1");
+    // Show multiple-items controls only when "multiple" is active
+    if (type === "multiple") {
+      addItemBtn.style.display = "inline-block";
+      itemList.style.display = "block";
+      calculateMultipleBtn.style.display = "inline-block";
     } else {
-      discountInput.removeAttribute("max");
-      discountInput.setAttribute("step", "1");
+      addItemBtn.style.display = "none";
+      itemList.style.display = "none";
+      calculateMultipleBtn.style.display = "none";
     }
   }
-}
 
-function handleDiscountCalculation(event) {
-  if (event) event.preventDefault();
-
-  try {
-    // Get and validate original price
-    const priceInput = document.getElementById("originalPrice");
-    const rawPrice = priceInput.value.replace(/[^\d]/g, "");
-    const originalPrice = parseInt(rawPrice, 10);
-
-    if (!rawPrice || isNaN(originalPrice)) {
-      throw new Error("Please enter a valid original price");
-    }
-
-    // Get discount type and value
-    const isPercentage = document
-      .getElementById("percentageToggle")
-      .classList.contains("active");
-    const discountValue = parseFloat(
-      document.getElementById("discountValue").value
-    );
-
-    // Calculate discount details
-    const result = calculateDiscount(
-      originalPrice,
-      discountValue,
-      isPercentage ? "percentage" : "amount"
-    );
-
-    // Update UI
-    const resultElement = document.getElementById("discountResult");
-    if (resultElement) {
-      resultElement.style.display = "block";
-      updateDiscountResults(result);
-    }
-  } catch (error) {
-    showError(error.message);
-    const resultElement = document.getElementById("discountResult");
-    if (resultElement) resultElement.style.display = "none";
-  }
-}
-
-function initializeDiscountCalculator() {
-  // Set up amount input handler
-  const priceInput = document.getElementById("originalPrice");
-  if (priceInput) {
-    priceInput.pattern = "^[\\d,]+$";
-
-    priceInput.addEventListener("input", function (e) {
-      formatDiscountAmount(this);
-    });
-
-    priceInput.addEventListener("blur", function (e) {
-      if (this.value) formatDiscountAmount(this);
-    });
+  function toggleGstInput(checkbox, input, rowId) {
+    input.style.display = checkbox.checked ? "block" : "none";
+    const row = document.getElementById(rowId);
+    if (row) row.style.display = "none";
   }
 
-  // Set up discount value input handler
-  const discountInput = document.getElementById("discountValue");
-  if (discountInput) {
-    discountInput.addEventListener("input", function (e) {
-      const value = parseFloat(this.value);
-      const isPercentage = document
-        .getElementById("percentageToggle")
-        .classList.contains("active");
+  // --- Calculation Functions ---
+  function calculateGst(amount, rate) {
+    return (amount * rate) / 100;
+  }
 
-      if (isPercentage) {
-        if (value < 0) this.value = 0;
-        if (value > 100) this.value = 100;
-      } else if (value < 0) {
-        this.value = 0;
+  function calculateSingleDiscount() {
+    try {
+      const originalPrice = parseFloat(originalPriceInput.value);
+      const discountPercent = parseFloat(discountPercentInput.value);
+
+      if (!validateNumericInput(originalPrice, 0.01)) {
+        showError("Please enter a valid price greater than 0.");
+        return;
+      }
+      if (!validateNumericInput(discountPercent, 0, 100)) {
+        showError("Please enter a valid discount percentage (0–100).");
+        return;
+      }
+
+      const includeTaxChecked = includeTax.checked;
+      let gstRate = 0;
+      if (includeTaxChecked) {
+        gstRate = parseFloat(gstRateInput.value);
+        if (!validateNumericInput(gstRate, 0, 100)) {
+          showError("Please enter a valid GST rate (0–100).");
+          return;
+        }
+      }
+
+      const discountAmount = (originalPrice * discountPercent) / 100;
+      const priceAfterDiscount = originalPrice - discountAmount;
+      const gstAmount = calculateGst(priceAfterDiscount, gstRate);
+      const finalPrice = priceAfterDiscount + gstAmount;
+
+      updateSingleResultUI(
+        originalPrice,
+        discountAmount,
+        priceAfterDiscount,
+        gstAmount,
+        finalPrice,
+        discountPercent,
+        includeTaxChecked
+      );
+
+      // Save in-memory suggestions
+      lastUsed.originalPrice = originalPrice;
+      lastUsed.discountPercent = discountPercent;
+      if (includeTaxChecked) lastUsed.gstRate = gstRate;
+    } catch (error) {
+      showError(error.message);
+    }
+  }
+
+  function calculateMultipleDiscount() {
+    try {
+      const items = Array.from(document.querySelectorAll(".item-row")).map(
+        (row) => {
+          const priceInput = row.querySelector(".item-price");
+          const discountInput = row.querySelector(".item-discount");
+          const price = parseFloat(priceInput.value) || 0;
+          const discount = parseFloat(discountInput.value) || 0;
+
+          if (price < 0.01) {
+            throw new Error("Item price must be greater than 0.");
+          }
+          if (discount < 0 || discount > 100) {
+            throw new Error("Discount % must be between 0 and 100.");
+          }
+
+          return { price, discount };
+        }
+      );
+
+      const includeMultiTaxChecked = includeMultiTax.checked;
+      let gstRate = 0;
+      if (includeMultiTaxChecked) {
+        gstRate = parseFloat(multiGstRateInput.value);
+        if (!validateNumericInput(gstRate, 0, 100)) {
+          showError("Please enter a valid GST rate (0–100).");
+          return;
+        }
+      }
+
+      let totalOriginal = 0;
+      let totalDiscount = 0;
+
+      items.forEach((item) => {
+        totalOriginal += item.price;
+        totalDiscount += (item.price * item.discount) / 100;
+      });
+
+      if (totalOriginal === 0) {
+        showError("Please add at least one valid item.");
+        return;
+      }
+
+      const priceAfterDiscount = totalOriginal - totalDiscount;
+      const gstAmount = calculateGst(priceAfterDiscount, gstRate);
+      const finalTotal = priceAfterDiscount + gstAmount;
+
+      updateMultipleResultUI(
+        totalOriginal,
+        totalDiscount,
+        priceAfterDiscount,
+        gstAmount,
+        finalTotal,
+        includeMultiTaxChecked
+      );
+
+      // Save in-memory suggestion
+      if (includeMultiTaxChecked) lastUsed.multiGstRate = gstRate;
+    } catch (error) {
+      showError(error.message);
+    }
+  }
+
+  // --- Result UI Update Functions ---
+  function updateSingleResultUI(
+    originalPrice,
+    discountAmount,
+    priceAfterDiscount,
+    gstAmount,
+    finalPrice,
+    discountPercent,
+    includeTaxChecked
+  ) {
+    document.getElementById("breakdownOriginal").textContent =
+      formatCurrency(originalPrice);
+    document.getElementById(
+      "breakdownDiscount"
+    ).textContent = `-${formatCurrency(discountAmount)}`;
+    document.getElementById("breakdownAfterDiscount").textContent =
+      formatCurrency(priceAfterDiscount);
+
+    const gstRow = document.getElementById("gstRow");
+    if (includeTaxChecked) {
+      document.getElementById("breakdownGST").textContent =
+        formatCurrency(gstAmount);
+      gstRow.style.display = "table-row";
+    } else {
+      gstRow.style.display = "none";
+    }
+
+    document.getElementById("breakdownTotal").textContent =
+      formatCurrency(finalPrice);
+    document.getElementById(
+      "savingsMessage"
+    ).textContent = `You save ${formatCurrency(
+      discountAmount
+    )} (${discountPercent}% off)`;
+    document.getElementById("singleResult").classList.add(SHOW_CLASS);
+  }
+
+  function updateMultipleResultUI(
+    totalOriginal,
+    totalDiscount,
+    priceAfterDiscount,
+    gstAmount,
+    finalTotal,
+    includeMultiTaxChecked
+  ) {
+    document.getElementById("multiBreakdownOriginal").textContent =
+      formatCurrency(totalOriginal);
+    document.getElementById(
+      "multiBreakdownDiscount"
+    ).textContent = `-${formatCurrency(totalDiscount)}`;
+    document.getElementById("multiBreakdownAfterDiscount").textContent =
+      formatCurrency(priceAfterDiscount);
+
+    const multiGstRow = document.getElementById("multiGstRow");
+    if (includeMultiTaxChecked) {
+      document.getElementById("multiBreakdownGST").textContent =
+        formatCurrency(gstAmount);
+      multiGstRow.style.display = "table-row";
+    } else {
+      multiGstRow.style.display = "none";
+    }
+
+    document.getElementById("multiBreakdownTotal").textContent =
+      formatCurrency(finalTotal);
+    const totalDiscountPercent = (totalDiscount / totalOriginal) * 100 || 0;
+    document.getElementById(
+      "multiSavingsMessage"
+    ).textContent = `Total savings: ${formatCurrency(
+      totalDiscount
+    )} (${totalDiscountPercent.toFixed(1)}% off)`;
+    document.getElementById("multipleResult").classList.add(SHOW_CLASS);
+  }
+
+  // --- DOM Manipulation ---
+  function addItem() {
+    const itemId = Date.now();
+    const itemRow = document.createElement("div");
+    itemRow.className = "item-row";
+    itemRow.dataset.id = itemId;
+
+    itemRow.innerHTML = `
+      <input type="text" class="form-input item-name" placeholder="Item name">
+      <input type="number" class="form-input item-price" placeholder="Price" min="0.01" step="0.01">
+      <input type="number" class="form-input item-discount" placeholder="Discount %" min="0" max="100" step="0.1">
+      <button type="button" class="remove-item" data-id="${itemId}">×</button>
+    `;
+
+    itemList.appendChild(itemRow);
+  }
+
+  function removeItem(itemId) {
+    const item = document.querySelector(`.item-row[data-id="${itemId}"]`);
+    if (item) item.remove();
+  }
+
+  // --- Suggestion on focus ---
+  function addSuggestions(input, key) {
+    input.addEventListener("focus", () => {
+      if (lastUsed[key]) {
+        input.placeholder = `Last used: ${lastUsed[key]}`;
       }
     });
+    input.addEventListener("blur", () => {
+      input.placeholder = ""; // reset when unfocused
+    });
   }
 
-  // Set up discount type toggle handlers
-  document
-    .getElementById("percentageToggle")
-    .addEventListener("click", () => toggleDiscountType(true));
-  document
-    .getElementById("amountToggle")
-    .addEventListener("click", () => toggleDiscountType(false));
+  addSuggestions(originalPriceInput, "originalPrice");
+  addSuggestions(discountPercentInput, "discountPercent");
+  addSuggestions(gstRateInput, "gstRate");
+  addSuggestions(multiGstRateInput, "multiGstRate");
 
-  // Set up calculate button handler
-  const calculateBtn = document.getElementById("calculateDiscountBtn");
-  if (calculateBtn) {
-    calculateBtn.addEventListener("click", handleDiscountCalculation);
+  // --- Initialization ---
+  function init() {
+    activateCalculator("single"); // default to single calculator
+    if (itemList.children.length === 0) {
+      addItem();
+    }
   }
 
-  // Load saved preferences
-  const savedType = localStorage.getItem("discountType");
-  if (savedType) {
-    toggleDiscountType(savedType === "percentage");
-  }
-}
-
-// Initialize when DOM is ready
-document.addEventListener("DOMContentLoaded", initializeDiscountCalculator);
+  init();
+});

@@ -207,7 +207,7 @@ function initializeEMICalculator() {
         // Update amount in words
         const wordsElement = document.getElementById("loanAmountWords");
         if (wordsElement) {
-          wordsElement.textContent = numberToWords(numValue) + " Rupees Only";
+          wordsElement.textContent = numberToWords(numValue) + " Rupees";
         }
       } else {
         this.value = "";

@@ -57,8 +57,7 @@ function calculateIdealWeight(height, unit = "metric") {
     } else {
       idealWeight = { min: 45, max: 55 }; // Minimum healthy weight range in kg
     }
-  }
-  else {
+  } else {
     if (height > 60) {
       idealWeight = {
         min: Math.round((height - 60) * 1.9 + 48.5),
@@ -77,7 +76,6 @@ function updateBMIResults(result) {
   // Update BMI value
   const bmiElement = document.getElementById("bmiValue");
   if (bmiElement) bmiElement.textContent = formatNumber(bmi, 1);
-  document.getElementById("bmiValueInWords").textContent = numberToWords(bmi);
 
   // Update BMI category
   const categoryElement = document.getElementById("bmiCategory");

@@ -1,27 +1,47 @@
 /* Common CSS for all pages */
 :root {
+  /* Color Palette */
   --primary-color: #2563eb;
   --primary-dark: #1d4ed8;
   --secondary-color: #10b981;
   --background-color: #f1f5f9;
   --surface-color: #ffffff;
+  --surface-variant: #f8fafc;
+  --text-light: #ffffff;
   --border-color: #e2e8f0;
   --text-primary: #1e293b;
   --text-secondary: #64748b;
-  --shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --error-color: #ef4444;
+  --success-color: #22c55e;
+  --footer-bg: #ffffff;
 
   /* Form Input Styles */
   --input-padding: 0.75rem;
   --border-radius: 0.375rem;
+
+  /* Shadows */
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-body {
+/* body {
   font-family: "Inter", sans-serif;
   background: var(--background-color);
   color: var(--text-primary);
   line-height: 1.6;
   margin: 0;
+} */
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: unset;
 }
 
 .container {
@@ -57,10 +77,15 @@ body {
   color: #fff;
   padding: 1rem;
   border-radius: 12px 12px 0 0;
+  min-width: 600px;
+  max-width: 700px;
 }
 
 .calculator-body {
+  min-width: 600px;
+  max-width: 700px;
   padding: 1.5rem;
+  box-shadow: var(--shadow);
 }
 
 .form-group {
@@ -176,5 +201,57 @@ body {
 
 .error-message {
   text-align: center;
-  color: #ef4444;
+  color: var(--error-color);
+}
+
+.success-message {
+  text-align: center;
+  color: var(--success-color);
+}
+
+.savings-message {
+  margin-top: 1rem;
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+/* Secondary button (like Add Item) */
+.secondary-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.secondary-btn:hover {
+  background-color: #e0e0e0;
+  border-color: #aaa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    min-width: 90%;
+  }
+
+  .calculator-card {
+    min-width: 90%;
+    max-width: 95%;
+  }
+
+  .calculator-header {
+    margin: 0 auto;
+    min-width: 90%;
+    max-width: 100%;
+  }
+
+  .calculator-body {
+    margin: 0 auto;
+    min-width: 90%;
+    max-width: 100%;
+  }
 }

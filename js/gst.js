@@ -70,7 +70,7 @@ function formatGSTAmount(input) {
       const wordsElement = document.getElementById("gstAmountWords");
       if (wordsElement) {
         wordsElement.textContent =
-          numberToWords(Math.round(numValue)) + " Rupees Only";
+          numberToWords(Math.round(numValue)) + " Rupees";
       }
 
       // Clear any validation errors

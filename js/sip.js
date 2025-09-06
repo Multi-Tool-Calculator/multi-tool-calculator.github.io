@@ -3,9 +3,9 @@ let investmentChart = null;
 let progressChart = null;
 
 // Helper functions
-function validateNumericInput(value, min = 0, max = Number.MAX_VALUE) {
-  return !isNaN(value) && value >= min && value <= max;
-}
+// function validateNumericInput(value, min = 0, max = Number.MAX_VALUE) {
+//   return !isNaN(value) && value >= min && value <= max;
+// }
 
 // SIP Calculator functions
 function calculateSIP(monthlyInvestment, rateOfReturn, years) {
@@ -34,10 +34,9 @@ function calculateSIP(monthlyInvestment, rateOfReturn, years) {
     // Calculate invested amount (Principal)
     const totalInvestment = monthlyInvestment * months;
 
-    // Calculate maturity amount using SIP formula: P * ((1 + r)^n - 1) * (1 + r)/r
+    // Calculate maturity amount using SIP formula: P * [((1+i)^n - 1) / i]
     const maturityAmount =
-      (monthlyInvestment *
-        ((Math.pow(1 + monthlyRate, months) - 1) * (1 + monthlyRate))) /
+      (monthlyInvestment * (Math.pow(1 + monthlyRate, months) - 1)) /
       monthlyRate;
 
     // Calculate wealth gained (returns)
@@ -49,9 +48,7 @@ function calculateSIP(monthlyInvestment, rateOfReturn, years) {
       const m = y * 12;
       const invested = monthlyInvestment * m;
       const future =
-        (monthlyInvestment *
-          ((Math.pow(1 + monthlyRate, m) - 1) * (1 + monthlyRate))) /
-        monthlyRate;
+        (monthlyInvestment * (Math.pow(1 + monthlyRate, m) - 1)) / monthlyRate;
       yearlyBreakdown.push({
         year: y,
         invested: Math.round(invested),
@@ -74,119 +71,110 @@ function calculateSIP(monthlyInvestment, rateOfReturn, years) {
 }
 
 function initializeCharts() {
-  try {
-    const investmentCtx = document
-      .getElementById("investmentChart")
-      .getContext("2d");
-    const progressCtx = document
-      .getElementById("progressChart")
-      .getContext("2d");
+  const investmentCanvas = document.getElementById("investmentChart");
+  const progressCanvas = document.getElementById("progressChart");
+  if (!investmentCanvas || !progressCanvas) return; // canvases not in DOM yet
 
-    // Initialize investment distribution chart
-    investmentChart = new Chart(investmentCtx, {
-      type: "doughnut",
-      data: {
-        labels: ["Total Investment", "Total Returns"],
-        datasets: [
-          {
-            data: [0, 0],
-            backgroundColor: ["#2563eb", "#10b981"],
-            borderWidth: 0,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    });
-
-    // Initialize yearly progress chart
-    progressChart = new Chart(progressCtx, {
-      type: "line",
-      data: {
-        labels: [],
-        datasets: [
-          {
-            label: "Invested Amount",
-            data: [],
-            borderColor: "#2563eb",
-            backgroundColor: "#2563eb20",
-            fill: true,
-          },
-          {
-            label: "Future Value",
-            data: [],
-            borderColor: "#10b981",
-            backgroundColor: "#10b98120",
-            fill: true,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              callback: (value) => "₹" + value / 1000 + "K",
-            },
-          },
-        },
-        plugins: {
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    });
-  } catch (error) {
-    console.error("Error initializing charts:", error);
+  // If we already created charts earlier, destroy them to avoid duplicates
+  if (investmentChart) {
+    investmentChart.destroy();
+    investmentChart = null;
   }
+  if (progressChart) {
+    progressChart.destroy();
+    progressChart = null;
+  }
+
+  const investmentCtx = investmentCanvas.getContext("2d");
+  const progressCtx = progressCanvas.getContext("2d");
+  if (!investmentCtx || !progressCtx) return; // safety guard
+
+  investmentChart = new Chart(investmentCtx, {
+    type: "doughnut",
+    data: {
+      labels: ["Total Investment", "Total Returns"],
+      datasets: [
+        {
+          data: [0, 0],
+          backgroundColor: ["#2563eb", "#10b981"],
+          borderWidth: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: { legend: { position: "bottom" } },
+    },
+  });
+
+  progressChart = new Chart(progressCtx, {
+    type: "line",
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: "Invested Amount",
+          data: [],
+          borderColor: "#2563eb",
+          backgroundColor: "#2563eb20",
+          fill: true,
+        },
+        {
+          label: "Future Value",
+          data: [],
+          borderColor: "#10b981",
+          backgroundColor: "#10b98120",
+          fill: true,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { callback: (v) => "₹" + v / 1000 + "K" },
+        },
+      },
+      plugins: { legend: { position: "bottom" } },
+    },
+  });
 }
 
 function updateSIPResults(result) {
-  const { totalInvestment, maturityAmount, totalReturns, yearlyBreakdown } = result;
+  const { totalInvestment, maturityAmount, totalReturns, yearlyBreakdown } =
+    result;
 
-  // Update total investment amount
-  const investmentElement = document.getElementById("totalInvestment");
-  const investmentWordsElement = document.getElementById("investmentInWords");
-  if (investmentElement)
-    investmentElement.textContent = formatCurrency(totalInvestment);
-  if (investmentWordsElement)
-    investmentWordsElement.textContent = numberToWords(totalInvestment);
+  // Totals
+  const invEl = document.getElementById("totalInvestment");
+  if (invEl) invEl.textContent = formatCurrency(totalInvestment);
+  const retEl = document.getElementById("totalReturns");
+  if (retEl) retEl.textContent = formatCurrency(totalReturns);
+  const matEl = document.getElementById("maturityAmount");
+  if (matEl) matEl.textContent = formatCurrency(maturityAmount);
 
-  // Update returns amount
-  const returnsElement = document.getElementById("totalReturns");
+  const totalinvestmentWordsElement = document.getElementById(
+    "totalInvestmentInWords"
+  );
+  if (totalinvestmentWordsElement)
+    totalinvestmentWordsElement.textContent = numberToWords(totalInvestment);
   const returnsWordsElement = document.getElementById("returnsInWords");
-  if (returnsElement) returnsElement.textContent = formatCurrency(totalReturns);
   if (returnsWordsElement)
     returnsWordsElement.textContent = numberToWords(totalReturns);
-
-  // Update maturity amount
-  const maturityElement = document.getElementById("maturityAmount");
   const maturityWordsElement = document.getElementById("maturityInWords");
-  if (maturityElement)
-    maturityElement.textContent = formatCurrency(maturityAmount);
   if (maturityWordsElement)
     maturityWordsElement.textContent = numberToWords(maturityAmount);
 
-  // Update charts if they are initialized
+  // Charts
   if (investmentChart && progressChart) {
-    // Update investment distribution chart
     investmentChart.data.datasets[0].data = [totalInvestment, totalReturns];
     investmentChart.update();
 
-    // Update yearly progression chart
-    const years = yearlyBreakdown.map((item) => "Year " + item.year);
-    const investedData = yearlyBreakdown.map((item) => item.invested);
-    const futureData = yearlyBreakdown.map((item) => item.future);
+    const years = yearlyBreakdown.map((i) => "Year " + i.year);
+    const investedData = yearlyBreakdown.map((i) => i.invested);
+    const futureData = yearlyBreakdown.map((i) => i.future);
 
     progressChart.data.labels = years;
     progressChart.data.datasets[0].data = investedData;
@@ -210,7 +198,7 @@ function formatSIPAmount(input) {
       const wordsElement =
         input.parentElement.querySelector(".amount-in-words");
       if (wordsElement) {
-        wordsElement.textContent = numberToWords(numValue) + " Rupees Only";
+        wordsElement.textContent = numberToWords(numValue);
       }
 
       // Clear any validation errors
@@ -230,16 +218,14 @@ function handleSIPCalculation(event) {
   if (event) event.preventDefault();
 
   try {
-    // Get and validate monthly investment
+    // Amount (typed as text with commas)
     const investmentInput = document.getElementById("monthlyInvestment");
-    const rawInvestment = investmentInput.value.replace(/[^\d]/g, "");
+    const rawInvestment = (investmentInput.value || "").replace(/[^\d]/g, "");
     const monthlyInvestment = parseInt(rawInvestment, 10);
-
-    if (!rawInvestment || isNaN(monthlyInvestment)) {
+    if (!rawInvestment || isNaN(monthlyInvestment) || monthlyInvestment <= 0) {
       throw new Error("Please enter a valid monthly investment amount");
     }
 
-    // Get other input values
     const expectedReturn = parseFloat(
       document.getElementById("expectedReturn").value
     );
@@ -248,17 +234,28 @@ function handleSIPCalculation(event) {
       10
     );
 
-    // Calculate SIP details
     const result = calculateSIP(monthlyInvestment, expectedReturn, timePeriod);
 
-    // Update UI
     const resultElement = document.getElementById("sipResult");
     if (resultElement) {
+      // 1) Reveal the result card so canvases have real size
       resultElement.style.display = "block";
-      updateSIPResults(result);
+
+      // 2) (Re)initialize charts *after* the element is visible (next tick ensures layout)
+      setTimeout(() => {
+        initializeCharts();
+        // 3) Now push data into charts and texts
+        updateSIPResults(result);
+      }, 0);
     }
   } catch (error) {
-    showError(error.message);
+    // Optional: simple fallback if showError doesn't exist
+    if (typeof showError === "function") {
+      showError(error.message);
+    } else {
+      console.error(error.message);
+      alert(error.message);
+    }
     const resultElement = document.getElementById("sipResult");
     if (resultElement) resultElement.style.display = "none";
   }
@@ -309,5 +306,5 @@ function initializeSIPCalculator() {
 // Initialize when DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
   initializeSIPCalculator();
-  initializeCharts();
+  // Charts will now be created on first calculate, after the result is shown.
 });

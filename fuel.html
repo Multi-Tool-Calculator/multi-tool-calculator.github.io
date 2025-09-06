@@ -8,6 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/additional.css" />
     <style>
@@ -142,7 +143,7 @@
           <h3>Fuel Cost Calculator</h3>
         </div>
         <div class="calculator-body">
-          <form id="fuelForm">
+          <form id="fuelForm" class="calculator-form">
             <div class="fuel-type-selector">
               <button
                 type="button"
@@ -209,10 +210,10 @@
                 step="0.1"
                 placeholder="Enter vehicle mileage"
               />
-              <div class="efficiency-info">
+              <!-- <div class="efficiency-info">
                 <span id="mileageUnit">km/l</span>
                 <span id="efficiencyTip"></span>
-              </div>
+              </div> -->
             </div>
 
             <button type="submit" class="calculate-btn">Calculate Cost</button>
@@ -253,11 +254,11 @@
                   <p id="roundTripCost">₹0</p>
                   <div class="amount-in-words" id="roundTripCostInWords"></div>
                 </div>
-                <div class="trip-detail-item">
+                <!-- <div class="trip-detail-item">
                   <h5>Monthly Cost (20 trips)</h5>
                   <p id="monthlyCost">₹0</p>
                   <div class="amount-in-words" id="monthlyCostInWords"></div>
-                </div>
+                </div> -->
                 <div class="trip-detail-item">
                   <h5>CO₂ Emissions</h5>
                   <p id="emissions">0 kg</p>
@@ -335,167 +336,5 @@
     <script src="js/utils.js"></script>
     <script src="js/fuel.js"></script>
     <script src="js/components.js"></script>
-    <!-- <script src="js/calculators.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const fuelTypeButtons = document.querySelectorAll(".fuel-type-btn");
-        const distanceUnitRadios = document.getElementsByName("distanceUnit");
-        const mileageUnitSpan = document.getElementById("mileageUnit");
-        const efficiencyTip = document.getElementById("efficiencyTip");
-        const fuelResult = document.getElementById("fuelResult");
-
-        // Fuel type selection
-        fuelTypeButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            fuelTypeButtons.forEach((btn) => btn.classList.remove("active"));
-            button.classList.add("active");
-            updateEfficiencyTip();
-            localStorage.setItem("lastFuelType", button.dataset.type);
-          });
-        });
-
-        // Distance unit toggle
-        distanceUnitRadios.forEach((radio) => {
-          radio.addEventListener("change", () => {
-            const unit = radio.value;
-            mileageUnitSpan.textContent =
-              unit === "km" ? "km/l" : "miles/gallon";
-            localStorage.setItem("lastDistanceUnit", unit);
-            updateEfficiencyTip();
-          });
-        });
-
-        function updateEfficiencyTip() {
-          const fuelType = document.querySelector(".fuel-type-btn.active")
-            .dataset.type;
-          const unit = document.querySelector(
-            'input[name="distanceUnit"]:checked'
-          ).value;
-
-          const tips = {
-            petrol: {
-              km: "Good: >15 km/l",
-              miles: "Good: >35 mpg",
-            },
-            diesel: {
-              km: "Good: >20 km/l",
-              miles: "Good: >47 mpg",
-            },
-            cng: {
-              km: "Good: >20 km/kg",
-              miles: "Good: >47 mpg",
-            },
-          };
-
-          efficiencyTip.textContent = tips[fuelType][unit];
-        }
-
-        // Calculate fuel cost
-        window.calculateFuelCost = () => {
-          try {
-            const distance = parseFloat(
-              document.getElementById("distance").value
-            );
-            const fuelPrice = parseFloat(
-              document.getElementById("fuelPrice").value
-            );
-            const mileage = parseFloat(
-              document.getElementById("mileage").value
-            );
-            const unit = document.querySelector(
-              'input[name="distanceUnit"]:checked'
-            ).value;
-            const fuelType = document.querySelector(".fuel-type-btn.active")
-              .dataset.type;
-
-            let fuelRequired, costPerUnit, totalCost;
-
-            if (unit === "km") {
-              fuelRequired = distance / mileage;
-              costPerUnit = fuelPrice / mileage;
-            } else {
-              // Convert to metric for calculation
-              const kmDistance = distance * 1.60934;
-              const kmMileage = mileage * 0.425144; // Convert mpg to km/l
-              fuelRequired = kmDistance / kmMileage;
-              costPerUnit = (fuelPrice * 0.264172) / mileage; // Convert price per liter to gallon
-            }
-
-            totalCost = fuelRequired * fuelPrice;
-
-            // Update results
-            document.getElementById(
-              "fuelRequired"
-            ).textContent = `${fuelRequired.toFixed(2)} ${
-              fuelType === "cng" ? "kg" : "L"
-            }`;
-            document.getElementById(
-              "costPerUnit"
-            ).textContent = `₹${costPerUnit.toFixed(2)}/${
-              unit === "km" ? "km" : "mile"
-            }`;
-            document.getElementById("totalCost").textContent =
-              formatCurrency(totalCost);
-            document.getElementById("roundTripCost").textContent =
-              formatCurrency(totalCost * 2);
-            document.getElementById("monthlyCost").textContent = formatCurrency(
-              totalCost * 40
-            ); // 20 round trips
-
-            // Calculate CO2 emissions (rough estimate)
-            const emissionFactors = {
-              petrol: 2.31, // kg CO2 per liter
-              diesel: 2.68,
-              cng: 2.75, // kg CO2 per kg of CNG
-            };
-
-            const emissions = fuelRequired * emissionFactors[fuelType];
-            document.getElementById(
-              "emissions"
-            ).textContent = `${emissions.toFixed(1)} kg`;
-
-            fuelResult.classList.add("show");
-
-            // Save values
-            localStorage.setItem("lastDistance", distance);
-            localStorage.setItem("lastFuelPrice", fuelPrice);
-            localStorage.setItem("lastMileage", mileage);
-          } catch (error) {
-            showError(error.message);
-          }
-        };
-
-        // Load saved values
-        const savedFuelType = localStorage.getItem("lastFuelType");
-        const savedDistanceUnit = localStorage.getItem("lastDistanceUnit");
-
-        if (savedFuelType) {
-          const button = document.querySelector(
-            `[data-type="${savedFuelType}"]`
-          );
-          if (button) button.click();
-        }
-
-        if (savedDistanceUnit) {
-          const radio = document.querySelector(
-            `input[name="distanceUnit"][value="${savedDistanceUnit}"]`
-          );
-          if (radio) radio.click();
-        }
-
-        const savedDistance = localStorage.getItem("lastDistance");
-        const savedFuelPrice = localStorage.getItem("lastFuelPrice");
-        const savedMileage = localStorage.getItem("lastMileage");
-
-        if (savedDistance)
-          document.getElementById("distance").value = savedDistance;
-        if (savedFuelPrice)
-          document.getElementById("fuelPrice").value = savedFuelPrice;
-        if (savedMileage)
-          document.getElementById("mileage").value = savedMileage;
-
-        updateEfficiencyTip();
-      });
-    </script> -->
   </body>
 </html>

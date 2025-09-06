@@ -15,6 +15,42 @@ class AppHeader extends HTMLElement {
     const subtitle = this.getAttribute("subtitle") || "";
     const currentPage = getCurrentPage();
 
+    const getNavLinks = () => `
+      <a href="index.html" class="${
+        currentPage === "index" ? "active" : ""
+      }">Home</a>
+      <a href="emi.html" class="${
+        currentPage === "emi" ? "active" : ""
+      }">EMI</a>
+      <a href="gst.html" class="${
+        currentPage === "gst" ? "active" : ""
+      }">GST</a>
+      <a href="sip.html" class="${
+        currentPage === "sip" ? "active" : ""
+      }">SIP</a>
+      <a href="tax.html" class="${
+        currentPage === "tax" ? "active" : ""
+      }">Tax</a>
+      <a href="bmi.html" class="${
+        currentPage === "bmi" ? "active" : ""
+      }">BMI</a>
+      <a href="age.html" class="${
+        currentPage === "age" ? "active" : ""
+      }">Age</a>
+      <a href="gold.html" class="${
+        currentPage === "gold" ? "active" : ""
+      }">Gold</a>
+      <a href="fuel.html" class="${
+        currentPage === "fuel" ? "active" : ""
+      }">Fuel</a>
+      <a href="percentage.html" class="${
+        currentPage === "percentage" ? "active" : ""
+      }">Percentage</a>
+      <a href="discount.html" class="${
+        currentPage === "discount" ? "active" : ""
+      }">Discount</a>
+    `;
+
     this.shadowRoot.innerHTML = `
       <style>
         :host {
@@ -26,6 +62,7 @@ class AppHeader extends HTMLElement {
         .app-header {
           padding: 1rem;
           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          position: relative;
         }
         .header-content {
           max-width: 1200px;
@@ -42,6 +79,8 @@ class AppHeader extends HTMLElement {
           font-size: 1rem;
           opacity: 0.9;
         }
+
+        /* Desktop Nav */
         .nav-menu {
           margin-top: 1rem;
           display: flex;
@@ -63,59 +102,87 @@ class AppHeader extends HTMLElement {
           background-color: rgba(255,255,255,0.2);
           font-weight: 600;
         }
+
+        /* Mobile Hamburger */
+        .hamburger {
+          display: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+          background: none;
+          border: none;
+          color: var(--text-light, #ffffff);
+          position: absolute;
+          right: 1rem;
+          top: 1rem;
+        }
+
+        .side-menu{
+          display: none;}
+
+
         @media (max-width: 768px) {
           .nav-menu {
-            flex-direction: column;
-            align-items: center;
+            display: none; /* hide desktop nav */
           }
-          .nav-menu a {
-            width: 100%;
-            text-align: center;
+          .hamburger {
+            display: block; /* show hamburger */
+          }
+            /* Side menu */
+          .side-menu {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: -285px;
+            height: 100%;
+            width: 250px;
+            background: var(--primary-color, #2196F3);
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            transition: left 0.3s ease;
+            z-index: 1000;
+          }
+          .side-menu.open {
+            left: 0;
+          }
+          .side-menu a {
+            color: var(--text-light, #ffffff);
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+          }
+          .side-menu a.active {
+            background-color: rgba(255,255,255,0.2);
+            font-weight: 600;
           }
         }
       </style>
+
       <header class="app-header">
         <div class="header-content">
           <h1 class="header-title">${title}</h1>
           ${subtitle ? `<p class="header-subtitle">${subtitle}</p>` : ""}
+          <button class="hamburger">&#9776;</button>
           <nav class="nav-menu">
-            <a href="index.html" class="${
-              currentPage === "index" ? "active" : ""
-            }">Home</a>
-            <a href="emi.html" class="${
-              currentPage === "emi" ? "active" : ""
-            }">EMI</a>
-            <a href="gst.html" class="${
-              currentPage === "gst" ? "active" : ""
-            }">GST</a>
-            <a href="sip.html" class="${
-              currentPage === "sip" ? "active" : ""
-            }">SIP</a>
-            <a href="tax.html" class="${
-              currentPage === "tax" ? "active" : ""
-            }">Tax</a>
-            <a href="bmi.html" class="${
-              currentPage === "bmi" ? "active" : ""
-            }">BMI</a>
-            <a href="age.html" class="${
-              currentPage === "age" ? "active" : ""
-            }">Age</a>
-            <a href="gold.html" class="${
-              currentPage === "gold" ? "active" : ""
-            }">Gold</a>
-            <a href="fuel.html" class="${
-              currentPage === "fuel" ? "active" : ""
-            }">Fuel</a>
-            <a href="percentage.html" class="${
-              currentPage === "percentage" ? "active" : ""
-            }">Percentage</a>
-            <a href="discount.html" class="${
-              currentPage === "discount" ? "active" : ""
-            }">Discount</a>
+            ${getNavLinks()}
           </nav>
         </div>
       </header>
+
+      <!-- Side Menu for Mobile -->
+      <nav class="side-menu">
+        ${getNavLinks()}
+      </nav>
     `;
+
+    // Add toggle for side menu
+    const hamburger = this.shadowRoot.querySelector(".hamburger");
+    const sideMenu = this.shadowRoot.querySelector(".side-menu");
+    hamburger.addEventListener("click", () => {
+      sideMenu.classList.toggle("open");
+    });
   }
 }
 
@@ -141,6 +208,12 @@ class AppFooter extends HTMLElement {
           padding: 1rem;
           text-align: center;
           font-size: 0.9rem;
+        }
+        .footer p {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.5rem;
         }
         .footer a {
           color: var(--primary-color, #2196F3);
@@ -189,7 +262,6 @@ class ResultDisplay extends HTMLElement {
     // Convert number to words (requires global numberToWords function)
     const words =
       numericValue > 0 ? numberToWords(Math.round(numericValue)) : "";
-    console.log("numberToWords", words);
 
     this.shadowRoot.innerHTML = `
       <style>

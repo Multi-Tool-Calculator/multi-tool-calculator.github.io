@@ -78,10 +78,7 @@ function drawEMIChart(principal, interest) {
       datasets: [
         {
           data: [principal, interest],
-          backgroundColor: [
-            "rgba(79, 70, 229, 0.8)",
-            "rgba(107, 33, 168, 0.8)",
-          ],
+          backgroundColor: ["#2563eb", "#10b981"],
           borderWidth: 1,
         },
       ],

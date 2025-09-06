@@ -141,8 +141,6 @@ function updateAgeResults(result) {
     "day"
   );
 
-  console.log("totalMonths", totalMonths);
-
   // Update total values
   document.getElementById("lifetimeMonths").textContent =
     totalMonths.toLocaleString();
@@ -186,7 +184,6 @@ function handleAgeCalculation(event) {
 
     // Calculate age details
     const result = calculateAge(birthDate, targetDate);
-    console.log(result);
 
     // Update UI
     const resultElement = document.getElementById("ageResult");
