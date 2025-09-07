@@ -203,6 +203,7 @@ class AppFooter extends HTMLElement {
           width: 100%;
           background: var(--footer-bg, #f5f5f5);
           color: var(--text-dark, #333);
+          box-shadow: 0 0 20px rgba(0, 0, 0, .2);
         }
         .footer {
           padding: 1rem;
