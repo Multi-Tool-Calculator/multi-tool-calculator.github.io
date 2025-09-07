@@ -187,35 +187,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function handleDiscountCalculation() {
-    try {
-      const price = parseFloat(document.getElementById("originalPrice").value);
-      const discount = parseFloat(
-        document.getElementById("discountPercent").value
-      );
+  // function handleDiscountCalculation() {
+  //   try {
+  //     const price = parseFloat(document.getElementById("originalPrice").value);
+  //     const discount = parseFloat(
+  //       document.getElementById("discountPercent").value
+  //     );
 
-      if (!validateNumericInput(price) || !validateNumericInput(discount)) {
-        return showError("Please enter valid numbers.");
-      }
+  //     if (!validateNumericInput(price) || !validateNumericInput(discount)) {
+  //       return showError("Please enter valid numbers.");
+  //     }
 
-      const discountAmount = (discount / 100) * price;
-      const finalPrice = price - discountAmount;
+  //     const discountAmount = (discount / 100) * price;
+  //     const finalPrice = price - discountAmount;
 
-      updateResult("discountAmount", discountAmount, "currency", " ₹");
-      updateResult("finalPrice", finalPrice, "currency", " ₹");
-      document.getElementById(
-        "discountSteps"
-      ).innerHTML = `Discount = (${discount}% of ${formatNumber(
-        price
-      )}) = ${formatNumber(discountAmount)} <br>
-         Final Price = ${formatNumber(price)} - ${formatNumber(
-        discountAmount
-      )} = ${formatNumber(finalPrice)}`;
-      document.getElementById("discountResult").classList.add("show");
-    } catch (error) {
-      showError(error.message);
-    }
-  }
+  //     updateResult("discountAmount", discountAmount, "currency", " ₹");
+  //     updateResult("finalPrice", finalPrice, "currency", " ₹");
+  //     document.getElementById(
+  //       "discountSteps"
+  //     ).innerHTML = `Discount = (${discount}% of ${formatNumber(
+  //       price
+  //     )}) = ${formatNumber(discountAmount)} <br>
+  //        Final Price = ${formatNumber(price)} - ${formatNumber(
+  //       discountAmount
+  //     )} = ${formatNumber(finalPrice)}`;
+  //     document.getElementById("discountResult").classList.add("show");
+  //   } catch (error) {
+  //     showError(error.message);
+  //   }
+  // }
 
   // --- Helpers ---
   function updateResult(elementId, value, type = "number", suffix = "") {
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const wordsId = elementId + "InWords";
     const wordsEl = document.getElementById(wordsId);
     if (wordsEl) {
-      wordsEl.textContent = numberToWords(Math.round(value), type);
+      wordsEl.textContent = numberToWords(value, type);
     }
   }
 

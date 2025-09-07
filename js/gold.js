@@ -158,14 +158,8 @@ function handleGoldCalculation(event) {
     const goldResultDiv = document.getElementById("goldResult");
     if (goldResultDiv) {
       goldResultDiv.style.display = "block";
-      // initialize or update results
       updateGoldResults(result, makingChargesAmount);
     }
-
-    // Persist last used values
-    localStorage.setItem("lastGoldWeight", weight);
-    localStorage.setItem("lastGoldRate", rate);
-    localStorage.setItem("lastGoldPurity", purityKarat);
   } catch (err) {
     if (typeof showError === "function") showError(err.message);
     else alert(err.message);
@@ -188,7 +182,6 @@ function initializeGoldCalculator() {
       const perc = purityMap[k] ?? Math.round((k / 24) * 100 * 100) / 100;
       const purityPercentageEl = document.getElementById("purityPercentage");
       if (purityPercentageEl) purityPercentageEl.textContent = `${perc}%`;
-      localStorage.setItem("lastGoldPurity", k);
     });
   });
 
@@ -216,6 +209,14 @@ function initializeGoldCalculator() {
     rateInput.addEventListener("blur", function () {
       if (this.value) formatGoldRate(this);
     });
+
+    // Add placeholder/help suggestion
+    rateInput.addEventListener("focus", () => {
+      rateInput.setAttribute("placeholder", "Enter gold rate per gram (₹)");
+    });
+    rateInput.addEventListener("blur", () => {
+      rateInput.removeAttribute("placeholder");
+    });
   }
 
   // Weight input validation
@@ -225,6 +226,14 @@ function initializeGoldCalculator() {
       const v = parseFloat(this.value);
       if (!isNaN(v) && v < 0) this.value = 0;
     });
+
+    // Add placeholder/help suggestion
+    weightInput.addEventListener("focus", () => {
+      weightInput.setAttribute("placeholder", "Enter gold weight in grams");
+    });
+    weightInput.addEventListener("blur", () => {
+      weightInput.removeAttribute("placeholder");
+    });
   }
 
   // Form submit
@@ -233,22 +242,14 @@ function initializeGoldCalculator() {
     goldForm.addEventListener("submit", handleGoldCalculation);
   }
 
-  // Load saved values if any
-  const savedPurity = localStorage.getItem("lastGoldPurity");
-  if (savedPurity) {
-    const btn = document.querySelector(
-      `.gold-type-btn[data-purity="${savedPurity}"]`
-    );
-    if (btn) btn.click();
-  }
-  const savedWeight = localStorage.getItem("lastGoldWeight");
-  const savedRate = localStorage.getItem("lastGoldRate");
-  if (savedWeight && weightInput) weightInput.value = savedWeight;
-  if (savedRate && rateInput) {
-    // format saved rate
-    rateInput.value = parseFloat(savedRate).toLocaleString("en-IN");
-    formatGoldRate(rateInput);
-  }
+  // 🔹 Clear saved values on page load
+  localStorage.removeItem("lastGoldPurity");
+  localStorage.removeItem("lastGoldWeight");
+  localStorage.removeItem("lastGoldRate");
+
+  // Clear fields when refreshed
+  if (weightInput) weightInput.value = "";
+  if (rateInput) rateInput.value = "";
 }
 
 // initialize on DOM ready
