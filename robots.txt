@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://brsuraj96.github.io/Multi-Tool-Calculator/sitemap.xml
+Sitemap: https://multi-tool-calculator.github.io/sitemap.xml
