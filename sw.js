@@ -1,5 +1,7 @@
 // sw.js
-const CACHE_NAME = "mtc-cache-v1"; // change version when files update
+const CACHE_VERSION = "v1.0.0"; // bump this when you make changes
+const CACHE_NAME = `multi-tool-cache-${CACHE_VERSION}`;
+
 const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
