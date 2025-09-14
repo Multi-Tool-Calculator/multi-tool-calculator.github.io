@@ -15,14 +15,14 @@
       content="EMI calculator, GST calculator, SIP calculator, BMI calculator, age calculator, percentage calculator, income tax calculator, gold rate calculator, fuel cost calculator, discount calculator, online calculator India"
     />
 
-    <!-- google site verification -->
+    <!-- SEO + Verification -->
     <meta name="robots" content="index, follow" />
     <meta
       name="google-site-verification"
       content="KCSBQbFe_esl79q_wEV8kdBHAnLfvDaNthPvvnoecV0"
     />
 
-    <!-- google adsense -->
+    <!-- Google Adsense -->
     <meta name="google-adsense-account" content="ca-pub-2427312920817296" />
     <script
       async
@@ -30,13 +30,83 @@
       crossorigin="anonymous"
     ></script>
 
-    <link
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload Fonts & Load Async -->
+    <!-- <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <link rel="stylesheet" href="css/styles.css" />
-    <script src="js/components.js" defer></script>
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      />
+    </noscript> -->
+    <script src="js/loader.js" defer></script>
+
+    <!-- Inline Critical CSS (basic layout, header/nav) -->
+    <style>
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: #f9fafb;
+        color: #111827;
+      }
+      header {
+        background: linear-gradient(135deg, #2563eb, #10b981);
+        color: #fff;
+        padding: 1rem;
+        text-align: center;
+      }
+      header h1 {
+        font-size: 1.5rem;
+        margin: 0;
+      }
+      nav {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 0.5rem;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      nav a:hover {
+        text-decoration: underline;
+      }
+    </style>
+
+    <!-- Preload Main CSS & Load Async
+    <link
+      rel="preload"
+      href="css/styles.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="css/styles.css" />
+    </noscript> -->
+    <script src="js/loader.js" defer></script>
+
+    <!-- JS -->
+    <!-- <script src="js/components.js" defer></script> -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then(() => console.log("✅ Service Worker registered"))
+          .catch((err) => console.log("SW registration failed:", err));
+      }
+    </script>
   </head>
+
   <body>
     <app-header
       title="Multi-Tool Calculator"

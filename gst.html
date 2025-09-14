@@ -13,13 +13,45 @@
     ></script>
 
     <title>GST Calculator - Multi-Tool Calculator</title>
+
+    <!-- Preload & async load fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/additional.css" />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Stylesheets: critical inline, others preload + lazy-load -->
+    <!-- <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preload" href="css/common.css" as="style" />
+    <link
+      rel="stylesheet"
+      href="css/common.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link rel="preload" href="css/additional.css" as="style" />
+    <link
+      rel="stylesheet"
+      href="css/additional.css"
+      media="print"
+      onload="this.media='all'"
+    /> -->
+    <script src="js/loader.js" defer></script>
   </head>
   <body>
     <app-header
@@ -98,106 +130,8 @@
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js"></script>
-    <script src="js/gst.js"></script>
-    <script src="js/components.js"></script>
-    <!-- <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("gstForm");
-        const gstRateSelect = document.getElementById("gstRate");
-        const amountInput = document.getElementById("gstAmount");
-        const amountInWords = document.getElementById("gstAmountWords");
-
-        // Display amount in words
-        amountInput.addEventListener("input", () => {
-          const value = parseFloat(amountInput.value);
-          amountInWords.textContent =
-            value > 0 ? numberToWords(Math.round(value)) : "";
-        });
-
-        // Calculate GST
-        window.calculateGST = () => {
-          try {
-            const amount = parseFloat(
-              document.getElementById("gstAmount").value
-            );
-            const rate = parseFloat(document.getElementById("gstRate").value);
-            const type = document.getElementById("gstType").value;
-
-            if (!validateNumericInput(amount, 0.01)) {
-              throw new Error("Please enter a valid amount");
-            }
-
-            const result = calculateGST(amount, rate, type);
-
-            // Update results
-            document.getElementById("netAmount").textContent = formatCurrency(
-              result.baseAmount
-            );
-            document.getElementById("netAmountInWords").textContent =
-              numberToWords(Math.round(result.baseAmount));
-            document.getElementById("gstAmountResult").textContent =
-              formatCurrency(result.gstAmount);
-            document.getElementById("gstAmountInWords").textContent =
-              numberToWords(Math.round(result.gstAmount));
-            document.getElementById("grossAmount").textContent = formatCurrency(
-              result.totalAmount
-            );
-            document.getElementById("grossAmountInWords").textContent =
-              numberToWords(Math.round(result.totalAmount));
-
-            document.getElementById("gstResult").classList.add("show");
-          } catch (error) {
-            showError(error.message);
-          }
-        };
-
-        // Add event listener for button
-        document
-          .getElementById("gstCalculateBtn")
-          .addEventListener("click", function (e) {
-            e.preventDefault();
-            clearError();
-            try {
-              calculateGST();
-            } catch (error) {
-              showError(error.message);
-            }
-          });
-
-        // Error message element
-        function showError(message) {
-          let errorDiv = document.getElementById("errorMessage");
-          if (!errorDiv) {
-            errorDiv = document.createElement("div");
-            errorDiv.id = "errorMessage";
-            errorDiv.className = "error-message";
-            document
-              .getElementById("gstCalculateBtn")
-              .parentNode.insertBefore(
-                errorDiv,
-                document.getElementById("gstCalculateBtn").nextSibling
-              );
-          }
-          errorDiv.textContent = message;
-          errorDiv.style.display = "block";
-        }
-        function clearError() {
-          const errorDiv = document.getElementById("errorMessage");
-          if (errorDiv) errorDiv.style.display = "none";
-        }
-
-        // Save last used rate in localStorage
-        const savedRate = localStorage.getItem("lastGSTRate");
-        if (savedRate) {
-          gstRateSelect.value = savedRate;
-        }
-
-        // Save rate when changed
-        gstRateSelect.addEventListener("change", () => {
-          localStorage.setItem("lastGSTRate", gstRateSelect.value);
-        });
-      });
-    </script> -->
+    <!-- <script src="js/utils.js" defer></script>
+    <script src="js/gst.js" defer></script>
+    <script src="js/components.js" defer></script> -->
   </body>
 </html>
