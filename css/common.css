@@ -77,13 +77,13 @@ body {
   color: #fff;
   padding: 1rem;
   border-radius: 12px 12px 0 0;
-  min-width: 600px;
-  max-width: 700px;
+  min-width: 100%;
+  max-width: 100%;
 }
 
 .calculator-body {
-  min-width: 600px;
-  max-width: 700px;
+  min-width: 100%;
+  max-width: 100%;
   padding: 1.5rem;
   box-shadow: var(--shadow);
 }
@@ -232,16 +232,89 @@ body {
   border-color: #aaa;
 }
 
+.terms-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.terms-section {
+  margin-bottom: 2rem;
+}
+
+.terms-section:last-child {
+  margin-bottom: 0;
+}
+
+.terms-section h1 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.terms-section h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.terms-section h3 {
+  color: var(--text-primary);
+  margin: 1.5rem 0 1rem;
+  font-size: 1.25rem;
+}
+
+.terms-section p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.terms-section ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.terms-section li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
 /* Responsive Design */
+/* Tablet breakpoint */
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+
+  .calculator-card {
+    padding: 1.5rem;
+    min-width: 85%;
+  }
+
+  .calculator-header {
+    min-width: 100%;
+  }
+
+  .calculator-body {
+    min-width: 100%;
+  }
+}
+
+/* Mobile breakpoint */
 @media (max-width: 768px) {
   .container {
     margin: 0 auto;
     min-width: 90%;
+    padding: 1rem;
   }
 
   .calculator-card {
     min-width: 90%;
     max-width: 95%;
+    padding: 1rem;
   }
 
   .calculator-header {
@@ -254,5 +327,60 @@ body {
     margin: 0 auto;
     min-width: 90%;
     max-width: 100%;
+  }
+
+  /* Improve form elements on mobile */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  select {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 1rem;
+  }
+
+  /* Improve button touch targets */
+  button {
+    min-height: 44px; /* Apple's recommended minimum */
+    padding: 0.75rem 1rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+}
+
+/* Small mobile breakpoint */
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  .calculator-card {
+    padding: 0.75rem;
+    margin: 0.25rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group > * {
+    width: 100%;
   }
 }

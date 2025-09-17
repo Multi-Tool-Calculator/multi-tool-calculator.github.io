@@ -3,16 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
     <title>
       Multi-Tool Calculator - EMI, GST, SIP, BMI & More Online Calculators
     </title>
     <meta
       name="description"
-      content="Free online calculators for EMI, GST, SIP, Income Tax, BMI, Age, Gold Rate, Fuel Cost, Percentage & Discount calculations. Mobile-friendly calculator tools for Indians."
+      content="Multi-Tool Calculator offers free online tools for EMI, GST, SIP, Income Tax, BMI, Age, Gold Rate, Fuel Cost, Percentage & Discount calculations. Discover our collection of simple, free, and powerful calculators that help you solve everyday problems."
     />
     <meta
       name="keywords"
-      content="EMI calculator, GST calculator, SIP calculator, BMI calculator, age calculator, percentage calculator, income tax calculator, gold rate calculator, fuel cost calculator, discount calculator, online calculator India"
+      content="Online calculators, Free calculators, Financial tools, EMI calculator, GST calculator, SIP calculator, BMI calculator, age calculator, percentage calculator, income tax calculator, gold rate calculator, fuel cost calculator, discount calculator, online calculator India"
     />
 
     <!-- SEO + Verification -->
@@ -34,7 +36,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Preload Fonts & Load Async -->
+    <!-- Preload Fonts -->
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK1x3.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <!-- Async Load Google Fonts -->
     <link
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -48,13 +59,14 @@
       />
     </noscript>
 
-    <!-- Inline Critical CSS (basic layout, header/nav) -->
+    <!-- Inline Critical CSS -->
     <style>
       body {
         margin: 0;
-        font-family: "Inter", sans-serif;
+        font-family: "Inter", Arial, sans-serif;
         background: #f9fafb;
         color: #111827;
+        line-height: 1.6;
       }
       header {
         background: linear-gradient(135deg, #2563eb, #10b981);
@@ -80,21 +92,42 @@
       nav a:hover {
         text-decoration: underline;
       }
+
+      /* Prevent CLS from lists shifting */
+      ul.tools-list {
+        list-style: none; /* hide default bullets */
+        padding-left: 0;
+      }
+      ul.tools-list li {
+        margin: 0.5rem 0;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      /* Reserve image/icon/text space */
+      .calculator-icon {
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        text-align: center;
+        margin-right: 0.5rem;
+        font-size: 1.25rem;
+      }
     </style>
 
     <!-- Preload Main CSS & Load Async -->
     <link
       rel="preload"
-      href="css/styles.css"
+      href="css/styles.css?v=v1.0.0"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
-      <link rel="stylesheet" href="css/styles.css" />
+      <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
     </noscript>
 
     <!-- JS -->
-    <script src="js/components.js" defer></script>
+    <script src="js/components.js?v=v1.0.0" defer></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -104,11 +137,10 @@
       }
     </script>
   </head>
-
   <body>
     <app-header
       title="Multi-Tool Calculator"
-      subtitle="Free online calculators for Finance, Education & Daily Use"
+      subtitle="Multi-Tool Calculator offers free online tools for EMI, GST, SIP, Income Tax, BMI, Age, Gold Rate, Fuel Cost, Percentage & Discount calculations."
     ></app-header>
 
     <main class="container">
@@ -211,8 +243,74 @@
           </div>
         </div>
       </section>
-    </main>
+      <section class="home-block content-block">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>Why Use Multi-Tool Calculator?</h2>
+          </div>
+          <div class="calculator-body">
+            <p>
+              Multi-Tool Calculator is your one-stop solution for simple and
+              accurate online calculators. Whether you want to calculate your
+              <strong>loan EMI</strong>, check <strong>GST tax</strong>, or use
+              other financial tools, we provide fast and reliable results. Our
+              calculators are designed to save time, avoid manual errors, and
+              help you make better financial decisions.
+            </p>
+          </div>
+        </div>
 
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>Available Free Tools</h2>
+          </div>
+          <div class="calculator-body">
+            <ul class="list-items tools-list">
+              <li>
+                💰 <a href="emi.html">Loan EMI Calculator</a> – Calculate
+                monthly installments for home, car, or personal loans.
+              </li>
+              <li>
+                📊 <a href="gst.html">GST Calculator</a> – Quick GST-inclusive
+                and exclusive tax calculations.
+              </li>
+              <li>
+                📈 <a href="sip.html">SIP Calculator</a> – Estimate returns from
+                Systematic Investment Plans.
+              </li>
+              <li>
+                📝 <a href="tax.html">Income Tax Calculator</a> – Calculate your
+                income tax based on slabs.
+              </li>
+              <li>
+                ⚖️ <a href="bmi.html">BMI Calculator</a> – Check your Body Mass
+                Index for a healthy lifestyle.
+              </li>
+              <li>
+                🎂 <a href="age.html">Age Calculator</a> – Find your exact age
+                in years, months, and days.
+              </li>
+              <li>
+                ✨ <a href="gold.html">Gold Price Calculator</a> – Calculate the
+                value of gold based on weight and price.
+              </li>
+              <li>
+                ⛽ <a href="fuel.html">Fuel Cost Calculator</a> – Estimate total
+                fuel expenses for your trip.
+              </li>
+              <li>
+                % <a href="percentage.html">Percentage Calculator</a> – Perform
+                percentage increase, decrease, and ratio calculations.
+              </li>
+              <li>
+                🏷️ <a href="discount.html">Discount Calculator</a> – Easily
+                calculate price after discount and savings.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
     <app-footer></app-footer>
   </body>
 </html>

@@ -12,7 +12,15 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Gold Rate Calculator - Multi-Tool Calculator</title>
+    <title>Gold Price Calculator Online | Calculate Gold Value</title>
+    <meta
+      name="description"
+      content="Calculate the value of gold based on weight, purity, and current market rates with our Gold Rate Calculator. Get accurate estimates for your gold jewelry and investments."
+    />
+    <meta
+      name="keywords"
+      content="gold rate calculator, gold value calculator, gold price calculator, gold purity calculator, 24k gold calculator, 22k gold calculator, gold making charges, gold investment calculator"
+    />
 
     <!-- Preload & async load fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,18 +44,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="preload" href="css/common.css" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
+    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css"
+      href="css/common.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css"
+      href="css/additional.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
@@ -156,14 +164,15 @@
   </head>
   <body>
     <app-header
-      title="Gold Rate Calculator"
-      subtitle="Calculate gold value based on weight and purity"
+      title="Gold Rate Calculator - Multi-Tool Calculator"
+      subtitle="Free Gold Calculator Online. Instantly calculate the value of gold based on weight and current market price."
     ></app-header>
 
     <div class="container">
       <div class="calculator-card">
         <div class="calculator-header">
           <h3>Gold Rate Calculator</h3>
+          <p>Calculate gold value based on weight and purity</p>
         </div>
         <div class="calculator-body">
           <form id="goldForm" class="calculator-form">
@@ -333,12 +342,28 @@
           </div>
         </div>
       </div>
+      <section class="content-block">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>About Gold Rate Calculator</h2>
+          </div>
+          <div class="calculator-body">
+            <p>
+              Our <strong>Gold Rate Calculator</strong> helps you quickly
+              determine the value of your gold based on weight, purity, and
+              current market rates. Whether you're buying, selling, or just
+              curious about your gold's worth, this tool provides instant and
+              accurate calculations.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js" defer></script>
-    <script src="js/gold.js" defer></script>
-    <script src="js/components.js" defer></script>
+    <script src="js/utils.js?v=v1.0.0" defer></script>
+    <script src="js/gold.js?v=v1.0.0" defer></script>
+    <script src="js/components.js?v=v1.0.0" defer></script>
   </body>
 </html>

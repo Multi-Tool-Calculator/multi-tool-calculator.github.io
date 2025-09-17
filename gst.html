@@ -12,7 +12,12 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>GST Calculator - Multi-Tool Calculator</title>
+    <!-- SEO -->
+    <title>GST Calculator India | Free Online GST Tax Calculator</title>
+    <meta
+      name="description"
+      content="Free GST Calculator for India. Easily calculate GST inclusive & exclusive prices with accurate tax breakdown. Supports all GST rates (5%, 12%, 18%, 28%)."
+    />
 
     <!-- Preload & async load fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,26 +41,26 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="preload" href="css/common.css" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
+    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css"
+      href="css/common.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css"
+      href="css/additional.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
   </head>
   <body>
     <app-header
-      title="GST Calculator"
-      subtitle="Calculate GST amount and final price"
+      title="GST Calculator - Multi-Tool Calculator"
+      subtitle="Free GST Calculator for India. Easily calculate GST inclusive & exclusive prices with accurate tax breakdown. Supports all GST rates (5%, 12%, 18%, 28%)."
     ></app-header>
     <div class="container">
       <div class="calculator-card">
@@ -125,12 +130,48 @@
           </div>
         </div>
       </div>
+      <section class="content-block">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>About GST in India</h2>
+          </div>
+          <div class="calculator-body">
+            <p>
+              GST (Goods and Services Tax) is a unified indirect tax in India
+              applied on the supply of goods and services. Our
+              <strong>GST Calculator India</strong> helps you calculate
+              GST-inclusive and exclusive prices in seconds. The tool supports
+              all GST rates – 5%, 12%, 18%, and 28%.
+            </p>
+            <p>
+              Whether you're a business owner, freelancer, or consumer, this
+              calculator provides an easy way to understand the tax implications
+              on your transactions. Simply enter the amount and select the GST
+              rate to get instant results.
+            </p>
+          </div>
+        </div>
+
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>How Our GST Calculator Helps You</h2>
+          </div>
+          <div class="calculator-body">
+            <ul class="list-items">
+              <li>Quick calculation of GST-inclusive and exclusive prices</li>
+              <li>Accurate tax breakdown for better clarity</li>
+              <li>Supports all Indian GST slabs</li>
+              <li>Useful for business owners, freelancers, and consumers</li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </div>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js" defer></script>
-    <script src="js/gst.js" defer></script>
-    <script src="js/components.js" defer></script>
+    <script src="js/utils.js?v=v1.0.0" defer></script>
+    <script src="js/gst.js?v=v1.0.0" defer></script>
+    <script src="js/components.js?v=v1.0.0" defer></script>
   </body>
 </html>

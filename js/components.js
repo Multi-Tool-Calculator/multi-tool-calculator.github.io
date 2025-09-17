@@ -225,7 +225,7 @@ class AppFooter extends HTMLElement {
         }
       </style>
       <footer class="footer">
-        <p>© ${year} Multi-Tool Calculator. All rights reserved. <a href="terms.html">Terms of Use</a></p>
+        <p>© ${year} Multi-Tool Calculator. All rights reserved. <a href="terms.html">Terms of Use</a> | <a href="privacy.html">Privacy</a> |<a href="about.html">About</a></p>
       </footer>
     `;
   }

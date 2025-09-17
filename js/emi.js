@@ -59,7 +59,7 @@ function updateEMIResults(result) {
 
 function drawEMIChart(principal, interest) {
   const ctx = document.getElementById("emiChart");
-  if (!ctx) return;
+  if (!ctx || typeof Chart === "undefined") return; // ✅ Chart.js must be loaded
 
   const chartContext = ctx.getContext("2d");
 
@@ -68,8 +68,10 @@ function drawEMIChart(principal, interest) {
   }
 
   const total = principal + interest;
-  const principalPercentage = ((principal / total) * 100).toFixed(1);
-  const interestPercentage = ((interest / total) * 100).toFixed(1);
+  const principalPercentage = total
+    ? ((principal / total) * 100).toFixed(1)
+    : 0;
+  const interestPercentage = total ? ((interest / total) * 100).toFixed(1) : 0;
 
   emiChart = new Chart(chartContext, {
     type: "doughnut",
@@ -192,20 +194,31 @@ function initializeEMICalculator() {
   if (loanInput) {
     // Set initial pattern for validation
     loanInput.pattern = "^[\\d,]+$";
-
-    loanInput.addEventListener("input", function (e) {
+    loanInput.addEventListener("input", function () {
       formatLoanAmount(this);
     });
-
-    // Also format on blur to ensure proper formatting
-    loanInput.addEventListener("blur", function (e) {
+    loanInput.addEventListener("blur", function () {
       if (this.value) formatLoanAmount(this);
     });
   }
 
-  // Initialize empty chart
-  drawEMIChart(0, 0);
+  // Initialize empty chart safely
+  if (typeof Chart !== "undefined") {
+    drawEMIChart(0, 0);
+  }
 }
 
-// Initialize when DOM is ready
-document.addEventListener("DOMContentLoaded", initializeEMICalculator);
+// ✅ Wait until DOM and Chart.js are both ready
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof Chart === "undefined") {
+    // Retry until Chart.js is ready
+    const checkChart = setInterval(() => {
+      if (typeof Chart !== "undefined") {
+        clearInterval(checkChart);
+        initializeEMICalculator();
+      }
+    }, 50);
+  } else {
+    initializeEMICalculator();
+  }
+});

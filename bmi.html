@@ -12,7 +12,17 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>BMI Calculator - Multi-Tool Calculator</title>
+    <title>
+      BMI Calculator | Calculate Body Mass Index Online - Multi-Tool Calculator
+    </title>
+    <meta
+      name="description"
+      content="Free online BMI (Body Mass Index) calculator. Calculate your BMI instantly and understand your body weight category - underweight, normal, overweight, or obese. Get personalized health insights."
+    />
+    <meta
+      name="keywords"
+      content="BMI calculator, body mass index calculator, weight calculator, health calculator, BMI chart, BMI categories, healthy weight calculator, free BMI calculator"
+    />
 
     <!-- Preload & async load fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,18 +46,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="preload" href="css/common.css" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
+    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css"
+      href="css/common.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css"
+      href="css/additional.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
@@ -120,14 +130,15 @@
   </head>
   <body>
     <app-header
-      title="BMI Calculator"
-      subtitle="Calculate your Body Mass Index"
+      title="BMI Calculator - Multi-Tool Calculator"
+      subtitle="Free BMI Calculator – Instantly check if you’re underweight, healthy, overweight, or obese."
     ></app-header>
 
     <div class="container">
       <div class="calculator-card">
         <div class="calculator-header">
           <h3>BMI Calculator</h3>
+          <p>Calculate your Body Mass Index</p>
         </div>
         <div class="calculator-body">
           <form id="bmiForm" class="calculator-form">
@@ -266,12 +277,27 @@
           </div>
         </div>
       </div>
+      <section class="content-block">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>What is BMI?</h2>
+          </div>
+          <div class="calculator-body">
+            <p>
+              BMI (Body Mass Index) is a simple calculation using height and
+              weight to check if your body weight is healthy. Our
+              <strong>BMI Calculator Online</strong> gives quick results and
+              categorizes your health status.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js" defer></script>
-    <script src="js/bmi.js" defer></script>
-    <script src="js/components.js" defer></script>
+    <script src="js/utils.js?v=v1.0.0" defer></script>
+    <script src="js/bmi.js?v=v1.0.0" defer></script>
+    <script src="js/components.js?v=v1.0.0" defer></script>
   </body>
 </html>

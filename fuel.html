@@ -13,6 +13,14 @@
     ></script>
 
     <title>Fuel Cost Calculator - Multi-Tool Calculator</title>
+    <meta
+      name="description"
+      content="Calculate your trip fuel costs with our Fuel Cost Calculator. Input distance, fuel price, and vehicle mileage to get accurate cost estimates and CO₂ emissions."
+    />
+    <meta
+      name="keywords"
+      content="fuel cost calculator, trip fuel cost, vehicle mileage calculator, fuel price calculator, CO2 emissions calculator, travel cost estimator, fuel efficiency calculator"
+    />
 
     <!-- Preload & async load fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,18 +44,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="preload" href="css/common.css" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
+    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css"
+      href="css/common.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css"
+      href="css/additional.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
@@ -173,14 +181,15 @@
   </head>
   <body>
     <app-header
-      title="Fuel Cost Calculator"
-      subtitle="Calculate trip fuel costs and mileage"
+      title="Fuel Cost Calculator - Multi-Tool Calculator"
+      subtitle="Calculate your trip fuel costs with our Fuel Cost Calculator. Input distance, fuel price, and vehicle mileage to get accurate cost estimates and CO₂ emissions."
     ></app-header>
 
     <div class="container">
       <div class="calculator-card">
         <div class="calculator-header">
           <h3>Fuel Cost Calculator</h3>
+          <p>Calculate your trip fuel costs and CO₂ emissions</p>
         </div>
         <div class="calculator-body">
           <form id="fuelForm" class="calculator-form">
@@ -357,9 +366,9 @@
             </tbody>
           </table>
 
-          <div class="info-text" style="margin-top: 1rem">
+          <div class="info-text" style="margin-top: 1.5rem">
             <strong>Tips to Improve Fuel Efficiency:</strong>
-            <ul style="margin: 0.5rem 0 0 1.5rem">
+            <ul class="list-items tips-list">
               <li>Maintain proper tire pressure</li>
               <li>Remove excess weight from vehicle</li>
               <li>Avoid rapid acceleration and braking</li>
@@ -369,12 +378,26 @@
           </div>
         </div>
       </div>
+      <section class="content-block">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>About Fuel Cost Calculator</h2>
+          </div>
+          <div class="calculator-body">
+            <p>
+              Plan your trips better with our <strong>Fuel Calculator</strong>.
+              Enter distance, fuel efficiency, and fuel price to get an instant
+              cost estimate for your journey.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js" defer></script>
-    <script src="js/fuel.js" defer></script>
-    <script src="js/components.js" defer></script>
+    <script src="js/utils.js?v=v1.0.0" defer></script>
+    <script src="js/fuel.js?v=v1.0.0" defer></script>
+    <script src="js/components.js?v=v1.0.0" defer></script>
   </body>
 </html>

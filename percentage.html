@@ -12,7 +12,15 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Percentage Calculator - Multi-Tool Calculator</title>
+    <title>Percentage Calculator Online | Easy Percentage Calculation</title>
+    <meta
+      name="description"
+      content="Calculate percentages, percentage increase or decrease, ratio to percentage, marks to percentage, and discounts with our free Percentage Calculator. Get instant results and detailed steps."
+    />
+    <meta
+      name="keywords"
+      content="percentage calculator, percentage increase calculator, percentage decrease calculator, percentage to ratio calculator, percentage to marks calculator, percentage to discount calculator"
+    />
 
     <!-- Preload & async load fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,18 +44,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="preload" href="css/common.css" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
+    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css"
+      href="css/common.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css"
+      href="css/additional.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
@@ -96,14 +104,17 @@
   </head>
   <body>
     <app-header
-      title="Percentage Calculator"
-      subtitle="Calculate percentages, increase or decrease, discounts, marks & more"
+      title="Percentage Calculator - Multi-Tool Calculator"
+      subtitle="Free Percentage Calculator Online. Calculate percentages, increase/decrease values, and find percentage differences instantly."
     ></app-header>
 
     <div class="container">
       <div class="calculator-card">
         <div class="calculator-header">
           <h3>Percentage Calculator</h3>
+          <p>
+            Calculate percentages, increase or decrease, discounts, marks & more
+          </p>
         </div>
         <div class="calculator-body">
           <!-- Category Buttons -->
@@ -383,13 +394,27 @@
           </div> -->
         </div>
       </div>
+      <section class="content-block">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>About Percentage Calculator</h2>
+          </div>
+          <div class="calculator-body">
+            <p>
+              Our <strong>Percentage Calculator</strong> helps you calculate
+              percentage values, increases, decreases, and differences quickly.
+              Useful for exams, business, and finance.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
 
     <app-footer></app-footer>
 
     <!-- JS moved to bottom with defer -->
-    <script src="js/utils.js" defer></script>
-    <script src="js/percentage.js" defer></script>
-    <script src="js/components.js" defer></script>
+    <script src="js/utils.js?v=v1.0.0" defer></script>
+    <script src="js/percentage.js?v=v1.0.0" defer></script>
+    <script src="js/components.js?v=v1.0.0" defer></script>
   </body>
 </html>

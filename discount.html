@@ -12,7 +12,17 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Discount Calculator - Multi-Tool Calculator</title>
+    <title>
+      Discount Calculator | Calculate Price After Discount & Savings
+    </title>
+    <meta
+      name="description"
+      content="Free discount calculator to find final price after discount, total savings, and percentage off. Perfect for shopping, sales, and determining the best deals."
+    />
+    <meta
+      name="keywords"
+      content="discount calculator, sale price calculator, percentage off calculator, savings calculator, price reduction calculator, calculate discounts"
+    />
 
     <!-- Preload & async load fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,18 +46,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="preload" href="css/common.css" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
+    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css"
+      href="css/common.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css"
+      href="css/additional.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
@@ -173,14 +183,15 @@
   </head>
   <body>
     <app-header
-      title="Discount Calculator"
-      subtitle="Calculate discounts, savings, and final prices"
+      title="Discount Calculator - Multi-Tool Calculator"
+      subtitle="Free Discount Calculator Online. Easily calculate the final price after discount percentage is applied."
     ></app-header>
 
     <div class="container">
       <div class="calculator-card">
         <div class="calculator-header">
           <h3>Discount Calculator</h3>
+          <p>Calculate discounts, savings, and final prices</p>
         </div>
         <div class="calculator-body">
           <div class="discount-type-selector">
@@ -414,12 +425,26 @@
           </div>
         </div>
       </div>
+      <section class="content-block">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>About Discount Calculator</h2>
+          </div>
+          <div class="calculator-body">
+            <p>
+              With our <strong>Discount Calculator</strong>, you can quickly
+              find out how much you will save and the final price after a
+              discount. Perfect for shopping and offers.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js" defer></script>
-    <script src="js/discount.js" defer></script>
-    <script src="js/components.js" defer></script>
+    <script src="js/utils.js?v=v1.0.0" defer></script>
+    <script src="js/discount.js?v=v1.0.0" defer></script>
+    <script src="js/components.js?v=v1.0.0" defer></script>
   </body>
 </html>

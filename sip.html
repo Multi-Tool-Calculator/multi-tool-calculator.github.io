@@ -12,7 +12,15 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>SIP Calculator - Multi-Tool Calculator</title>
+    <title>SIP Calculator Online | Mutual Fund Investment Calculator</title>
+    <meta
+      name="description"
+      content="Calculate your SIP investment returns with our free SIP Calculator. Input monthly investment, expected return rate, and time period to see your potential earnings and growth over time."
+    />
+    <meta
+      name="keywords"
+      content="SIP calculator, systematic investment plan calculator, mutual fund calculator, investment return calculator, SIP returns, financial planning, investment growth calculator"
+    />
 
     <!-- Preload & async load fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,44 +44,23 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="preload" href="css/common.css" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
+    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css"
+      href="css/common.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css"
+      href="css/additional.css?v=v1.0.0"
       media="print"
       onload="this.media='all'"
     />
 
     <style>
-      .tips-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .tips-list li {
-        padding: 0.8rem 0;
-        border-bottom: 1px solid var(--border-color);
-        color: var(--text-secondary);
-      }
-
-      .tips-list li:last-child {
-        border-bottom: none;
-      }
-
-      .tips-list li::before {
-        content: "💡";
-        margin-right: 0.5rem;
-      }
-
       #investmentChart {
         margin-top: 1rem;
         max-height: 300px;
@@ -82,14 +69,15 @@
   </head>
   <body>
     <app-header
-      title="SIP Calculator"
-      subtitle="Calculate your SIP investment returns"
+      title="SIP Calculator - Multi-Tool Calculator"
+      subtitle="Free SIP Calculator Online. Calculate future value of mutual fund investments using Systematic Investment Plan (SIP)."
     ></app-header>
 
     <div class="container">
       <div class="calculator-card">
         <div class="calculator-header">
           <h3>SIP Calculator</h3>
+          <p>Calculate your potential SIP returns</p>
         </div>
         <div class="calculator-body">
           <form id="sipForm" class="calculator-form">
@@ -190,7 +178,7 @@
           <h3>SIP Investment Tips</h3>
         </div>
         <div class="calculator-body">
-          <ul class="tips-list">
+          <ul class="list-items tips-list">
             <li>Start early to benefit from the power of compounding</li>
             <li>Be consistent with your monthly investments</li>
             <li>Increase your SIP amount annually to match inflation</li>
@@ -199,6 +187,33 @@
           </ul>
         </div>
       </div>
+      <section class="content-block">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h2>What is a SIP?</h2>
+          </div>
+          <div class="calculator-body">
+            <p>
+              A Systematic Investment Plan (SIP) is a disciplined way to invest
+              a fixed amount regularly in mutual funds. It allows investors to
+              build wealth over time through the power of compounding and rupee
+              cost averaging.
+            </p>
+            <p>
+              With SIP, you can start investing with a small amount, making it
+              accessible for everyone. It helps inculcate a habit of saving and
+              investing regularly, which is crucial for long-term financial
+              goals.
+            </p>
+            <p>
+              SIPs are flexible, allowing you to choose the investment amount,
+              frequency, and duration based on your financial situation and
+              goals. They are ideal for long-term wealth creation, such as
+              retirement planning, children's education, or buying a home.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
 
     <app-footer></app-footer>
@@ -212,8 +227,8 @@
         document.body.appendChild(script);
       });
     </script>
-    <script src="js/utils.js" defer></script>
-    <script src="js/sip.js" defer></script>
-    <script src="js/components.js" defer></script>
+    <script src="js/utils.js?v=v1.0.0" defer></script>
+    <script src="js/sip.js?v=v1.0.0" defer></script>
+    <script src="js/components.js?v=v1.0.0" defer></script>
   </body>
 </html>
