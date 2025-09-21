@@ -8,12 +8,12 @@
   js = true
 
 [build.processing.css]
-  bundle = true
   minify = true
+  bundle = false
 
 [build.processing.js]
-  bundle = false
   minify = true
+  bundle = false
 
 # Cache busting
 [[plugins]]
