@@ -17,9 +17,6 @@
 # Minify HTML
 [[plugins]]
   package = "netlify-plugin-minify-html"
-  [plugins.inputs]
-    removeComments = true
-    collapseWhitespace = true
 
 # Fonts
 [[plugins]]
