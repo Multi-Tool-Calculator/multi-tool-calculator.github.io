@@ -36,30 +36,6 @@ package = "netlify-plugin-hashfiles"
 [[plugins]]
   package = "netlify-plugin-minify-html"
 
-# Fonts
-[[plugins]]
-package = "netlify-plugin-subfont"
-  [plugins.inputs]
-  recursive = true
-  inlineFonts = true
-  fontDisplay = "swap"
-  entryPoints = [
-      "index.html",
-      "about.html",
-      "bmi.html",
-      "emi.html",
-      "sip.html",
-      "gst.html",
-      "tax.html",
-      "age.html",
-      "discount.html",
-      "fuel.html",
-      "gold.html",
-      "percentage.html",
-      "privacy.html",
-      "terms.html"]
-
-
 # Submit sitemap
 [[plugins]]
   package = "netlify-plugin-submit-sitemap"
