@@ -1,23 +1,16 @@
 /* 
-  Cache HTML for a short time and static assets (CSS, JS, fonts) for a long time.
-  Also add basic security headers.
-*/
-
-/* Cache rules */
-# HTML
-/*.html
   Cache-Control: max-age=600
 
-# CSS, JS, fonts
 /*.css
   Cache-Control: max-age=31536000
+
 /*.js
   Cache-Control: max-age=31536000
+
 /*.woff2
   Cache-Control: max-age=31536000
 
-# Security headers
-/*
+/* 
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer-when-downgrade
