@@ -4,9 +4,11 @@
 
 # Cache busting
 [[plugins]]
-  package = "netlify-plugin-hashfiles"
+package = "netlify-plugin-hashfiles"
   [plugins.inputs]
-    directory = "."
+  staticDir = "."
+  entryPoints = ["index.html", "about.html", "age.html", "bmi.html", "discount.html", "emi.html", "fuel.html", "gold.html", "gst.html", "percentage.html", "privacy.html", "sip.html", "tax.html", "terms.html"]
+
 
 # Critical CSS
 [[plugins]]
