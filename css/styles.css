@@ -64,6 +64,15 @@
   box-sizing: border-box;
 }
 
+/* Preloaded font family with swap */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/inter-400.woff2") format("woff2");
+  font-display: swap; /* ensures text is visible while font loads */
+}
+
 body {
   font-family: "Inter", sans-serif;
   background: var(--background-color);
