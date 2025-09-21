@@ -36,11 +36,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link
+    <!-- Preload Local Font -->
+    <!-- <link
       rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    />
+      href="/fonts/inter-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    /> -->
 
     <!-- Async Load Google Fonts with Fallback -->
     <link
@@ -59,6 +62,14 @@
     <!-- Inline Critical CSS -->
     <style>
       /* Ensure fonts load without CLS */
+      @font-face {
+        font-family: "Inter";
+        src: url("/fonts/inter-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap; /* avoids invisible text */
+      }
+
       :root {
         --font-primary: "Inter", Arial, sans-serif;
         --background-color: #f9fafb;
