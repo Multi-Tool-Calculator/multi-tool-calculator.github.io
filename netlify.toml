@@ -12,7 +12,23 @@
 [[plugins]]
   package = "netlify-plugin-inline-critical-css"
   [plugins.inputs]
-    paths = ["/", "/about", "/bmi", "/emi", "/sip", "/gst", "/tax", "/age", "/discount", "/fuel", "/gold", "/index", "/percentage"]
+    fileFilter = [
+      "index.html",
+      "about.html",
+      "bmi.html",
+      "emi.html",
+      "sip.html",
+      "gst.html",
+      "tax.html",
+      "age.html",
+      "discount.html",
+      "fuel.html",
+      "gold.html",
+      "percentage.html",
+      "privacy.html",
+      "terms.html"
+    ]
+
 
 # Minify HTML
 [[plugins]]
