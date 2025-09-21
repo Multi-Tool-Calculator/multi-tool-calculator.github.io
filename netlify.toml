@@ -2,6 +2,19 @@
   publish = "."
   command = ""   # leave empty since you don’t need a build step
 
+#Minify JS and CSS
+[build.processing]
+  css = true
+  js = true
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = false
+  minify = true
+
 # Cache busting
 [[plugins]]
 package = "netlify-plugin-hashfiles"
@@ -35,19 +48,6 @@ package = "netlify-plugin-hashfiles"
 # Minify HTML
 [[plugins]]
   package = "netlify-plugin-minify-html"
-
-#Minify JS and CSS
-[build.processing]
-  css = true
-  js = true
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = false
-  minify = true
 
 # Submit sitemap
 [[plugins]]
