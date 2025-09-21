@@ -44,18 +44,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
@@ -168,202 +168,234 @@
       subtitle="Free Gold Calculator Online. Instantly calculate the value of gold based on weight and current market price."
     ></app-header>
 
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>Gold Rate Calculator</h3>
-          <p>Calculate gold value based on weight and purity</p>
-        </div>
-        <div class="calculator-body">
-          <form id="goldForm" class="calculator-form">
-            <div class="gold-type-selector">
-              <button
-                type="button"
-                class="gold-type-btn active"
-                data-purity="24"
-              >
-                24K
-              </button>
-              <button type="button" class="gold-type-btn" data-purity="22">
-                22K
-              </button>
-              <button type="button" class="gold-type-btn" data-purity="18">
-                18K
-              </button>
-              <button type="button" class="gold-type-btn" data-purity="14">
-                14K
-              </button>
-            </div>
-
-            <div class="purity-info">
-              <span>Selected purity:</span>
-              <strong id="purityPercentage">100%</strong>
-              <span>(24 Karat)</span>
-            </div>
-
-            <div class="form-group">
-              <label for="goldWeight" class="form-label"
-                >Gold Weight (grams)</label
-              >
-              <input
-                type="number"
-                id="goldWeight"
-                class="form-input"
-                required
-                min="0.1"
-                step="0.1"
-                placeholder="Enter weight in grams"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="goldRate" class="form-label"
-                >Gold Rate (₹ per gram)</label
-              >
-              <input
-                type="text"
-                id="goldRate"
-                class="form-input currency-input"
-                min="1"
-                pattern="[0-9,]*"
-                inputmode="numeric"
-                placeholder="Enter current gold rate"
-                required
-              />
-            </div>
-
-            <div class="making-charges">
-              <label>
-                <input type="checkbox" id="includeMaking" />
-                Include Making Charges
-              </label>
-              <div id="makingChargesInput" style="display: none">
-                <input
-                  type="number"
-                  id="makingRate"
-                  class="form-input"
-                  min="0"
-                  placeholder="Making charges (%) or fixed amount"
-                />
-                <select
-                  id="makingType"
-                  class="form-select"
-                  style="margin-top: 0.5rem"
-                >
-                  <option value="percentage">Percentage (%)</option>
-                  <option value="fixed">Fixed Amount (₹)</option>
-                </select>
-              </div>
-            </div>
-
-            <button type="submit" class="calculate-btn">Calculate Value</button>
-          </form>
-
-          <div id="goldResult" class="result">
-            <h4>Gold Value Calculation</h4>
-
-            <div class="result-item">
-              <span class="result-label">Gold Value:</span>
-              <div class="result-content">
-                <span class="result-value" id="goldValue">₹0</span>
-                <div class="amount-in-words" id="goldValueWords"></div>
-              </div>
-            </div>
-
-            <div
-              class="result-item"
-              id="makingChargesResult"
-              style="display: none"
-            >
-              <span class="result-label">Making Charges:</span>
-              <div class="result-content">
-                <span class="result-value" id="makingCharges">₹0</span>
-                <div class="amount-in-words" id="makingChargesWords"></div>
-              </div>
-            </div>
-
-            <div class="result-item">
-              <span class="result-label">Total Value:</span>
-              <div class="result-content">
-                <span class="result-value" id="totalValue">₹0</span>
-                <div class="amount-in-words" id="totalValueWords"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
       </div>
-
-      <!-- Gold Information Card -->
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>Gold Purity Guide</h3>
-        </div>
-        <div class="calculator-body">
-          <table class="gold-info-table">
-            <thead>
-              <tr>
-                <th>Karat</th>
-                <th>Purity</th>
-                <th>Common Uses</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>24K</td>
-                <td>99.9%</td>
-                <td>Investment, coins, bars</td>
-              </tr>
-              <tr>
-                <td>22K</td>
-                <td>91.6%</td>
-                <td>Traditional jewelry</td>
-              </tr>
-              <tr>
-                <td>18K</td>
-                <td>75.0%</td>
-                <td>Modern jewelry</td>
-              </tr>
-              <tr>
-                <td>14K</td>
-                <td>58.3%</td>
-                <td>Everyday jewelry</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="info-text" style="margin-top: 1rem">
-            <strong>Note:</strong>
-            <ul style="margin: 0.5rem 0 0 1.5rem">
-              <li>Making charges vary by design complexity and jeweler</li>
-              <li>Always check for hallmark certification</li>
-              <li>Gold rates fluctuate daily based on market conditions</li>
-              <li>Additional charges may apply (GST, wastage, etc.)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <section class="content-block">
+      <div class="container">
         <div class="calculator-card">
           <div class="calculator-header">
-            <h2>About Gold Rate Calculator</h2>
+            <h3>Gold Rate Calculator</h3>
+            <p>Calculate gold value based on weight and purity</p>
           </div>
           <div class="calculator-body">
-            <p>
-              Our <strong>Gold Rate Calculator</strong> helps you quickly
-              determine the value of your gold based on weight, purity, and
-              current market rates. Whether you're buying, selling, or just
-              curious about your gold's worth, this tool provides instant and
-              accurate calculations.
-            </p>
+            <form id="goldForm" class="calculator-form">
+              <div class="gold-type-selector">
+                <button
+                  type="button"
+                  class="gold-type-btn active"
+                  data-purity="24"
+                >
+                  24K
+                </button>
+                <button type="button" class="gold-type-btn" data-purity="22">
+                  22K
+                </button>
+                <button type="button" class="gold-type-btn" data-purity="18">
+                  18K
+                </button>
+                <button type="button" class="gold-type-btn" data-purity="14">
+                  14K
+                </button>
+              </div>
+
+              <div class="purity-info">
+                <span>Selected purity:</span>
+                <strong id="purityPercentage">100%</strong>
+                <span>(24 Karat)</span>
+              </div>
+
+              <div class="form-group">
+                <label for="goldWeight" class="form-label"
+                  >Gold Weight (grams)</label
+                >
+                <input
+                  type="number"
+                  id="goldWeight"
+                  class="form-input"
+                  required
+                  min="0.1"
+                  step="0.1"
+                  placeholder="Enter weight in grams"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="goldRate" class="form-label"
+                  >Gold Rate (₹ per gram)</label
+                >
+                <input
+                  type="text"
+                  id="goldRate"
+                  class="form-input currency-input"
+                  min="1"
+                  pattern="[0-9,]*"
+                  inputmode="numeric"
+                  placeholder="Enter current gold rate"
+                  required
+                />
+              </div>
+
+              <div class="making-charges">
+                <label>
+                  <input type="checkbox" id="includeMaking" />
+                  Include Making Charges
+                </label>
+                <div id="makingChargesInput" style="display: none">
+                  <input
+                    type="number"
+                    id="makingRate"
+                    class="form-input"
+                    min="0"
+                    placeholder="Making charges (%) or fixed amount"
+                  />
+                  <select
+                    id="makingType"
+                    class="form-select"
+                    style="margin-top: 0.5rem"
+                  >
+                    <option value="percentage">Percentage (%)</option>
+                    <option value="fixed">Fixed Amount (₹)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="calculate-btn">
+                Calculate Value
+              </button>
+            </form>
+
+            <div id="goldResult" class="result">
+              <h4>Gold Value Calculation</h4>
+
+              <div class="result-item">
+                <span class="result-label">Gold Value:</span>
+                <div class="result-content">
+                  <span class="result-value" id="goldValue">₹0</span>
+                  <div class="amount-in-words" id="goldValueWords"></div>
+                </div>
+              </div>
+
+              <div
+                class="result-item"
+                id="makingChargesResult"
+                style="display: none"
+              >
+                <span class="result-label">Making Charges:</span>
+                <div class="result-content">
+                  <span class="result-value" id="makingCharges">₹0</span>
+                  <div class="amount-in-words" id="makingChargesWords"></div>
+                </div>
+              </div>
+
+              <div class="result-item">
+                <span class="result-label">Total Value:</span>
+                <div class="result-content">
+                  <span class="result-value" id="totalValue">₹0</span>
+                  <div class="amount-in-words" id="totalValueWords"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+
+        <!-- Gold Information Card -->
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h3>Gold Purity Guide</h3>
+          </div>
+          <div class="calculator-body">
+            <table class="gold-info-table">
+              <thead>
+                <tr>
+                  <th>Karat</th>
+                  <th>Purity</th>
+                  <th>Common Uses</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>24K</td>
+                  <td>99.9%</td>
+                  <td>Investment, coins, bars</td>
+                </tr>
+                <tr>
+                  <td>22K</td>
+                  <td>91.6%</td>
+                  <td>Traditional jewelry</td>
+                </tr>
+                <tr>
+                  <td>18K</td>
+                  <td>75.0%</td>
+                  <td>Modern jewelry</td>
+                </tr>
+                <tr>
+                  <td>14K</td>
+                  <td>58.3%</td>
+                  <td>Everyday jewelry</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="info-text" style="margin-top: 1rem">
+              <strong>Note:</strong>
+              <ul style="margin: 0.5rem 0 0 1.5rem">
+                <li>Making charges vary by design complexity and jeweler</li>
+                <li>Always check for hallmark certification</li>
+                <li>Gold rates fluctuate daily based on market conditions</li>
+                <li>Additional charges may apply (GST, wastage, etc.)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>About Gold Rate Calculator</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                Our <strong>Gold Rate Calculator</strong> helps you quickly
+                determine the value of your gold based on weight, purity, and
+                current market rates. Whether you're buying, selling, or just
+                curious about your gold's worth, this tool provides instant and
+                accurate calculations.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/gold.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/gold.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </body>
 </html>

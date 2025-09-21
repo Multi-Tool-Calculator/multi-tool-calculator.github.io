@@ -46,18 +46,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
@@ -134,170 +134,200 @@
       subtitle="Free BMI Calculator – Instantly check if you’re underweight, healthy, overweight, or obese."
     ></app-header>
 
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>BMI Calculator</h3>
-          <p>Calculate your Body Mass Index</p>
-        </div>
-        <div class="calculator-body">
-          <form id="bmiForm" class="calculator-form">
-            <div class="unit-toggle">
-              <button type="button" id="metricToggle" class="active">
-                Metric
-              </button>
-              <button type="button" id="imperialToggle">Imperial</button>
-            </div>
-
-            <div id="metricInputs">
-              <div class="form-group">
-                <label for="weightKg" class="form-label">Weight (kg)</label>
-                <input
-                  type="number"
-                  id="weightKg"
-                  class="form-input"
-                  required
-                  min="20"
-                  max="300"
-                  step="0.1"
-                  placeholder="Enter weight in kilograms"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="heightCm" class="form-label">Height (cm)</label>
-                <input
-                  type="number"
-                  id="heightCm"
-                  class="form-input"
-                  required
-                  min="50"
-                  max="300"
-                  step="0.1"
-                  placeholder="Enter height in centimeters"
-                />
-              </div>
-            </div>
-
-            <div id="imperialInputs" style="display: none">
-              <div class="form-group">
-                <label for="weightLbs" class="form-label">Weight (lbs)</label>
-                <input
-                  type="number"
-                  id="weightLbs"
-                  class="form-input"
-                  min="44"
-                  max="660"
-                  step="0.1"
-                  placeholder="Enter weight in pounds"
-                />
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="heightFt" class="form-label">Height (ft)</label>
-                  <input
-                    type="number"
-                    id="heightFt"
-                    class="form-input"
-                    min="1"
-                    max="8"
-                    placeholder="Feet"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="heightIn" class="form-label">Height (in)</label>
-                  <input
-                    type="number"
-                    id="heightIn"
-                    class="form-input"
-                    min="0"
-                    max="11"
-                    placeholder="Inches"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <button type="submit" class="calculate-btn">Calculate BMI</button>
-          </form>
-
-          <div id="bmiResult" class="result">
-            <h4>BMI Result</h4>
-            <div class="result-item">
-              <span class="result-label">Your BMI:</span>
-              <div>
-                <span class="result-value" id="bmiValue">0</span>
-              </div>
-            </div>
-            <div id="bmiCategory" class="bmi-category"></div>
-          </div>
-        </div>
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
       </div>
-
-      <!-- BMI Information Card -->
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>BMI Categories</h3>
-        </div>
-        <div class="calculator-body">
-          <table class="bmi-chart">
-            <thead>
-              <tr>
-                <th>BMI Range</th>
-                <th>Category</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Below 18.5</td>
-                <td>Underweight</td>
-              </tr>
-              <tr>
-                <td>18.5 - 24.9</td>
-                <td>Normal weight</td>
-              </tr>
-              <tr>
-                <td>25.0 - 29.9</td>
-                <td>Overweight</td>
-              </tr>
-              <tr>
-                <td>30.0 and above</td>
-                <td>Obese</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div style="margin-top: 1rem; color: var(--text-secondary)">
-            <p>
-              <strong>Note:</strong> BMI is a general indicator and may not be
-              accurate for athletes, pregnant women, or the elderly. Consult a
-              healthcare provider for a complete health assessment.
-            </p>
-          </div>
-        </div>
-      </div>
-      <section class="content-block">
+      <div class="container">
         <div class="calculator-card">
           <div class="calculator-header">
-            <h2>What is BMI?</h2>
+            <h3>BMI Calculator</h3>
+            <p>Calculate your Body Mass Index</p>
           </div>
           <div class="calculator-body">
-            <p>
-              BMI (Body Mass Index) is a simple calculation using height and
-              weight to check if your body weight is healthy. Our
-              <strong>BMI Calculator Online</strong> gives quick results and
-              categorizes your health status.
-            </p>
+            <form id="bmiForm" class="calculator-form">
+              <div class="unit-toggle">
+                <button type="button" id="metricToggle" class="active">
+                  Metric
+                </button>
+                <button type="button" id="imperialToggle">Imperial</button>
+              </div>
+
+              <div id="metricInputs">
+                <div class="form-group">
+                  <label for="weightKg" class="form-label">Weight (kg)</label>
+                  <input
+                    type="number"
+                    id="weightKg"
+                    class="form-input"
+                    required
+                    min="20"
+                    max="300"
+                    step="0.1"
+                    placeholder="Enter weight in kilograms"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="heightCm" class="form-label">Height (cm)</label>
+                  <input
+                    type="number"
+                    id="heightCm"
+                    class="form-input"
+                    required
+                    min="50"
+                    max="300"
+                    step="0.1"
+                    placeholder="Enter height in centimeters"
+                  />
+                </div>
+              </div>
+
+              <div id="imperialInputs" style="display: none">
+                <div class="form-group">
+                  <label for="weightLbs" class="form-label">Weight (lbs)</label>
+                  <input
+                    type="number"
+                    id="weightLbs"
+                    class="form-input"
+                    min="44"
+                    max="660"
+                    step="0.1"
+                    placeholder="Enter weight in pounds"
+                  />
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="heightFt" class="form-label">Height (ft)</label>
+                    <input
+                      type="number"
+                      id="heightFt"
+                      class="form-input"
+                      min="1"
+                      max="8"
+                      placeholder="Feet"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="heightIn" class="form-label">Height (in)</label>
+                    <input
+                      type="number"
+                      id="heightIn"
+                      class="form-input"
+                      min="0"
+                      max="11"
+                      placeholder="Inches"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="calculate-btn">Calculate BMI</button>
+            </form>
+
+            <div id="bmiResult" class="result">
+              <h4>BMI Result</h4>
+              <div class="result-item">
+                <span class="result-label">Your BMI:</span>
+                <div>
+                  <span class="result-value" id="bmiValue">0</span>
+                </div>
+              </div>
+              <div id="bmiCategory" class="bmi-category"></div>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+
+        <!-- BMI Information Card -->
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h3>BMI Categories</h3>
+          </div>
+          <div class="calculator-body">
+            <table class="bmi-chart">
+              <thead>
+                <tr>
+                  <th>BMI Range</th>
+                  <th>Category</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Below 18.5</td>
+                  <td>Underweight</td>
+                </tr>
+                <tr>
+                  <td>18.5 - 24.9</td>
+                  <td>Normal weight</td>
+                </tr>
+                <tr>
+                  <td>25.0 - 29.9</td>
+                  <td>Overweight</td>
+                </tr>
+                <tr>
+                  <td>30.0 and above</td>
+                  <td>Obese</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style="margin-top: 1rem; color: var(--text-secondary)">
+              <p>
+                <strong>Note:</strong> BMI is a general indicator and may not be
+                accurate for athletes, pregnant women, or the elderly. Consult a
+                healthcare provider for a complete health assessment.
+              </p>
+            </div>
+          </div>
+        </div>
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>What is BMI?</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                BMI (Body Mass Index) is a simple calculation using height and
+                weight to check if your body weight is healthy. Our
+                <strong>BMI Calculator Online</strong> gives quick results and
+                categorizes your health status.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/bmi.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/bmi.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </body>
 </html>

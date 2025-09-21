@@ -44,18 +44,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
@@ -185,219 +185,255 @@
       subtitle="Calculate your trip fuel costs with our Fuel Cost Calculator. Input distance, fuel price, and vehicle mileage to get accurate cost estimates and CO₂ emissions."
     ></app-header>
 
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>Fuel Cost Calculator</h3>
-          <p>Calculate your trip fuel costs and CO₂ emissions</p>
-        </div>
-        <div class="calculator-body">
-          <form id="fuelForm" class="calculator-form">
-            <div class="fuel-type-selector">
-              <button
-                type="button"
-                class="fuel-type-btn active"
-                data-type="petrol"
-              >
-                Petrol
-              </button>
-              <button type="button" class="fuel-type-btn" data-type="diesel">
-                Diesel
-              </button>
-              <button type="button" class="fuel-type-btn" data-type="cng">
-                CNG
-              </button>
-            </div>
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+      <div class="container">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h3>Fuel Cost Calculator</h3>
+            <p>Calculate your trip fuel costs and CO₂ emissions</p>
+          </div>
+          <div class="calculator-body">
+            <form id="fuelForm" class="calculator-form">
+              <div class="fuel-type-selector">
+                <button
+                  type="button"
+                  class="fuel-type-btn active"
+                  data-type="petrol"
+                >
+                  Petrol
+                </button>
+                <button type="button" class="fuel-type-btn" data-type="diesel">
+                  Diesel
+                </button>
+                <button type="button" class="fuel-type-btn" data-type="cng">
+                  CNG
+                </button>
+              </div>
 
-            <div class="unit-toggle">
-              <label>
-                <input type="radio" name="distanceUnit" value="km" checked />
-                Kilometers
-              </label>
-              <label>
-                <input type="radio" name="distanceUnit" value="miles" />
-                Miles
-              </label>
-            </div>
+              <div class="unit-toggle">
+                <label>
+                  <input type="radio" name="distanceUnit" value="km" checked />
+                  Kilometers
+                </label>
+                <label>
+                  <input type="radio" name="distanceUnit" value="miles" />
+                  Miles
+                </label>
+              </div>
 
-            <div class="form-group">
-              <label for="distance" class="form-label">Trip Distance</label>
-              <input
-                type="number"
-                id="distance"
-                class="form-input"
-                required
-                min="0.1"
-                step="0.1"
-                placeholder="Enter distance"
-              />
-            </div>
+              <div class="form-group">
+                <label for="distance" class="form-label">Trip Distance</label>
+                <input
+                  type="number"
+                  id="distance"
+                  class="form-input"
+                  required
+                  min="0.1"
+                  step="0.1"
+                  placeholder="Enter distance"
+                />
+              </div>
 
-            <div class="form-group">
-              <label for="fuelPrice" class="form-label"
-                >Fuel Price (₹ per liter/kg)</label
-              >
-              <input
-                type="number"
-                id="fuelPrice"
-                class="form-input currency-input"
-                required
-                min="0.1"
-                step="0.01"
-                placeholder="Enter current fuel price"
-              />
-            </div>
+              <div class="form-group">
+                <label for="fuelPrice" class="form-label"
+                  >Fuel Price (₹ per liter/kg)</label
+                >
+                <input
+                  type="number"
+                  id="fuelPrice"
+                  class="form-input currency-input"
+                  required
+                  min="0.1"
+                  step="0.01"
+                  placeholder="Enter current fuel price"
+                />
+              </div>
 
-            <div class="form-group">
-              <label for="mileage" class="form-label">Vehicle Mileage</label>
-              <input
-                type="number"
-                id="mileage"
-                class="form-input"
-                required
-                min="0.1"
-                step="0.1"
-                placeholder="Enter vehicle mileage"
-              />
-              <!-- <div class="efficiency-info">
+              <div class="form-group">
+                <label for="mileage" class="form-label">Vehicle Mileage</label>
+                <input
+                  type="number"
+                  id="mileage"
+                  class="form-input"
+                  required
+                  min="0.1"
+                  step="0.1"
+                  placeholder="Enter vehicle mileage"
+                />
+                <!-- <div class="efficiency-info">
                 <span id="mileageUnit">km/l</span>
                 <span id="efficiencyTip"></span>
               </div> -->
-            </div>
+              </div>
 
-            <button type="submit" class="calculate-btn">Calculate Cost</button>
-          </form>
+              <button type="submit" class="calculate-btn">
+                Calculate Cost
+              </button>
+            </form>
 
-          <div id="fuelResult" class="result">
-            <h4>Trip Cost Calculation</h4>
+            <div id="fuelResult" class="result">
+              <h4>Trip Cost Calculation</h4>
 
-            <div class="cost-breakdown">
-              <div class="cost-breakdown-item">
-                <span>Fuel Required:</span>
-                <div class="result-content">
-                  <strong class="result-value" id="fuelRequired">0 L</strong>
-                  <div class="amount-in-words" id="fuelRequiredInWords"></div>
+              <div class="cost-breakdown">
+                <div class="cost-breakdown-item">
+                  <span>Fuel Required:</span>
+                  <div class="result-content">
+                    <strong class="result-value" id="fuelRequired">0 L</strong>
+                    <div class="amount-in-words" id="fuelRequiredInWords"></div>
+                  </div>
+                </div>
+                <div class="cost-breakdown-item">
+                  <span>Cost per km/mile:</span>
+                  <div class="result-content">
+                    <strong class="result-value" id="costPerUnit">₹0</strong>
+                    <div class="amount-in-words" id="costPerUnitInWords"></div>
+                  </div>
+                </div>
+                <div class="cost-breakdown-item">
+                  <span>Total Fuel Cost:</span>
+                  <div class="result-content">
+                    <strong class="result-value" id="totalCost">₹0</strong>
+                    <div class="amount-in-words" id="totalCostInWords"></div>
+                  </div>
                 </div>
               </div>
-              <div class="cost-breakdown-item">
-                <span>Cost per km/mile:</span>
-                <div class="result-content">
-                  <strong class="result-value" id="costPerUnit">₹0</strong>
-                  <div class="amount-in-words" id="costPerUnitInWords"></div>
-                </div>
-              </div>
-              <div class="cost-breakdown-item">
-                <span>Total Fuel Cost:</span>
-                <div class="result-content">
-                  <strong class="result-value" id="totalCost">₹0</strong>
-                  <div class="amount-in-words" id="totalCostInWords"></div>
-                </div>
-              </div>
-            </div>
 
-            <div class="trip-details">
-              <h4>Trip Details</h4>
-              <div class="trip-details-grid">
-                <div class="trip-detail-item">
-                  <h5>Round Trip Cost</h5>
-                  <p id="roundTripCost">₹0</p>
-                  <div class="amount-in-words" id="roundTripCostInWords"></div>
-                </div>
-                <!-- <div class="trip-detail-item">
+              <div class="trip-details">
+                <h4>Trip Details</h4>
+                <div class="trip-details-grid">
+                  <div class="trip-detail-item">
+                    <h5>Round Trip Cost</h5>
+                    <p id="roundTripCost">₹0</p>
+                    <div
+                      class="amount-in-words"
+                      id="roundTripCostInWords"
+                    ></div>
+                  </div>
+                  <!-- <div class="trip-detail-item">
                   <h5>Monthly Cost (20 trips)</h5>
                   <p id="monthlyCost">₹0</p>
                   <div class="amount-in-words" id="monthlyCostInWords"></div>
                 </div> -->
-                <div class="trip-detail-item">
-                  <h5>CO₂ Emissions</h5>
-                  <p id="emissions">0 kg</p>
+                  <div class="trip-detail-item">
+                    <h5>CO₂ Emissions</h5>
+                    <p id="emissions">0 kg</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Fuel Efficiency Guide -->
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>Fuel Efficiency Guide</h3>
-        </div>
-        <div class="calculator-body">
-          <table class="fuel-info-table">
-            <thead>
-              <tr>
-                <th>Vehicle Type</th>
-                <th>Average Mileage (km/l)</th>
-                <th>CO₂ Emissions (g/km)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Small Car (Petrol)</td>
-                <td>15-20</td>
-                <td>120-140</td>
-              </tr>
-              <tr>
-                <td>Mid-size Car (Petrol)</td>
-                <td>12-15</td>
-                <td>140-170</td>
-              </tr>
-              <tr>
-                <td>SUV (Petrol)</td>
-                <td>8-12</td>
-                <td>170-200</td>
-              </tr>
-              <tr>
-                <td>Small Car (Diesel)</td>
-                <td>20-25</td>
-                <td>100-120</td>
-              </tr>
-              <tr>
-                <td>Mid-size Car (Diesel)</td>
-                <td>15-20</td>
-                <td>120-150</td>
-              </tr>
-              <tr>
-                <td>CNG Vehicle</td>
-                <td>20-25 (km/kg)</td>
-                <td>85-95</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="info-text" style="margin-top: 1.5rem">
-            <strong>Tips to Improve Fuel Efficiency:</strong>
-            <ul class="list-items tips-list">
-              <li>Maintain proper tire pressure</li>
-              <li>Remove excess weight from vehicle</li>
-              <li>Avoid rapid acceleration and braking</li>
-              <li>Service your vehicle regularly</li>
-              <li>Use the recommended grade of motor oil</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <section class="content-block">
+        <!-- Fuel Efficiency Guide -->
         <div class="calculator-card">
           <div class="calculator-header">
-            <h2>About Fuel Cost Calculator</h2>
+            <h3>Fuel Efficiency Guide</h3>
           </div>
           <div class="calculator-body">
-            <p>
-              Plan your trips better with our <strong>Fuel Calculator</strong>.
-              Enter distance, fuel efficiency, and fuel price to get an instant
-              cost estimate for your journey.
-            </p>
+            <table class="fuel-info-table">
+              <thead>
+                <tr>
+                  <th>Vehicle Type</th>
+                  <th>Average Mileage (km/l)</th>
+                  <th>CO₂ Emissions (g/km)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Small Car (Petrol)</td>
+                  <td>15-20</td>
+                  <td>120-140</td>
+                </tr>
+                <tr>
+                  <td>Mid-size Car (Petrol)</td>
+                  <td>12-15</td>
+                  <td>140-170</td>
+                </tr>
+                <tr>
+                  <td>SUV (Petrol)</td>
+                  <td>8-12</td>
+                  <td>170-200</td>
+                </tr>
+                <tr>
+                  <td>Small Car (Diesel)</td>
+                  <td>20-25</td>
+                  <td>100-120</td>
+                </tr>
+                <tr>
+                  <td>Mid-size Car (Diesel)</td>
+                  <td>15-20</td>
+                  <td>120-150</td>
+                </tr>
+                <tr>
+                  <td>CNG Vehicle</td>
+                  <td>20-25 (km/kg)</td>
+                  <td>85-95</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="info-text" style="margin-top: 1.5rem">
+              <strong>Tips to Improve Fuel Efficiency:</strong>
+              <ul class="list-items tips-list">
+                <li>Maintain proper tire pressure</li>
+                <li>Remove excess weight from vehicle</li>
+                <li>Avoid rapid acceleration and braking</li>
+                <li>Service your vehicle regularly</li>
+                <li>Use the recommended grade of motor oil</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>About Fuel Cost Calculator</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                Plan your trips better with our
+                <strong>Fuel Calculator</strong>. Enter distance, fuel
+                efficiency, and fuel price to get an instant cost estimate for
+                your journey.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/fuel.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/fuel.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </body>
 </html>

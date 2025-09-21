@@ -52,26 +52,26 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/emi.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/emi.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </head>
   <body>
     <app-header
@@ -79,147 +79,179 @@
       subtitle="Free EMI Calculator to calculate loan EMIs for home, car, or personal loans. Quick and accurate EMI calculations with easy breakdown of interest and principal."
     ></app-header>
 
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>EMI Calculator</h3>
-          <p>Calculate your monthly loan payment</p>
-        </div>
-        <div class="calculator-body">
-          <form id="emiForm" class="calculator-form">
-            <div class="form-group">
-              <label for="loanAmount">Loan Amount</label>
-              <div class="input-group">
-                <span class="input-addon-left">₹</span>
-                <input
-                  type="text"
-                  id="loanAmount"
-                  class="form-input currency-input"
-                  placeholder="Enter loan amount"
-                  pattern="[0-9,]*"
-                  inputmode="numeric"
-                  required
-                  aria-label="Loan amount in rupees"
-                />
-              </div>
-              <small class="amount-words" id="loanAmountWords"></small>
-            </div>
-
-            <div class="form-group">
-              <label for="interestRate">Annual Interest Rate</label>
-              <div class="input-group">
-                <input
-                  type="text"
-                  id="interestRate"
-                  class="form-input"
-                  placeholder="Enter interest rate"
-                  min="1"
-                  max="100"
-                  step="0.1"
-                  inputmode="numeric"
-                  required
-                />
-                <span class="input-addon">%</span>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="loanTenure">Loan Tenure</label>
-                <input
-                  type="number"
-                  id="loanTenure"
-                  class="form-input"
-                  placeholder="Enter tenure"
-                  min="1"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="tenureType">Period</label>
-                <select id="tenureType" class="form-select">
-                  <option value="years">Years</option>
-                  <option value="months">Months</option>
-                </select>
-              </div>
-            </div>
-
-            <button type="submit" class="calculate-btn">Calculate EMI</button>
-          </form>
-        </div>
-        <div
-          id="errorMessage"
-          style="display: none"
-          class="error-message"
-        ></div>
-
-        <div id="results" class="results-container" style="display: none">
-          <h3>EMI Calculation Results</h3>
-
-          <result-display
-            id="emiResult"
-            label="Monthly EMI"
-            value="0"
-            type="currency"
-            wordsId="emiInWords"
-          ></result-display>
-
-          <result-display
-            id="totalInterestResult"
-            label="Total Interest Payable"
-            value="0"
-            type="currency"
-            wordsId="totalInterestInWords"
-          ></result-display>
-
-          <result-display
-            id="totalPaymentResult"
-            label="Total Amount Payable"
-            value="0"
-            type="currency"
-            wordsId="totalPaymentInWords"
-          ></result-display>
-
-          <div class="amount-breakdown">
-            <h4>Amount Breakdown</h4>
-            <div class="chart-container">
-              <canvas id="emiChart"></canvas>
-            </div>
-          </div>
-        </div>
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
       </div>
-      <section class="content-block">
-        <div class="calculator-card">
-          <div class="calculator-header">
-            <h2>What is an EMI?</h2>
-          </div>
-          <div class="calculator-body">
-            <p>
-              EMI (Equated Monthly Installment) is the fixed monthly amount you
-              pay to repay your loan. It includes both
-              <strong>principal</strong> and <strong>interest</strong>. Our
-              <strong>EMI Calculator Online</strong> helps you calculate EMIs
-              instantly for <strong>home loans</strong>,
-              <strong>car loans</strong>, and <strong>personal loans</strong>.
-            </p>
-          </div>
-        </div>
 
+      <div class="container">
         <div class="calculator-card">
           <div class="calculator-header">
-            <h2>Benefits of Using Our EMI Calculator</h2>
+            <h3>EMI Calculator</h3>
+            <p>Calculate your monthly loan payment</p>
           </div>
           <div class="calculator-body">
-            <ul class="list-items">
-              <li>Quick calculation of monthly payments</li>
-              <li>Clear breakdown of principal vs. interest</li>
-              <li>Helps compare different loan options</li>
-              <li>Easy planning for financial decisions</li>
-            </ul>
+            <form id="emiForm" class="calculator-form">
+              <div class="form-group">
+                <label for="loanAmount">Loan Amount</label>
+                <div class="input-group">
+                  <span class="input-addon-left">₹</span>
+                  <input
+                    type="text"
+                    id="loanAmount"
+                    class="form-input currency-input"
+                    placeholder="Enter loan amount"
+                    pattern="[0-9,]*"
+                    inputmode="numeric"
+                    required
+                    aria-label="Loan amount in rupees"
+                  />
+                </div>
+                <small class="amount-words" id="loanAmountWords"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="interestRate">Annual Interest Rate</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    id="interestRate"
+                    class="form-input"
+                    placeholder="Enter interest rate"
+                    min="1"
+                    max="100"
+                    step="0.1"
+                    inputmode="numeric"
+                    required
+                  />
+                  <span class="input-addon">%</span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="loanTenure">Loan Tenure</label>
+                  <input
+                    type="number"
+                    id="loanTenure"
+                    class="form-input"
+                    placeholder="Enter tenure"
+                    min="1"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="tenureType">Period</label>
+                  <select id="tenureType" class="form-select">
+                    <option value="years">Years</option>
+                    <option value="months">Months</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="calculate-btn">Calculate EMI</button>
+            </form>
+          </div>
+          <div
+            id="errorMessage"
+            style="display: none"
+            class="error-message"
+          ></div>
+
+          <div id="results" class="results-container" style="display: none">
+            <h3>EMI Calculation Results</h3>
+
+            <result-display
+              id="emiResult"
+              label="Monthly EMI"
+              value="0"
+              type="currency"
+              wordsId="emiInWords"
+            ></result-display>
+
+            <result-display
+              id="totalInterestResult"
+              label="Total Interest Payable"
+              value="0"
+              type="currency"
+              wordsId="totalInterestInWords"
+            ></result-display>
+
+            <result-display
+              id="totalPaymentResult"
+              label="Total Amount Payable"
+              value="0"
+              type="currency"
+              wordsId="totalPaymentInWords"
+            ></result-display>
+
+            <div class="amount-breakdown">
+              <h4>Amount Breakdown</h4>
+              <div class="chart-container">
+                <canvas id="emiChart"></canvas>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>What is an EMI?</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                EMI (Equated Monthly Installment) is the fixed monthly amount
+                you pay to repay your loan. It includes both
+                <strong>principal</strong> and <strong>interest</strong>. Our
+                <strong>EMI Calculator Online</strong> helps you calculate EMIs
+                instantly for <strong>home loans</strong>,
+                <strong>car loans</strong>, and <strong>personal loans</strong>.
+              </p>
+            </div>
+          </div>
+
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>Benefits of Using Our EMI Calculator</h2>
+            </div>
+            <div class="calculator-body">
+              <ul class="list-items">
+                <li>Quick calculation of monthly payments</li>
+                <li>Clear breakdown of principal vs. interest</li>
+                <li>Helps compare different loan options</li>
+                <li>Easy planning for financial decisions</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
@@ -231,8 +263,8 @@
         document.body.appendChild(script);
       });
     </script> -->
-    <!-- <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/emi.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script> -->
+    <!-- <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/emi.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script> -->
   </body>
 </html>

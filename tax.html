@@ -44,18 +44,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
@@ -183,309 +183,339 @@
       subtitle="Free Income Tax Calculator – Compare New vs Old regimes with deductions, slabs & monthly breakdown."
     ></app-header>
 
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>Income Tax Calculator</h3>
-          <p>Calculate your income tax liability</p>
-        </div>
-        <div class="calculator-body">
-          <form id="taxForm" class="calculator-form">
-            <div class="tax-regime-toggle">
-              <button type="button" id="newRegimeBtn" class="active">
-                New Tax Regime
-              </button>
-              <button type="button" id="oldRegimeBtn">Old Tax Regime</button>
-            </div>
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+      <div class="container">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h3>Income Tax Calculator</h3>
+            <p>Calculate your income tax liability</p>
+          </div>
+          <div class="calculator-body">
+            <form id="taxForm" class="calculator-form">
+              <div class="tax-regime-toggle">
+                <button type="button" id="newRegimeBtn" class="active">
+                  New Tax Regime
+                </button>
+                <button type="button" id="oldRegimeBtn">Old Tax Regime</button>
+              </div>
 
-            <div class="form-group">
-              <label for="annualIncome" class="form-label">
-                Annual Income (₹)
-              </label>
-              <input
-                type="text"
-                id="annualIncome"
-                class="form-input currency-input"
-                pattern="[0-9,]*"
-                inputmode="numeric"
-                placeholder="Enter your annual income"
-                required
-              />
-              <div id="incomeInWords" class="amount-in-words"></div>
-            </div>
-
-            <div class="form-group">
-              <label>
-                <input type="checkbox" id="isSalaried" checked />
-                I am a salaried taxpayer
-              </label>
-            </div>
-
-            <!-- ✅ Deductions Section -->
-            <div id="deductionsSection">
-              <!-- ✅ Standard Deduction (auto handled by regime) -->
               <div class="form-group">
-                <label for="standardDeduction" class="form-label">
-                  Standard Deduction (₹)
+                <label for="annualIncome" class="form-label">
+                  Annual Income (₹)
                 </label>
                 <input
                   type="text"
-                  id="standardDeduction"
+                  id="annualIncome"
                   class="form-input currency-input"
+                  pattern="[0-9,]*"
                   inputmode="numeric"
-                  value="50,000"
-                  readonly
+                  placeholder="Enter your annual income"
+                  required
                 />
+                <div id="incomeInWords" class="amount-in-words"></div>
               </div>
 
-              <!-- ✅ Old Regime Specific Deductions -->
-              <div id="oldRegimeDeductions" style="display: none">
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="isSalaried" checked />
+                  I am a salaried taxpayer
+                </label>
+              </div>
+
+              <!-- ✅ Deductions Section -->
+              <div id="deductionsSection">
+                <!-- ✅ Standard Deduction (auto handled by regime) -->
                 <div class="form-group">
-                  <label for="section80C" class="form-label">
-                    80C (PPF, LIC, ELSS etc.) – max ₹1,50,000
+                  <label for="standardDeduction" class="form-label">
+                    Standard Deduction (₹)
                   </label>
                   <input
                     type="text"
-                    id="section80C"
+                    id="standardDeduction"
                     class="form-input currency-input"
                     inputmode="numeric"
-                    placeholder="Enter 80C investment"
-                  />
-                  <div id="section80CWords" class="amount-words"></div>
-                </div>
-
-                <div class="form-group">
-                  <label for="section80D" class="form-label">
-                    80D (Health Insurance) – max ₹50,000
-                  </label>
-                  <input
-                    type="text"
-                    id="section80D"
-                    class="form-input currency-input"
-                    inputmode="numeric"
-                    placeholder="Enter 80D deduction"
-                  />
-                  <div id="section80DWords" class="amount-words"></div>
-                </div>
-
-                <div class="form-group">
-                  <label for="hraExemption" class="form-label">
-                    HRA Exemption
-                  </label>
-                  <input
-                    type="text"
-                    id="hraExemption"
-                    class="form-input currency-input"
-                    inputmode="numeric"
-                    placeholder="Enter HRA exemption"
+                    value="50,000"
+                    readonly
                   />
                 </div>
 
-                <div class="form-group">
-                  <label for="housingLoan" class="form-label">
-                    Housing Loan Interest (Sec 24) – max ₹2,00,000
-                  </label>
-                  <input
-                    type="text"
-                    id="housingLoan"
-                    class="form-input currency-input"
-                    inputmode="numeric"
-                    placeholder="Enter loan interest deduction"
-                  />
-                  <div id="housingLoanWords" class="amount-words"></div>
+                <!-- ✅ Old Regime Specific Deductions -->
+                <div id="oldRegimeDeductions" style="display: none">
+                  <div class="form-group">
+                    <label for="section80C" class="form-label">
+                      80C (PPF, LIC, ELSS etc.) – max ₹1,50,000
+                    </label>
+                    <input
+                      type="text"
+                      id="section80C"
+                      class="form-input currency-input"
+                      inputmode="numeric"
+                      placeholder="Enter 80C investment"
+                    />
+                    <div id="section80CWords" class="amount-words"></div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="section80D" class="form-label">
+                      80D (Health Insurance) – max ₹50,000
+                    </label>
+                    <input
+                      type="text"
+                      id="section80D"
+                      class="form-input currency-input"
+                      inputmode="numeric"
+                      placeholder="Enter 80D deduction"
+                    />
+                    <div id="section80DWords" class="amount-words"></div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="hraExemption" class="form-label">
+                      HRA Exemption
+                    </label>
+                    <input
+                      type="text"
+                      id="hraExemption"
+                      class="form-input currency-input"
+                      inputmode="numeric"
+                      placeholder="Enter HRA exemption"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="housingLoan" class="form-label">
+                      Housing Loan Interest (Sec 24) – max ₹2,00,000
+                    </label>
+                    <input
+                      type="text"
+                      id="housingLoan"
+                      class="form-input currency-input"
+                      inputmode="numeric"
+                      placeholder="Enter loan interest deduction"
+                    />
+                    <div id="housingLoanWords" class="amount-words"></div>
+                  </div>
+                </div>
+
+                <!-- ✅ New Regime Note -->
+                <div id="newRegimeNote" class="info-text">
+                  Under <strong>New Regime (default from FY 2025-26)</strong>,
+                  most deductions (80C, 80D, HRA, etc.) are <u>not allowed</u>.
+                  Only the <strong>Standard Deduction of ₹50,000</strong> is
+                  applicable.
                 </div>
               </div>
 
-              <!-- ✅ New Regime Note -->
-              <div id="newRegimeNote" class="info-text">
-                Under <strong>New Regime (default from FY 2025-26)</strong>,
-                most deductions (80C, 80D, HRA, etc.) are <u>not allowed</u>.
-                Only the <strong>Standard Deduction of ₹50,000</strong> is
-                applicable.
-              </div>
-            </div>
+              <button type="submit" class="calculate-btn">Calculate Tax</button>
+            </form>
 
-            <button type="submit" class="calculate-btn">Calculate Tax</button>
-          </form>
+            <!-- ✅ Results Section -->
+            <div id="taxResult" class="result">
+              <h4>Tax Calculation Results</h4>
 
-          <!-- ✅ Results Section -->
-          <div id="taxResult" class="result">
-            <h4>Tax Calculation Results</h4>
-
-            <div class="tax-breakdown">
-              <div class="tax-breakdown-item">
-                <span>Basic Tax</span>
-                <div class="result-content">
-                  <span class="result-value" id="basicTax">₹0</span>
-                  <div class="amount-in-words" id="basicTaxInWords"></div>
+              <div class="tax-breakdown">
+                <div class="tax-breakdown-item">
+                  <span>Basic Tax</span>
+                  <div class="result-content">
+                    <span class="result-value" id="basicTax">₹0</span>
+                    <div class="amount-in-words" id="basicTaxInWords"></div>
+                  </div>
+                </div>
+                <div class="tax-breakdown-item">
+                  <span>Surcharge</span>
+                  <div class="result-content">
+                    <span class="result-value" id="surcharge">₹0</span>
+                    <div class="amount-in-words" id="surchargeInWords"></div>
+                  </div>
+                </div>
+                <div class="tax-breakdown-item">
+                  <span>Health & Education Cess</span>
+                  <div class="result-content">
+                    <span class="result-value" id="cess">₹0</span>
+                    <div class="amount-in-words" id="cessInWords"></div>
+                  </div>
+                </div>
+                <div class="tax-breakdown-item" style="font-weight: 600">
+                  <span>Total Tax Liability</span>
+                  <div class="result-content">
+                    <span class="result-value" id="totalTax">₹0</span>
+                    <div class="amount-in-words" id="totalTaxInWords"></div>
+                  </div>
                 </div>
               </div>
-              <div class="tax-breakdown-item">
-                <span>Surcharge</span>
-                <div class="result-content">
-                  <span class="result-value" id="surcharge">₹0</span>
-                  <div class="amount-in-words" id="surchargeInWords"></div>
-                </div>
-              </div>
-              <div class="tax-breakdown-item">
-                <span>Health & Education Cess</span>
-                <div class="result-content">
-                  <span class="result-value" id="cess">₹0</span>
-                  <div class="amount-in-words" id="cessInWords"></div>
-                </div>
-              </div>
-              <div class="tax-breakdown-item" style="font-weight: 600">
-                <span>Total Tax Liability</span>
-                <div class="result-content">
-                  <span class="result-value" id="totalTax">₹0</span>
-                  <div class="amount-in-words" id="totalTaxInWords"></div>
-                </div>
-              </div>
-            </div>
 
-            <div class="monthly-breakdown">
-              <div class="monthly-item">
-                <div class="monthly-value" id="monthlyTax">₹0</div>
-                <div class="amount-in-words" id="monthlyTaxInWords"></div>
-                <div class="monthly-label">Monthly Tax</div>
-              </div>
-              <div class="monthly-item">
-                <div class="monthly-value" id="monthlyIncome">₹0</div>
-                <div class="amount-in-words" id="monthlyIncomeInWords"></div>
-                <div class="monthly-label">Monthly Income</div>
-              </div>
-              <div class="monthly-item">
-                <div class="monthly-value" id="effectiveRate">0%</div>
-                <div class="monthly-label">Effective Rate</div>
+              <div class="monthly-breakdown">
+                <div class="monthly-item">
+                  <div class="monthly-value" id="monthlyTax">₹0</div>
+                  <div class="amount-in-words" id="monthlyTaxInWords"></div>
+                  <div class="monthly-label">Monthly Tax</div>
+                </div>
+                <div class="monthly-item">
+                  <div class="monthly-value" id="monthlyIncome">₹0</div>
+                  <div class="amount-in-words" id="monthlyIncomeInWords"></div>
+                  <div class="monthly-label">Monthly Income</div>
+                </div>
+                <div class="monthly-item">
+                  <div class="monthly-value" id="effectiveRate">0%</div>
+                  <div class="monthly-label">Effective Rate</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ✅ Tax Slabs Information -->
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3 id="slabsTitle">Tax Slabs (New Regime) - FY 2025-26</h3>
-        </div>
-        <div class="calculator-body">
-          <div id="newRegimeSlabs" style="display: block">
-            <table class="tax-slab-table">
-              <thead>
-                <tr>
-                  <th>Income Range</th>
-                  <th>Tax Rate</th>
-                </tr>
-              </thead>
-              <!-- In your newRegimeSlabs table -->
-              <tbody>
-                <tr>
-                  <td>Up to ₹4,00,000</td>
-                  <td>NIL</td>
-                </tr>
-                <tr>
-                  <td>₹4,00,001 to ₹8,00,000</td>
-                  <td>5%</td>
-                </tr>
-                <tr>
-                  <td>₹8,00,001 to ₹12,00,000</td>
-                  <td>10%</td>
-                </tr>
-                <tr>
-                  <td>₹12,00,001 to ₹16,00,000</td>
-                  <td>15%</td>
-                </tr>
-                <tr>
-                  <td>₹16,00,001 to ₹20,00,000</td>
-                  <td>20%</td>
-                </tr>
-                <tr>
-                  <td>₹20,00,001 to ₹24,00,000</td>
-                  <td>25%</td>
-                </tr>
-                <tr>
-                  <td>Above ₹24,00,000</td>
-                  <td>30%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div id="oldRegimeSlabs" style="display: none">
-            <table class="tax-slab-table">
-              <thead>
-                <tr>
-                  <th>Income Range</th>
-                  <th>Tax Rate</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Up to ₹2,50,000</td>
-                  <td>NIL</td>
-                </tr>
-                <tr>
-                  <td>₹2,50,001 to ₹5,00,000</td>
-                  <td>5%</td>
-                </tr>
-                <tr>
-                  <td>₹5,00,001 to ₹10,00,000</td>
-                  <td>20%</td>
-                </tr>
-                <tr>
-                  <td>Above ₹10,00,000</td>
-                  <td>30%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="info-text">
-            <strong>Note:</strong>
-            <ul>
-              <li>
-                <strong>Rebate (Sec 87A):</strong>
-                New Regime → Income ≤ ₹7,00,000 → <u>No Tax</u> Old Regime →
-                Income ≤ ₹5,00,000 → <u>No Tax</u>
-              </li>
-              <li>
-                Surcharge: 10% for income > ₹50L, 15% for > ₹1Cr, 25% for >
-                ₹2Cr, 37% for > ₹5Cr
-              </li>
-              <li>Health & Education Cess: 4% on (Tax + Surcharge)</li>
-              <li>
-                This is a basic calculator. Please consult a tax professional
-                for detailed assessment.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <section class="content-block">
+        <!-- ✅ Tax Slabs Information -->
         <div class="calculator-card">
           <div class="calculator-header">
-            <h2>About Tax Calculator</h2>
+            <h3 id="slabsTitle">Tax Slabs (New Regime) - FY 2025-26</h3>
           </div>
           <div class="calculator-body">
-            <p>
-              Use our <strong>Income Tax Calculator</strong> to estimate your
-              tax liability based on your income and the latest tax slabs in
-              India. Quick, simple, and reliable.
-            </p>
-            <p>
-              Our <strong>Tax Calculator</strong> helps you calculate tax
-              amounts, surcharges, and cesses quickly. Useful for personal and
-              business taxes.
-            </p>
+            <div id="newRegimeSlabs" style="display: block">
+              <table class="tax-slab-table">
+                <thead>
+                  <tr>
+                    <th>Income Range</th>
+                    <th>Tax Rate</th>
+                  </tr>
+                </thead>
+                <!-- In your newRegimeSlabs table -->
+                <tbody>
+                  <tr>
+                    <td>Up to ₹4,00,000</td>
+                    <td>NIL</td>
+                  </tr>
+                  <tr>
+                    <td>₹4,00,001 to ₹8,00,000</td>
+                    <td>5%</td>
+                  </tr>
+                  <tr>
+                    <td>₹8,00,001 to ₹12,00,000</td>
+                    <td>10%</td>
+                  </tr>
+                  <tr>
+                    <td>₹12,00,001 to ₹16,00,000</td>
+                    <td>15%</td>
+                  </tr>
+                  <tr>
+                    <td>₹16,00,001 to ₹20,00,000</td>
+                    <td>20%</td>
+                  </tr>
+                  <tr>
+                    <td>₹20,00,001 to ₹24,00,000</td>
+                    <td>25%</td>
+                  </tr>
+                  <tr>
+                    <td>Above ₹24,00,000</td>
+                    <td>30%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div id="oldRegimeSlabs" style="display: none">
+              <table class="tax-slab-table">
+                <thead>
+                  <tr>
+                    <th>Income Range</th>
+                    <th>Tax Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Up to ₹2,50,000</td>
+                    <td>NIL</td>
+                  </tr>
+                  <tr>
+                    <td>₹2,50,001 to ₹5,00,000</td>
+                    <td>5%</td>
+                  </tr>
+                  <tr>
+                    <td>₹5,00,001 to ₹10,00,000</td>
+                    <td>20%</td>
+                  </tr>
+                  <tr>
+                    <td>Above ₹10,00,000</td>
+                    <td>30%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="info-text">
+              <strong>Note:</strong>
+              <ul>
+                <li>
+                  <strong>Rebate (Sec 87A):</strong>
+                  New Regime → Income ≤ ₹7,00,000 → <u>No Tax</u> Old Regime →
+                  Income ≤ ₹5,00,000 → <u>No Tax</u>
+                </li>
+                <li>
+                  Surcharge: 10% for income > ₹50L, 15% for > ₹1Cr, 25% for >
+                  ₹2Cr, 37% for > ₹5Cr
+                </li>
+                <li>Health & Education Cess: 4% on (Tax + Surcharge)</li>
+                <li>
+                  This is a basic calculator. Please consult a tax professional
+                  for detailed assessment.
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>About Tax Calculator</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                Use our <strong>Income Tax Calculator</strong> to estimate your
+                tax liability based on your income and the latest tax slabs in
+                India. Quick, simple, and reliable.
+              </p>
+              <p>
+                Our <strong>Tax Calculator</strong> helps you calculate tax
+                amounts, surcharges, and cesses quickly. Useful for personal and
+                business taxes.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/tax.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/tax.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </body>
 </html>

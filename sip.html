@@ -44,18 +44,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
@@ -73,148 +73,181 @@
       subtitle="Free SIP Calculator Online. Calculate future value of mutual fund investments using Systematic Investment Plan (SIP)."
     ></app-header>
 
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>SIP Calculator</h3>
-          <p>Calculate your potential SIP returns</p>
-        </div>
-        <div class="calculator-body">
-          <form id="sipForm" class="calculator-form">
-            <div class="form-group">
-              <label for="monthlyInvestment" class="form-label"
-                >Monthly Investment (₹)</label
-              >
-              <input
-                type="text"
-                id="monthlyInvestment"
-                class="form-input currency-input"
-                placeholder="Enter monthly investment amount"
-                pattern="[0-9,]*"
-                inputmode="numeric"
-                required
-              />
-              <div id="investmentInWords" class="amount-in-words"></div>
-            </div>
-
-            <div class="form-group">
-              <label for="expectedReturn" class="form-label"
-                >Expected Annual Return (%)</label
-              >
-              <input
-                type="number"
-                id="expectedReturn"
-                class="form-input"
-                required
-                min="1"
-                max="100"
-                step="0.1"
-                placeholder="Enter expected return rate"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="timePeriod" class="form-label"
-                >Time Period (Years)</label
-              >
-              <input
-                type="number"
-                id="timePeriod"
-                class="form-input"
-                required
-                min="1"
-                max="50"
-                placeholder="Enter investment period"
-              />
-            </div>
-
-            <button type="submit" id="calculateSIPBtn" class="calculate-btn">
-              Calculate SIP
-            </button>
-          </form>
-
-          <div id="sipResult" class="result" style="display: none">
-            <h4>SIP Calculation Results</h4>
-
-            <div class="result-item">
-              <span class="result-label">Total Investment:</span>
-              <div class="result-content">
-                <span class="result-value" id="totalInvestment">₹0</span>
-                <div class="amount-in-words" id="totalInvestmentInWords"></div>
-              </div>
-            </div>
-
-            <div class="result-item">
-              <span class="result-label">Total Returns:</span>
-              <div class="result-content">
-                <span class="result-value" id="totalReturns">₹0</span>
-                <div class="amount-in-words" id="returnsInWords"></div>
-              </div>
-            </div>
-
-            <div class="result-item">
-              <span class="result-label">Maturity Amount:</span>
-              <div class="result-content">
-                <span class="result-value" id="maturityAmount">₹0</span>
-                <div class="amount-in-words" id="maturityInWords"></div>
-              </div>
-            </div>
-
-            <div class="chart-container">
-              <h4>Investment Distribution</h4>
-              <canvas id="investmentChart"></canvas>
-            </div>
-
-            <div class="chart-container">
-              <h4>Year-wise Growth</h4>
-              <canvas id="progressChart"></canvas>
-            </div>
-          </div>
-        </div>
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
       </div>
-
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>SIP Investment Tips</h3>
-        </div>
-        <div class="calculator-body">
-          <ul class="list-items tips-list">
-            <li>Start early to benefit from the power of compounding</li>
-            <li>Be consistent with your monthly investments</li>
-            <li>Increase your SIP amount annually to match inflation</li>
-            <li>Review and rebalance your portfolio periodically</li>
-            <li>Don't stop SIP during market volatility</li>
-          </ul>
-        </div>
-      </div>
-      <section class="content-block">
+      <div class="container">
         <div class="calculator-card">
           <div class="calculator-header">
-            <h2>What is a SIP?</h2>
+            <h3>SIP Calculator</h3>
+            <p>Calculate your potential SIP returns</p>
           </div>
           <div class="calculator-body">
-            <p>
-              A Systematic Investment Plan (SIP) is a disciplined way to invest
-              a fixed amount regularly in mutual funds. It allows investors to
-              build wealth over time through the power of compounding and rupee
-              cost averaging.
-            </p>
-            <p>
-              With SIP, you can start investing with a small amount, making it
-              accessible for everyone. It helps inculcate a habit of saving and
-              investing regularly, which is crucial for long-term financial
-              goals.
-            </p>
-            <p>
-              SIPs are flexible, allowing you to choose the investment amount,
-              frequency, and duration based on your financial situation and
-              goals. They are ideal for long-term wealth creation, such as
-              retirement planning, children's education, or buying a home.
-            </p>
+            <form id="sipForm" class="calculator-form">
+              <div class="form-group">
+                <label for="monthlyInvestment" class="form-label"
+                  >Monthly Investment (₹)</label
+                >
+                <input
+                  type="text"
+                  id="monthlyInvestment"
+                  class="form-input currency-input"
+                  placeholder="Enter monthly investment amount"
+                  pattern="[0-9,]*"
+                  inputmode="numeric"
+                  required
+                />
+                <div id="investmentInWords" class="amount-in-words"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="expectedReturn" class="form-label"
+                  >Expected Annual Return (%)</label
+                >
+                <input
+                  type="number"
+                  id="expectedReturn"
+                  class="form-input"
+                  required
+                  min="1"
+                  max="100"
+                  step="0.1"
+                  placeholder="Enter expected return rate"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="timePeriod" class="form-label"
+                  >Time Period (Years)</label
+                >
+                <input
+                  type="number"
+                  id="timePeriod"
+                  class="form-input"
+                  required
+                  min="1"
+                  max="50"
+                  placeholder="Enter investment period"
+                />
+              </div>
+
+              <button type="submit" id="calculateSIPBtn" class="calculate-btn">
+                Calculate SIP
+              </button>
+            </form>
+
+            <div id="sipResult" class="result" style="display: none">
+              <h4>SIP Calculation Results</h4>
+
+              <div class="result-item">
+                <span class="result-label">Total Investment:</span>
+                <div class="result-content">
+                  <span class="result-value" id="totalInvestment">₹0</span>
+                  <div
+                    class="amount-in-words"
+                    id="totalInvestmentInWords"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="result-item">
+                <span class="result-label">Total Returns:</span>
+                <div class="result-content">
+                  <span class="result-value" id="totalReturns">₹0</span>
+                  <div class="amount-in-words" id="returnsInWords"></div>
+                </div>
+              </div>
+
+              <div class="result-item">
+                <span class="result-label">Maturity Amount:</span>
+                <div class="result-content">
+                  <span class="result-value" id="maturityAmount">₹0</span>
+                  <div class="amount-in-words" id="maturityInWords"></div>
+                </div>
+              </div>
+
+              <div class="chart-container">
+                <h4>Investment Distribution</h4>
+                <canvas id="investmentChart"></canvas>
+              </div>
+
+              <div class="chart-container">
+                <h4>Year-wise Growth</h4>
+                <canvas id="progressChart"></canvas>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h3>SIP Investment Tips</h3>
+          </div>
+          <div class="calculator-body">
+            <ul class="list-items tips-list">
+              <li>Start early to benefit from the power of compounding</li>
+              <li>Be consistent with your monthly investments</li>
+              <li>Increase your SIP amount annually to match inflation</li>
+              <li>Review and rebalance your portfolio periodically</li>
+              <li>Don't stop SIP during market volatility</li>
+            </ul>
+          </div>
+        </div>
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>What is a SIP?</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                A Systematic Investment Plan (SIP) is a disciplined way to
+                invest a fixed amount regularly in mutual funds. It allows
+                investors to build wealth over time through the power of
+                compounding and rupee cost averaging.
+              </p>
+              <p>
+                With SIP, you can start investing with a small amount, making it
+                accessible for everyone. It helps inculcate a habit of saving
+                and investing regularly, which is crucial for long-term
+                financial goals.
+              </p>
+              <p>
+                SIPs are flexible, allowing you to choose the investment amount,
+                frequency, and duration based on your financial situation and
+                goals. They are ideal for long-term wealth creation, such as
+                retirement planning, children's education, or buying a home.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
@@ -227,8 +260,8 @@
         document.body.appendChild(script);
       });
     </script>
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/sip.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/sip.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </body>
 </html>

@@ -41,18 +41,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
@@ -62,116 +62,147 @@
       title="GST Calculator - Multi-Tool Calculator"
       subtitle="Free GST Calculator for India. Easily calculate GST inclusive & exclusive prices with accurate tax breakdown. Supports all GST rates (5%, 12%, 18%, 28%)."
     ></app-header>
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>GST Calculator</h3>
-          <p>Calculate GST amount and final price</p>
-        </div>
-        <div class="calculator-body">
-          <form id="gstForm" class="calculator-form">
-            <div class="form-group">
-              <label class="form-label">Amount (₹)</label>
-              <input
-                type="text"
-                id="gstAmount"
-                class="form-input currency-input"
-                inputmode="numeric"
-                pattern="[0-9,]*"
-                placeholder="1000"
-                required
-              />
-              <div class="amount-in-words" id="gstAmountWords"></div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">GST Rate (%)</label>
-              <select id="gstRate" class="form-select">
-                <option value="0">0% GST</option>
-                <option value="5">5% GST</option>
-                <option value="12">12% GST</option>
-                <option value="18" selected>18% GST</option>
-                <option value="28">28% GST</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Calculation Type</label>
-              <select id="gstType" class="form-select">
-                <option value="exclusive">Add GST (Exclusive)</option>
-                <option value="inclusive">Remove GST (Inclusive)</option>
-              </select>
-            </div>
-            <button class="calculate-btn" id="gstCalculateBtn">
-              Calculate GST
-            </button>
-          </form>
-          <div id="gstResult" class="result">
-            <h4>GST Calculation Results</h4>
-            <div class="result-item">
-              <span class="result-label">Net Amount:</span>
-              <div class="result-content">
-                <span class="result-value" id="netAmount">₹0</span>
-                <div class="amount-in-words" id="netAmountInWords"></div>
-              </div>
-            </div>
-            <div class="result-item">
-              <span class="result-label">GST Amount:</span>
-              <div class="result-content">
-                <span class="result-value" id="gstAmountResult">₹0</span>
-                <div class="amount-in-words" id="gstAmountInWords"></div>
-              </div>
-            </div>
-            <div class="result-item">
-              <span class="result-label">Gross Amount:</span>
-              <div class="result-content">
-                <span class="result-value" id="grossAmount">₹0</span>
-                <div class="amount-in-words" id="grossAmountInWords"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <section class="content-block">
-        <div class="calculator-card">
-          <div class="calculator-header">
-            <h2>About GST in India</h2>
-          </div>
-          <div class="calculator-body">
-            <p>
-              GST (Goods and Services Tax) is a unified indirect tax in India
-              applied on the supply of goods and services. Our
-              <strong>GST Calculator India</strong> helps you calculate
-              GST-inclusive and exclusive prices in seconds. The tool supports
-              all GST rates – 5%, 12%, 18%, and 28%.
-            </p>
-            <p>
-              Whether you're a business owner, freelancer, or consumer, this
-              calculator provides an easy way to understand the tax implications
-              on your transactions. Simply enter the amount and select the GST
-              rate to get instant results.
-            </p>
-          </div>
-        </div>
 
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+      <div class="container">
         <div class="calculator-card">
           <div class="calculator-header">
-            <h2>How Our GST Calculator Helps You</h2>
+            <h3>GST Calculator</h3>
+            <p>Calculate GST amount and final price</p>
           </div>
           <div class="calculator-body">
-            <ul class="list-items">
-              <li>Quick calculation of GST-inclusive and exclusive prices</li>
-              <li>Accurate tax breakdown for better clarity</li>
-              <li>Supports all Indian GST slabs</li>
-              <li>Useful for business owners, freelancers, and consumers</li>
-            </ul>
+            <form id="gstForm" class="calculator-form">
+              <div class="form-group">
+                <label class="form-label">Amount (₹)</label>
+                <input
+                  type="text"
+                  id="gstAmount"
+                  class="form-input currency-input"
+                  inputmode="numeric"
+                  pattern="[0-9,]*"
+                  placeholder="1000"
+                  required
+                />
+                <div class="amount-in-words" id="gstAmountWords"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">GST Rate (%)</label>
+                <select id="gstRate" class="form-select">
+                  <option value="0">0% GST</option>
+                  <option value="5">5% GST</option>
+                  <option value="12">12% GST</option>
+                  <option value="18" selected>18% GST</option>
+                  <option value="28">28% GST</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Calculation Type</label>
+                <select id="gstType" class="form-select">
+                  <option value="exclusive">Add GST (Exclusive)</option>
+                  <option value="inclusive">Remove GST (Inclusive)</option>
+                </select>
+              </div>
+              <button class="calculate-btn" id="gstCalculateBtn">
+                Calculate GST
+              </button>
+            </form>
+            <div id="gstResult" class="result">
+              <h4>GST Calculation Results</h4>
+              <div class="result-item">
+                <span class="result-label">Net Amount:</span>
+                <div class="result-content">
+                  <span class="result-value" id="netAmount">₹0</span>
+                  <div class="amount-in-words" id="netAmountInWords"></div>
+                </div>
+              </div>
+              <div class="result-item">
+                <span class="result-label">GST Amount:</span>
+                <div class="result-content">
+                  <span class="result-value" id="gstAmountResult">₹0</span>
+                  <div class="amount-in-words" id="gstAmountInWords"></div>
+                </div>
+              </div>
+              <div class="result-item">
+                <span class="result-label">Gross Amount:</span>
+                <div class="result-content">
+                  <span class="result-value" id="grossAmount">₹0</span>
+                  <div class="amount-in-words" id="grossAmountInWords"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>About GST in India</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                GST (Goods and Services Tax) is a unified indirect tax in India
+                applied on the supply of goods and services. Our
+                <strong>GST Calculator India</strong> helps you calculate
+                GST-inclusive and exclusive prices in seconds. The tool supports
+                all GST rates – 5%, 12%, 18%, and 28%.
+              </p>
+              <p>
+                Whether you're a business owner, freelancer, or consumer, this
+                calculator provides an easy way to understand the tax
+                implications on your transactions. Simply enter the amount and
+                select the GST rate to get instant results.
+              </p>
+            </div>
+          </div>
+
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>How Our GST Calculator Helps You</h2>
+            </div>
+            <div class="calculator-body">
+              <ul class="list-items">
+                <li>Quick calculation of GST-inclusive and exclusive prices</li>
+                <li>Accurate tax breakdown for better clarity</li>
+                <li>Supports all Indian GST slabs</li>
+                <li>Useful for business owners, freelancers, and consumers</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/gst.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/gst.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </body>
 </html>

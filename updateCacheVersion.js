@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const CACHE_VERSION = "v1.0.0"; // bump this each release
+const CACHE_VERSION = "v1.0.1"; // bump this each release
 const PROJECT_DIR = "./"; // root directory of the project
 
 // Regex: matches href/src pointing to .css or .js files

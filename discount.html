@@ -46,18 +46,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
@@ -187,73 +187,185 @@
       subtitle="Free Discount Calculator Online. Easily calculate the final price after discount percentage is applied."
     ></app-header>
 
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>Discount Calculator</h3>
-          <p>Calculate discounts, savings, and final prices</p>
-        </div>
-        <div class="calculator-body">
-          <div class="discount-type-selector">
-            <button
-              type="button"
-              class="discount-type-btn active"
-              data-type="single"
-            >
-              Single Item
-            </button>
-            <button
-              type="button"
-              class="discount-type-btn"
-              data-type="multiple"
-            >
-              Multiple Items
-            </button>
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+      <div class="container">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h3>Discount Calculator</h3>
+            <p>Calculate discounts, savings, and final prices</p>
           </div>
+          <div class="calculator-body">
+            <div class="discount-type-selector">
+              <button
+                type="button"
+                class="discount-type-btn active"
+                data-type="single"
+              >
+                Single Item
+              </button>
+              <button
+                type="button"
+                class="discount-type-btn"
+                data-type="multiple"
+              >
+                Multiple Items
+              </button>
+            </div>
 
-          <!-- Single Item Calculator -->
-          <div id="singleCalc" class="calculator-section active">
-            <form id="singleDiscountForm" class="calculator-form">
-              <div class="form-group">
-                <label for="originalPrice" class="form-label"
-                  >Original Price (₹)</label
-                >
-                <input
-                  type="number"
-                  id="originalPrice"
-                  class="form-input"
-                  required
-                  min="0.01"
-                  step="0.01"
-                  placeholder="Enter original price"
-                />
+            <!-- Single Item Calculator -->
+            <div id="singleCalc" class="calculator-section active">
+              <form id="singleDiscountForm" class="calculator-form">
+                <div class="form-group">
+                  <label for="originalPrice" class="form-label"
+                    >Original Price (₹)</label
+                  >
+                  <input
+                    type="number"
+                    id="originalPrice"
+                    class="form-input"
+                    required
+                    min="0.01"
+                    step="0.01"
+                    placeholder="Enter original price"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="discountPercent" class="form-label"
+                    >Discount Percentage (%)</label
+                  >
+                  <input
+                    type="number"
+                    id="discountPercent"
+                    class="form-input"
+                    required
+                    min="0"
+                    max="100"
+                    step="0.1"
+                    placeholder="Enter discount percentage"
+                  />
+                </div>
+
+                <div class="tax-inclusion">
+                  <label>
+                    <input type="checkbox" id="includeTax" />
+                    Include GST
+                  </label>
+                  <div id="gstInput" style="display: none; margin-top: 0.5rem">
+                    <input
+                      type="number"
+                      id="gstRate"
+                      class="form-input"
+                      min="0"
+                      max="100"
+                      step="0.1"
+                      placeholder="GST Rate (%)"
+                    />
+                  </div>
+                </div>
+
+                <button type="submit" class="calculate-btn">
+                  Calculate Discount
+                </button>
+              </form>
+
+              <div id="singleResult" class="result">
+                <h4>Price Breakdown</h4>
+                <table class="breakdown-table">
+                  <tr>
+                    <td>Original Price:</td>
+                    <td>
+                      <span id="breakdownOriginal">₹0.00</span>
+                      <div
+                        class="amount-in-words"
+                        id="breakdownOriginalInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Discount Amount:</td>
+                    <td>
+                      <span id="breakdownDiscount" class="savings-highlight"
+                        >-₹0.00</span
+                      >
+                      <div
+                        class="amount-in-words"
+                        id="breakdownDiscountInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Price After Discount:</td>
+                    <td>
+                      <span id="breakdownAfterDiscount">₹0.00</span>
+                      <div
+                        class="amount-in-words"
+                        id="breakdownAfterDiscountInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                  <tr id="gstRow" style="display: none">
+                    <td>GST Amount:</td>
+                    <td>
+                      <span id="breakdownGST">₹0.00</span>
+                      <div
+                        class="amount-in-words"
+                        id="breakdownGSTInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Final Price:</strong></td>
+                    <td>
+                      <span id="breakdownTotal" class="total-highlight"
+                        >₹0.00</span
+                      >
+                      <div
+                        class="amount-in-words"
+                        id="breakdownTotalInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                </table>
+                <div class="savings-message" id="savingsMessage"></div>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="discountPercent" class="form-label"
-                  >Discount Percentage (%)</label
-                >
-                <input
-                  type="number"
-                  id="discountPercent"
-                  class="form-input"
-                  required
-                  min="0"
-                  max="100"
-                  step="0.1"
-                  placeholder="Enter discount percentage"
-                />
+            <!-- Multiple Items Calculator -->
+            <div id="multipleCalc" class="calculator-section">
+              <div class="multiple-items">
+                <button type="button" class="secondary-btn" id="addItemBtn">
+                  Add Item
+                </button>
+                <div class="item-list" id="itemList"></div>
               </div>
 
               <div class="tax-inclusion">
                 <label>
-                  <input type="checkbox" id="includeTax" />
+                  <input type="checkbox" id="includeMultiTax" />
                   Include GST
                 </label>
-                <div id="gstInput" style="display: none; margin-top: 0.5rem">
+                <div
+                  id="multiGstInput"
+                  style="display: none; margin-top: 0.5rem"
+                >
                   <input
                     type="number"
-                    id="gstRate"
+                    id="multiGstRate"
                     class="form-input"
                     min="0"
                     max="100"
@@ -263,188 +375,114 @@
                 </div>
               </div>
 
-              <button type="submit" class="calculate-btn">
-                Calculate Discount
+              <button
+                type="button"
+                class="calculate-btn"
+                id="calculateMultipleBtn"
+              >
+                Calculate Total
               </button>
-            </form>
 
-            <div id="singleResult" class="result">
-              <h4>Price Breakdown</h4>
-              <table class="breakdown-table">
-                <tr>
-                  <td>Original Price:</td>
-                  <td>
-                    <span id="breakdownOriginal">₹0.00</span>
-                    <div
-                      class="amount-in-words"
-                      id="breakdownOriginalInWords"
-                    ></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Discount Amount:</td>
-                  <td>
-                    <span id="breakdownDiscount" class="savings-highlight"
-                      >-₹0.00</span
-                    >
-                    <div
-                      class="amount-in-words"
-                      id="breakdownDiscountInWords"
-                    ></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Price After Discount:</td>
-                  <td>
-                    <span id="breakdownAfterDiscount">₹0.00</span>
-                    <div
-                      class="amount-in-words"
-                      id="breakdownAfterDiscountInWords"
-                    ></div>
-                  </td>
-                </tr>
-                <tr id="gstRow" style="display: none">
-                  <td>GST Amount:</td>
-                  <td>
-                    <span id="breakdownGST">₹0.00</span>
-                    <div class="amount-in-words" id="breakdownGSTInWords"></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Final Price:</strong></td>
-                  <td>
-                    <span id="breakdownTotal" class="total-highlight"
-                      >₹0.00</span
-                    >
-                    <div
-                      class="amount-in-words"
-                      id="breakdownTotalInWords"
-                    ></div>
-                  </td>
-                </tr>
-              </table>
-              <div class="savings-message" id="savingsMessage"></div>
-            </div>
-          </div>
-
-          <!-- Multiple Items Calculator -->
-          <div id="multipleCalc" class="calculator-section">
-            <div class="multiple-items">
-              <button type="button" class="secondary-btn" id="addItemBtn">
-                Add Item
-              </button>
-              <div class="item-list" id="itemList"></div>
-            </div>
-
-            <div class="tax-inclusion">
-              <label>
-                <input type="checkbox" id="includeMultiTax" />
-                Include GST
-              </label>
-              <div id="multiGstInput" style="display: none; margin-top: 0.5rem">
-                <input
-                  type="number"
-                  id="multiGstRate"
-                  class="form-input"
-                  min="0"
-                  max="100"
-                  step="0.1"
-                  placeholder="GST Rate (%)"
-                />
+              <div id="multipleResult" class="result">
+                <h4>Total Breakdown</h4>
+                <table class="breakdown-table">
+                  <tr>
+                    <td>Total Original Price:</td>
+                    <td>
+                      <span id="multiBreakdownOriginal">₹0.00</span>
+                      <div
+                        class="amount-in-words"
+                        id="multiBreakdownOriginalInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Total Discount:</td>
+                    <td>
+                      <span
+                        id="multiBreakdownDiscount"
+                        class="savings-highlight"
+                        >-₹0.00</span
+                      >
+                      <div
+                        class="amount-in-words"
+                        id="multiBreakdownDiscountInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Price After Discounts:</td>
+                    <td>
+                      <span id="multiBreakdownAfterDiscount">₹0.00</span>
+                      <div
+                        class="amount-in-words"
+                        id="multiBreakdownAfterDiscountInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                  <tr id="multiGstRow" style="display: none">
+                    <td>Total GST:</td>
+                    <td>
+                      <span id="multiBreakdownGST">₹0.00</span>
+                      <div
+                        class="amount-in-words"
+                        id="multiBreakdownGSTInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Final Total:</strong></td>
+                    <td>
+                      <span id="multiBreakdownTotal" class="total-highlight"
+                        >₹0.00</span
+                      >
+                      <div
+                        class="amount-in-words"
+                        id="multiBreakdownTotalInWords"
+                      ></div>
+                    </td>
+                  </tr>
+                </table>
+                <div class="savings-message" id="multiSavingsMessage"></div>
               </div>
             </div>
-
-            <button
-              type="button"
-              class="calculate-btn"
-              id="calculateMultipleBtn"
-            >
-              Calculate Total
-            </button>
-
-            <div id="multipleResult" class="result">
-              <h4>Total Breakdown</h4>
-              <table class="breakdown-table">
-                <tr>
-                  <td>Total Original Price:</td>
-                  <td>
-                    <span id="multiBreakdownOriginal">₹0.00</span>
-                    <div
-                      class="amount-in-words"
-                      id="multiBreakdownOriginalInWords"
-                    ></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Total Discount:</td>
-                  <td>
-                    <span id="multiBreakdownDiscount" class="savings-highlight"
-                      >-₹0.00</span
-                    >
-                    <div
-                      class="amount-in-words"
-                      id="multiBreakdownDiscountInWords"
-                    ></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Price After Discounts:</td>
-                  <td>
-                    <span id="multiBreakdownAfterDiscount">₹0.00</span>
-                    <div
-                      class="amount-in-words"
-                      id="multiBreakdownAfterDiscountInWords"
-                    ></div>
-                  </td>
-                </tr>
-                <tr id="multiGstRow" style="display: none">
-                  <td>Total GST:</td>
-                  <td>
-                    <span id="multiBreakdownGST">₹0.00</span>
-                    <div
-                      class="amount-in-words"
-                      id="multiBreakdownGSTInWords"
-                    ></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Final Total:</strong></td>
-                  <td>
-                    <span id="multiBreakdownTotal" class="total-highlight"
-                      >₹0.00</span
-                    >
-                    <div
-                      class="amount-in-words"
-                      id="multiBreakdownTotalInWords"
-                    ></div>
-                  </td>
-                </tr>
-              </table>
-              <div class="savings-message" id="multiSavingsMessage"></div>
+          </div>
+        </div>
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>About Discount Calculator</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                With our <strong>Discount Calculator</strong>, you can quickly
+                find out how much you will save and the final price after a
+                discount. Perfect for shopping and offers.
+              </p>
             </div>
           </div>
-        </div>
+        </section>
       </div>
-      <section class="content-block">
-        <div class="calculator-card">
-          <div class="calculator-header">
-            <h2>About Discount Calculator</h2>
-          </div>
-          <div class="calculator-body">
-            <p>
-              With our <strong>Discount Calculator</strong>, you can quickly
-              find out how much you will save and the final price after a
-              discount. Perfect for shopping and offers.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/discount.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/discount.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </body>
 </html>

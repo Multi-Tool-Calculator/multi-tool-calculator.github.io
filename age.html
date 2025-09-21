@@ -46,18 +46,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
@@ -145,133 +145,165 @@
       subtitle="Calculate your exact age in years, months, and days with our free online age calculator. Perfect for determining precise age differences between dates."
     ></app-header>
 
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>Age Calculator</h3>
-          <p>Calculate your exact age and more</p>
-        </div>
-        <div class="calculator-body">
-          <form id="ageForm" class="calculator-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="birthDate" class="form-label">Birth Date</label>
-                <input
-                  type="date"
-                  id="birthDate"
-                  class="form-input datePicker"
-                  required
-                  max="2100-12-31"
-                />
-              </div>
-              <div class="form-group">
-                <label for="calculateTo" class="form-label">Calculate To</label>
-                <input
-                  type="date"
-                  id="calculateTo"
-                  class="form-input datePicker"
-                  required
-                  max="2100-12-31"
-                />
-              </div>
-            </div>
-
-            <button type="submit" class="calculate-btn">Calculate Age</button>
-          </form>
-
-          <div id="ageResult" class="result">
-            <h4>Age Calculation Results</h4>
-
-            <div class="result-item">
-              <span class="result-label">Exact Age:</span>
-              <span class="result-value" id="exactAge"></span>
-            </div>
-
-            <div class="date-details">
-              <div class="date-detail-item">
-                <div class="date-detail-value" id="totalYears">0</div>
-                <div class="amount-in-words" id="totalYearsInWords"></div>
-                <!-- <div class="date-detail-label">Years</div> -->
-              </div>
-              <div class="date-detail-item">
-                <div class="date-detail-value" id="totalMonths">0</div>
-                <div class="amount-in-words" id="totalMonthsInWords"></div>
-                <!-- <div class="date-detail-label">Months</div> -->
-              </div>
-              <div class="date-detail-item">
-                <div class="date-detail-value" id="totalDays">0</div>
-                <div class="amount-in-words" id="totalDaysInWords"></div>
-                <!-- <div class="date-detail-label">Days</div> -->
-              </div>
-            </div>
-
-            <div class="next-birthday" id="nextBirthday">
-              <h5>Next Birthday</h5>
-              <div class="next-birthday-days" id="daysUntilBirthday">0</div>
-              <div id="daysUntilBirthdayInWords"></div>
-              <div>You have until your next birthday</div>
-            </div>
-
-            <div class="zodiac-sign" id="zodiacSign">
-              <div class="zodiac-emoji" id="zodiacEmoji"></div>
-              <div class="zodiac-info">
-                <div class="zodiac-name" id="zodiacName"></div>
-                <div class="zodiac-date" id="zodiacDate"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
       </div>
-
-      <!-- Additional Information Card -->
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>Time Facts</h3>
-        </div>
-        <div class="calculator-body">
-          <div id="timeFacts" class="result" style="display: none">
-            <div class="date-details">
-              <div class="date-detail-item">
-                <div class="date-detail-label">Total Months</div>
-                <div class="date-detail-value" id="lifetimeMonths">0</div>
-              </div>
-              <div class="date-detail-item">
-                <div class="date-detail-label">Total Weeks</div>
-                <div class="date-detail-value" id="lifetimeWeeks">0</div>
-              </div>
-              <div class="date-detail-item">
-                <div class="date-detail-label">Total Days</div>
-                <div class="date-detail-value" id="lifetimeDays">0</div>
-              </div>
-              <div class="date-detail-item">
-                <div class="date-detail-label">Total Hours</div>
-                <div class="date-detail-value" id="lifetimeHours">0</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section class="content-block">
+      <div class="container">
         <div class="calculator-card">
           <div class="calculator-header">
-            <h2>About Age Calculator</h2>
+            <h3>Age Calculator</h3>
+            <p>Calculate your exact age and more</p>
           </div>
           <div class="calculator-body">
-            <p>
-              Our <strong>Age Calculator Online</strong> helps you find your
-              exact age based on your date of birth. It shows your age in years,
-              months, and days with instant results.
-            </p>
+            <form id="ageForm" class="calculator-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="birthDate" class="form-label">Birth Date</label>
+                  <input
+                    type="date"
+                    id="birthDate"
+                    class="form-input datePicker"
+                    required
+                    max="2100-12-31"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="calculateTo" class="form-label"
+                    >Calculate To</label
+                  >
+                  <input
+                    type="date"
+                    id="calculateTo"
+                    class="form-input datePicker"
+                    required
+                    max="2100-12-31"
+                  />
+                </div>
+              </div>
+
+              <button type="submit" class="calculate-btn">Calculate Age</button>
+            </form>
+
+            <div id="ageResult" class="result">
+              <h4>Age Calculation Results</h4>
+
+              <div class="result-item">
+                <span class="result-label">Exact Age:</span>
+                <span class="result-value" id="exactAge"></span>
+              </div>
+
+              <div class="date-details">
+                <div class="date-detail-item">
+                  <div class="date-detail-value" id="totalYears">0</div>
+                  <div class="amount-in-words" id="totalYearsInWords"></div>
+                  <!-- <div class="date-detail-label">Years</div> -->
+                </div>
+                <div class="date-detail-item">
+                  <div class="date-detail-value" id="totalMonths">0</div>
+                  <div class="amount-in-words" id="totalMonthsInWords"></div>
+                  <!-- <div class="date-detail-label">Months</div> -->
+                </div>
+                <div class="date-detail-item">
+                  <div class="date-detail-value" id="totalDays">0</div>
+                  <div class="amount-in-words" id="totalDaysInWords"></div>
+                  <!-- <div class="date-detail-label">Days</div> -->
+                </div>
+              </div>
+
+              <div class="next-birthday" id="nextBirthday">
+                <h5>Next Birthday</h5>
+                <div class="next-birthday-days" id="daysUntilBirthday">0</div>
+                <div id="daysUntilBirthdayInWords"></div>
+                <div>You have until your next birthday</div>
+              </div>
+
+              <div class="zodiac-sign" id="zodiacSign">
+                <div class="zodiac-emoji" id="zodiacEmoji"></div>
+                <div class="zodiac-info">
+                  <div class="zodiac-name" id="zodiacName"></div>
+                  <div class="zodiac-date" id="zodiacDate"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+
+        <!-- Additional Information Card -->
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h3>Time Facts</h3>
+          </div>
+          <div class="calculator-body">
+            <div id="timeFacts" class="result" style="display: none">
+              <div class="date-details">
+                <div class="date-detail-item">
+                  <div class="date-detail-label">Total Months</div>
+                  <div class="date-detail-value" id="lifetimeMonths">0</div>
+                </div>
+                <div class="date-detail-item">
+                  <div class="date-detail-label">Total Weeks</div>
+                  <div class="date-detail-value" id="lifetimeWeeks">0</div>
+                </div>
+                <div class="date-detail-item">
+                  <div class="date-detail-label">Total Days</div>
+                  <div class="date-detail-value" id="lifetimeDays">0</div>
+                </div>
+                <div class="date-detail-item">
+                  <div class="date-detail-label">Total Hours</div>
+                  <div class="date-detail-value" id="lifetimeHours">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>About Age Calculator</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                Our <strong>Age Calculator Online</strong> helps you find your
+                exact age based on your date of birth. It shows your age in
+                years, months, and days with instant results.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/age.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/age.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </body>
 </html>

@@ -33,6 +33,14 @@
   margin: 0;
 } */
 
+/* Preloaded font family with swap */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter.woff2") format("woff2"),
+    url("/fonts/inter.woff") format("woff");
+  font-display: swap; /* prevents layout shift */
+}
+
 body {
   font-family: "Inter", sans-serif;
   background: var(--background-color);
@@ -41,7 +49,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  margin: unset;
+  margin: 0; /* better than unset */
 }
 
 .container {
@@ -281,6 +289,21 @@ body {
   color: var(--text-secondary);
 }
 
+.flex-container {
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 1rem;
+  /* padding: 1rem auto; */
+  justify-content: center;
+}
+
+.ads-container-vertical {
+  display: block;
+  width: 25%;
+  padding: 1rem 0;
+  background: #f3f4f6;
+}
+
 /* Responsive Design */
 /* Tablet breakpoint */
 @media (max-width: 1024px) {
@@ -301,10 +324,30 @@ body {
   .calculator-body {
     min-width: 100%;
   }
+
+  .flex-container {
+    flex-direction: column;
+    gap: 0;
+  }
+  .ads-container-vertical {
+    height: 280px;
+    width: 100%;
+    padding: 1rem;
+  }
 }
 
 /* Mobile breakpoint */
 @media (max-width: 768px) {
+  .flex-container {
+    flex-direction: column;
+    gap: 0;
+  }
+  .ads-container-vertical {
+    height: 280px;
+    width: 100%;
+    padding: 1rem;
+  }
+
   .container {
     margin: 0 auto;
     min-width: 90%;
@@ -359,6 +402,16 @@ body {
 
 /* Small mobile breakpoint */
 @media (max-width: 480px) {
+  .flex-container {
+    flex-direction: column;
+    gap: 0;
+  }
+  .ads-container-vertical {
+    height: 280px;
+    width: 100%;
+    padding: 1rem;
+  }
+
   .container {
     padding: 0.75rem;
   }

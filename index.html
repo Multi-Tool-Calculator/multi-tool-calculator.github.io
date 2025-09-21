@@ -36,16 +36,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Preload Fonts -->
+    <!-- Preload Local Font -->
     <link
       rel="preload"
-      href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK1x3.woff2"
+      href="/fonts/inter.woff2"
       as="font"
       type="font/woff2"
       crossorigin="anonymous"
     />
 
-    <!-- Async Load Google Fonts -->
+    <!-- Async Load Google Fonts with Fallback -->
     <link
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -61,13 +61,25 @@
 
     <!-- Inline Critical CSS -->
     <style>
+      /* Ensure fonts load without CLS */
+      :root {
+        --font-primary: "Inter", Arial, sans-serif;
+        --background-color: #f9fafb;
+        --text-color: #111827;
+      }
+
       body {
         margin: 0;
-        font-family: "Inter", Arial, sans-serif;
-        background: #f9fafb;
-        color: #111827;
+        font-family: var(--font-primary);
+        font-display: swap;
+        background: var(--background-color);
+        color: var(--text-color);
         line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
+
       header {
         background: linear-gradient(135deg, #2563eb, #10b981);
         color: #fff;
@@ -93,9 +105,9 @@
         text-decoration: underline;
       }
 
-      /* Prevent CLS from lists shifting */
+      /* Prevent CLS for lists */
       ul.tools-list {
-        list-style: none; /* hide default bullets */
+        list-style: none;
         padding-left: 0;
       }
       ul.tools-list li {
@@ -104,30 +116,53 @@
         align-items: flex-start;
       }
 
-      /* Reserve image/icon/text space */
+      /* Reserve space for icons */
       .calculator-icon {
-        display: inline-block;
+        display: inline-flex;
         width: 2rem;
         height: 2rem;
-        text-align: center;
+        min-width: 2rem;
+        min-height: 2rem;
+        align-items: center;
+        justify-content: center;
         margin-right: 0.5rem;
         font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+
+      /* Reserve card height to avoid jump */
+      .calculator-card {
+        display: block;
+        min-height: 140px;
+        padding: 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        background: #fff;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* Ensure grid is stable */
+      .grid-container {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       }
     </style>
 
     <!-- Preload Main CSS & Load Async -->
     <link
       rel="preload"
-      href="css/styles.css?v=v1.0.0"
+      href="css/styles.css?v=v1.0.1"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
-      <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
+      <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
     </noscript>
 
     <!-- JS -->
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -152,6 +187,20 @@
           calculate GST, check your BMI, or find out your age in days – we've
           got you covered.
         </p>
+        <div class="ads-container-horizontal">
+          <ins
+            class="adsbygoogle"
+            style="
+              display: inline-block;
+              width: 100%;
+              height: 100%;
+              background: white;
+            "
+            data-ad-client="ca-pub-2427312920817296"
+            data-ad-slot="1234567890"
+            >Space for Ad integration</ins
+          >
+        </div>
       </section>
 
       <section class="calculators-grid">
@@ -260,6 +309,21 @@
           </div>
         </div>
 
+        <div class="ads-container-horizontal">
+          <ins
+            class="adsbygoogle"
+            style="
+              display: inline-block;
+              width: 100%;
+              height: 100%;
+              background: white;
+            "
+            data-ad-client="ca-pub-2427312920817296"
+            data-ad-slot="1234567890"
+            >Space for Ad integration</ins
+          >
+        </div>
+
         <div class="calculator-card">
           <div class="calculator-header">
             <h2>Available Free Tools</h2>
@@ -308,6 +372,20 @@
               </li>
             </ul>
           </div>
+        </div>
+        <div class="ads-container-horizontal">
+          <ins
+            class="adsbygoogle"
+            style="
+              display: inline-block;
+              width: 100%;
+              height: 100%;
+              background: white;
+            "
+            data-ad-client="ca-pub-2427312920817296"
+            data-ad-slot="1234567890"
+            >Space for Ad integration</ins
+          >
         </div>
       </section>
     </main>

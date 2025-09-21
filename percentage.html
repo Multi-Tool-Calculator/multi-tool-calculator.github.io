@@ -44,18 +44,18 @@
     </noscript>
 
     <!-- Stylesheets: critical inline, others preload + lazy-load -->
-    <link rel="stylesheet" href="css/styles.css?v=v1.0.0" />
-    <link rel="preload" href="css/common.css?v=v1.0.0" as="style" />
+    <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+    <link rel="preload" href="css/common.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/common.css?v=v1.0.0"
+      href="css/common.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
-    <link rel="preload" href="css/additional.css?v=v1.0.0" as="style" />
+    <link rel="preload" href="css/additional.css?v=v1.0.1" as="style" />
     <link
       rel="stylesheet"
-      href="css/additional.css?v=v1.0.0"
+      href="css/additional.css?v=v1.0.1"
       media="print"
       onload="this.media='all'"
     />
@@ -108,239 +108,260 @@
       subtitle="Free Percentage Calculator Online. Calculate percentages, increase/decrease values, and find percentage differences instantly."
     ></app-header>
 
-    <div class="container">
-      <div class="calculator-card">
-        <div class="calculator-header">
-          <h3>Percentage Calculator</h3>
-          <p>
-            Calculate percentages, increase or decrease, discounts, marks & more
-          </p>
-        </div>
-        <div class="calculator-body">
-          <!-- Category Buttons -->
-          <div class="calc-type-selector">
-            <button
-              type="button"
-              class="calc-type-btn active"
-              data-type="basic"
-            >
-              Basic %
-            </button>
-            <button type="button" class="calc-type-btn" data-type="change">
-              Change %
-            </button>
-            <button type="button" class="calc-type-btn" data-type="ratio">
-              Ratio → %
-            </button>
-            <button type="button" class="calc-type-btn" data-type="marks">
-              Marks → %
-            </button>
-            <!-- <button type="button" class="calc-type-btn" data-type="discount">
+    <main class="flex-container">
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+      <div class="container">
+        <div class="calculator-card">
+          <div class="calculator-header">
+            <h3>Percentage Calculator</h3>
+            <p>
+              Calculate percentages, increase or decrease, discounts, marks &
+              more
+            </p>
+          </div>
+          <div class="calculator-body">
+            <!-- Category Buttons -->
+            <div class="calc-type-selector">
+              <button
+                type="button"
+                class="calc-type-btn active"
+                data-type="basic"
+              >
+                Basic %
+              </button>
+              <button type="button" class="calc-type-btn" data-type="change">
+                Change %
+              </button>
+              <button type="button" class="calc-type-btn" data-type="ratio">
+                Ratio → %
+              </button>
+              <button type="button" class="calc-type-btn" data-type="marks">
+                Marks → %
+              </button>
+              <!-- <button type="button" class="calc-type-btn" data-type="discount">
               Discount
             </button> -->
-          </div>
-
-          <!-- Basic Percentage -->
-          <div id="basicCalc" class="calculator-section active">
-            <form id="basicPercentageForm" class="calculator-form">
-              <div class="form-group">
-                <label for="percentageInput" class="form-label"
-                  >Percentage (%)</label
-                >
-                <input
-                  type="number"
-                  id="percentageInput"
-                  class="form-input"
-                  required
-                  step="any"
-                />
-              </div>
-              <div class="form-group">
-                <label for="value" class="form-label">Value</label>
-                <input
-                  type="number"
-                  id="valueInput"
-                  class="form-input"
-                  required
-                  step="any"
-                />
-              </div>
-              <div class="formula-display">
-                Formula: (Percentage × Value) ÷ 100
-              </div>
-              <button type="submit" class="calculate-btn">Calculate</button>
-            </form>
-
-            <div id="basicResult" class="result">
-              <h4>Result</h4>
-              <div class="result-item">
-                <span class="result-label">Percentage Amount:</span>
-                <div class="result-content">
-                  <span class="result-value" id="percentageAmount">0</span>
-                  <div
-                    class="amount-in-words"
-                    id="percentageAmountInWords"
-                  ></div>
-                </div>
-              </div>
-              <div class="step-result" id="basicSteps"></div>
             </div>
-          </div>
 
-          <!-- Percentage Change -->
-          <div id="changeCalc" class="calculator-section">
-            <form id="percentageChangeForm">
-              <div class="form-group">
-                <label for="oldValue" class="form-label">Original Value</label>
-                <input
-                  type="number"
-                  id="oldValue"
-                  class="form-input"
-                  required
-                  step="any"
-                />
-              </div>
-              <div class="form-group">
-                <label for="newValue" class="form-label">New Value</label>
-                <input
-                  type="number"
-                  id="newValue"
-                  class="form-input"
-                  required
-                  step="any"
-                />
-              </div>
-              <div class="formula-display">
-                Formula: ((New - Old) ÷ Old) × 100
-              </div>
-              <button type="submit" class="calculate-btn">
-                Calculate Change
-              </button>
-            </form>
-            <div id="changeResult" class="result">
-              <h4>Result</h4>
-              <div class="result-item">
-                <span class="result-label">Percentage Change:</span>
-                <div class="result-content">
-                  <span class="result-value" id="percentageChange">0%</span>
-                  <div
-                    class="amount-in-words"
-                    id="percentageChangeInWords"
-                  ></div>
+            <!-- Basic Percentage -->
+            <div id="basicCalc" class="calculator-section active">
+              <form id="basicPercentageForm" class="calculator-form">
+                <div class="form-group">
+                  <label for="percentageInput" class="form-label"
+                    >Percentage (%)</label
+                  >
+                  <input
+                    type="number"
+                    id="percentageInput"
+                    class="form-input"
+                    required
+                    step="any"
+                  />
                 </div>
-              </div>
-              <div class="result-item">
-                <span class="result-label">Absolute Change:</span>
-                <div class="result-content">
-                  <span class="result-value" id="absoluteChange">0</span>
-                  <div class="amount-in-words" id="absoluteChangeInWords"></div>
+                <div class="form-group">
+                  <label for="value" class="form-label">Value</label>
+                  <input
+                    type="number"
+                    id="valueInput"
+                    class="form-input"
+                    required
+                    step="any"
+                  />
                 </div>
+                <div class="formula-display">
+                  Formula: (Percentage × Value) ÷ 100
+                </div>
+                <button type="submit" class="calculate-btn">Calculate</button>
+              </form>
+
+              <div id="basicResult" class="result">
+                <h4>Result</h4>
+                <div class="result-item">
+                  <span class="result-label">Percentage Amount:</span>
+                  <div class="result-content">
+                    <span class="result-value" id="percentageAmount">0</span>
+                    <div
+                      class="amount-in-words"
+                      id="percentageAmountInWords"
+                    ></div>
+                  </div>
+                </div>
+                <div class="step-result" id="basicSteps"></div>
               </div>
-              <div class="step-result" id="changeSteps"></div>
             </div>
-          </div>
 
-          <!-- Ratio to Percentage -->
-          <div id="ratioCalc" class="calculator-section">
-            <form id="ratioPercentageForm">
-              <div class="form-group">
-                <label for="numerator" class="form-label"
-                  >Part (Numerator)</label
-                >
-                <input
-                  type="number"
-                  id="numerator"
-                  class="form-input"
-                  required
-                  step="any"
-                />
-              </div>
-              <div class="form-group">
-                <label for="denominator" class="form-label"
-                  >Total (Denominator)</label
-                >
-                <input
-                  type="number"
-                  id="denominator"
-                  class="form-input"
-                  required
-                  step="any"
-                />
-              </div>
-              <div class="formula-display">Formula: (Part ÷ Total) × 100</div>
-              <button type="submit" class="calculate-btn">Calculate</button>
-            </form>
-            <div id="ratioResult" class="result">
-              <h4>Result</h4>
-              <div class="result-item">
-                <span class="result-label">Percentage:</span>
-                <div class="result-content">
-                  <span class="result-value" id="ratioPercentage">0%</span>
-                  <div
-                    class="amount-in-words"
-                    id="ratioPercentageInWords"
-                  ></div>
+            <!-- Percentage Change -->
+            <div id="changeCalc" class="calculator-section">
+              <form id="percentageChangeForm">
+                <div class="form-group">
+                  <label for="oldValue" class="form-label"
+                    >Original Value</label
+                  >
+                  <input
+                    type="number"
+                    id="oldValue"
+                    class="form-input"
+                    required
+                    step="any"
+                  />
                 </div>
-              </div>
-              <div class="result-item">
-                <span class="result-label">Decimal:</span>
-                <div class="result-content">
-                  <span class="result-value" id="ratioDecimal">0</span>
-                  <div class="amount-in-words" id="ratioDecimalInWords"></div>
+                <div class="form-group">
+                  <label for="newValue" class="form-label">New Value</label>
+                  <input
+                    type="number"
+                    id="newValue"
+                    class="form-input"
+                    required
+                    step="any"
+                  />
                 </div>
+                <div class="formula-display">
+                  Formula: ((New - Old) ÷ Old) × 100
+                </div>
+                <button type="submit" class="calculate-btn">
+                  Calculate Change
+                </button>
+              </form>
+              <div id="changeResult" class="result">
+                <h4>Result</h4>
+                <div class="result-item">
+                  <span class="result-label">Percentage Change:</span>
+                  <div class="result-content">
+                    <span class="result-value" id="percentageChange">0%</span>
+                    <div
+                      class="amount-in-words"
+                      id="percentageChangeInWords"
+                    ></div>
+                  </div>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Absolute Change:</span>
+                  <div class="result-content">
+                    <span class="result-value" id="absoluteChange">0</span>
+                    <div
+                      class="amount-in-words"
+                      id="absoluteChangeInWords"
+                    ></div>
+                  </div>
+                </div>
+                <div class="step-result" id="changeSteps"></div>
               </div>
-              <div class="step-result" id="ratioSteps"></div>
             </div>
-          </div>
 
-          <!-- Marks to Percentage -->
-          <div id="marksCalc" class="calculator-section">
-            <form id="marksPercentageForm">
-              <div class="form-group">
-                <label for="marksObtained" class="form-label"
-                  >Marks Obtained</label
-                >
-                <input
-                  type="number"
-                  id="marksObtained"
-                  class="form-input"
-                  required
-                  step="any"
-                />
-              </div>
-              <div class="form-group">
-                <label for="marksTotal" class="form-label">Total Marks</label>
-                <input
-                  type="number"
-                  id="marksTotal"
-                  class="form-input"
-                  required
-                  step="any"
-                />
-              </div>
-              <div class="formula-display">
-                Formula: (Obtained ÷ Total) × 100
-              </div>
-              <button type="submit" class="calculate-btn">Calculate</button>
-            </form>
-            <div id="marksResult" class="result">
-              <h4>Result</h4>
-              <div class="result-item">
-                <span class="result-label">Percentage:</span>
-                <div class="result-content">
-                  <span class="result-value" id="marksPercentage">0%</span>
-                  <div
-                    class="amount-in-words"
-                    id="marksPercentageInWords"
-                  ></div>
+            <!-- Ratio to Percentage -->
+            <div id="ratioCalc" class="calculator-section">
+              <form id="ratioPercentageForm">
+                <div class="form-group">
+                  <label for="numerator" class="form-label"
+                    >Part (Numerator)</label
+                  >
+                  <input
+                    type="number"
+                    id="numerator"
+                    class="form-input"
+                    required
+                    step="any"
+                  />
                 </div>
+                <div class="form-group">
+                  <label for="denominator" class="form-label"
+                    >Total (Denominator)</label
+                  >
+                  <input
+                    type="number"
+                    id="denominator"
+                    class="form-input"
+                    required
+                    step="any"
+                  />
+                </div>
+                <div class="formula-display">Formula: (Part ÷ Total) × 100</div>
+                <button type="submit" class="calculate-btn">Calculate</button>
+              </form>
+              <div id="ratioResult" class="result">
+                <h4>Result</h4>
+                <div class="result-item">
+                  <span class="result-label">Percentage:</span>
+                  <div class="result-content">
+                    <span class="result-value" id="ratioPercentage">0%</span>
+                    <div
+                      class="amount-in-words"
+                      id="ratioPercentageInWords"
+                    ></div>
+                  </div>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Decimal:</span>
+                  <div class="result-content">
+                    <span class="result-value" id="ratioDecimal">0</span>
+                    <div class="amount-in-words" id="ratioDecimalInWords"></div>
+                  </div>
+                </div>
+                <div class="step-result" id="ratioSteps"></div>
               </div>
-              <div class="step-result" id="marksSteps"></div>
             </div>
-          </div>
 
-          <!-- Discount Calculator -->
-          <!-- <div id="discountCalc" class="calculator-section">
+            <!-- Marks to Percentage -->
+            <div id="marksCalc" class="calculator-section">
+              <form id="marksPercentageForm">
+                <div class="form-group">
+                  <label for="marksObtained" class="form-label"
+                    >Marks Obtained</label
+                  >
+                  <input
+                    type="number"
+                    id="marksObtained"
+                    class="form-input"
+                    required
+                    step="any"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="marksTotal" class="form-label">Total Marks</label>
+                  <input
+                    type="number"
+                    id="marksTotal"
+                    class="form-input"
+                    required
+                    step="any"
+                  />
+                </div>
+                <div class="formula-display">
+                  Formula: (Obtained ÷ Total) × 100
+                </div>
+                <button type="submit" class="calculate-btn">Calculate</button>
+              </form>
+              <div id="marksResult" class="result">
+                <h4>Result</h4>
+                <div class="result-item">
+                  <span class="result-label">Percentage:</span>
+                  <div class="result-content">
+                    <span class="result-value" id="marksPercentage">0%</span>
+                    <div
+                      class="amount-in-words"
+                      id="marksPercentageInWords"
+                    ></div>
+                  </div>
+                </div>
+                <div class="step-result" id="marksSteps"></div>
+              </div>
+            </div>
+
+            <!-- Discount Calculator -->
+            <!-- <div id="discountCalc" class="calculator-section">
             <form id="discountForm">
               <div class="form-group">
                 <label for="originalPrice" class="form-label"
@@ -392,29 +413,44 @@
               <div class="step-result" id="discountSteps"></div>
             </div>
           </div> -->
+          </div>
         </div>
+        <section class="content-block">
+          <div class="calculator-card">
+            <div class="calculator-header">
+              <h2>About Percentage Calculator</h2>
+            </div>
+            <div class="calculator-body">
+              <p>
+                Our <strong>Percentage Calculator</strong> helps you calculate
+                percentage values, increases, decreases, and differences
+                quickly. Useful for exams, business, and finance.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
-      <section class="content-block">
-        <div class="calculator-card">
-          <div class="calculator-header">
-            <h2>About Percentage Calculator</h2>
-          </div>
-          <div class="calculator-body">
-            <p>
-              Our <strong>Percentage Calculator</strong> helps you calculate
-              percentage values, increases, decreases, and differences quickly.
-              Useful for exams, business, and finance.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+      <div class="ads-container-vertical">
+        <ins
+          class="adsbygoogle"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: white;
+          "
+          data-ad-client="ca-pub-2427312920817296"
+          data-ad-slot="1234567890"
+          >Space for Ad integration</ins
+        >
+      </div>
+    </main>
 
     <app-footer></app-footer>
 
     <!-- JS moved to bottom with defer -->
-    <script src="js/utils.js?v=v1.0.0" defer></script>
-    <script src="js/percentage.js?v=v1.0.0" defer></script>
-    <script src="js/components.js?v=v1.0.0" defer></script>
+    <script src="js/utils.js?v=v1.0.1" defer></script>
+    <script src="js/percentage.js?v=v1.0.1" defer></script>
+    <script src="js/components.js?v=v1.0.1" defer></script>
   </body>
 </html>
