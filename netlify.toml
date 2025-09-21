@@ -36,9 +36,27 @@
 
 # Fonts
 [[plugins]]
-  package = "netlify-plugin-subfont"
+package = "netlify-plugin-subfont"
   [plugins.inputs]
-    directory = "."
+  recursive = true
+  inlineFonts = true
+  fontDisplay = "swap"
+  entryPoints = [
+      "index.html",
+      "about.html",
+      "bmi.html",
+      "emi.html",
+      "sip.html",
+      "gst.html",
+      "tax.html",
+      "age.html",
+      "discount.html",
+      "fuel.html",
+      "gold.html",
+      "percentage.html",
+      "privacy.html",
+      "terms.html"]
+
 
 # Submit sitemap
 [[plugins]]
