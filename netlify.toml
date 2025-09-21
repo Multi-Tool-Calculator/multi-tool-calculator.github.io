@@ -1,0 +1,35 @@
+[build]
+  publish = "."
+  command = ""   # leave empty since you don’t need a build step
+
+# Cache busting
+[[plugins]]
+  package = "netlify-plugin-hashfiles"
+  [plugins.inputs]
+    directory = "."
+
+# Critical CSS
+[[plugins]]
+  package = "netlify-plugin-inline-critical-css"
+  [plugins.inputs]
+    paths = ["/", "/about", "/bmi", "/emi", "/sip", "/gst", "/tax", "/age", "/discount", "/fuel", "/gold", "/index", "/percentage"]
+
+# Minify HTML
+[[plugins]]
+  package = "netlify-plugin-minify-html"
+  [plugins.inputs]
+    removeComments = true
+    collapseWhitespace = true
+
+# Fonts
+[[plugins]]
+  package = "netlify-plugin-subfont"
+  [plugins.inputs]
+    directory = "."
+
+# Submit sitemap
+[[plugins]]
+  package = "netlify-plugin-submit-sitemap"
+  [plugins.inputs]
+    sitemapPath = "sitemap.xml"
+    providers = ["google"]

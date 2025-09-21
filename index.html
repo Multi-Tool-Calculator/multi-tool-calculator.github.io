@@ -153,24 +153,24 @@
     <!-- Preload Main CSS & Load Async -->
     <link
       rel="preload"
-      href="css/styles.css?v=v1.0.1"
+      href="css/styles.css"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
-      <link rel="stylesheet" href="css/styles.css?v=v1.0.1" />
+      <link rel="stylesheet" href="css/styles.css" />
     </noscript>
 
     <!-- JS -->
-    <script src="js/components.js?v=v1.0.1" defer></script>
-    <script>
+    <script src="js/components.js" defer></script>
+    <!-- <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
           .register("/sw.js")
           .then(() => console.log("✅ Service Worker registered"))
           .catch((err) => console.log("SW registration failed:", err));
       }
-    </script>
+    </script> -->
   </head>
   <body>
     <app-header
