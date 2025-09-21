@@ -3,10 +3,6 @@
   command = ""   # leave empty since you don’t need a build step
 
 #Minify JS and CSS
-[build.processing]
-  css = true
-  js = true
-
 [build.processing.css]
   minify = true
   bundle = false
