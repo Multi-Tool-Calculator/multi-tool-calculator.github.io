@@ -36,6 +36,19 @@ package = "netlify-plugin-hashfiles"
 [[plugins]]
   package = "netlify-plugin-minify-html"
 
+#Minify JS and CSS
+[build.processing]
+  css = true
+  js = true
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = false
+  minify = true
+
 # Submit sitemap
 [[plugins]]
   package = "netlify-plugin-submit-sitemap"
