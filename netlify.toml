@@ -31,7 +31,6 @@
       "privacy.html",
       "terms.html"
     ]
-    safelist = ["active", "show", "result", "error", "hidden"]
 
 # Cache busting
 [[plugins]]
