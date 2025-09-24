@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function toggleGstInput(checkbox, input, rowId) {
     input.style.display = checkbox.checked ? "block" : "none";
     const row = document.getElementById(rowId);
-    if (row) row.style.display = "none";
+    if (row) row.style.display = checkbox.checked ? "table-row" : "none";
   }
 
   // --- Calculation Functions ---

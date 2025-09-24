@@ -11,14 +11,6 @@
   minify = true
   bundle = false
 
-# Cache busting
-[[plugins]]
-package = "netlify-plugin-hashfiles"
-  [plugins.inputs]
-  staticDir = "."
-  entryPoints = ["index.html", "about.html", "age.html", "bmi.html", "discount.html", "emi.html", "fuel.html", "gold.html", "gst.html", "percentage.html", "privacy.html", "sip.html", "tax.html", "terms.html"]
-
-
 # Critical CSS
 [[plugins]]
   package = "netlify-plugin-inline-critical-css"
@@ -39,7 +31,14 @@ package = "netlify-plugin-hashfiles"
       "privacy.html",
       "terms.html"
     ]
+    safelist = ["active", "show", "result", "error", "hidden"]
 
+# Cache busting
+[[plugins]]
+package = "netlify-plugin-hashfiles"
+  [plugins.inputs]
+  staticDir = "."
+  entryPoints = ["index.html", "about.html", "age.html", "bmi.html", "discount.html", "emi.html", "fuel.html", "gold.html", "gst.html", "percentage.html", "privacy.html", "sip.html", "tax.html", "terms.html"]
 
 # Minify HTML
 [[plugins]]
