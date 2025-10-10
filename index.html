@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- 🔍 Canonical URL to avoid duplicate index.html -->
+    <link rel="canonical" href="https://multi-tool-calculator.in/" />
+
+    <!-- ✅ Redirect users & crawlers from /index.html to root / -->
+    <script>
+      if (window.location.pathname.endsWith("/index.html")) {
+        window.location.replace(window.location.origin + "/");
+      }
+    </script>
+
     <!-- SEO -->
     <title>
       Multi-Tool Calculator - EMI, GST, SIP, BMI & More Online Calculators
